@@ -54,3 +54,4 @@ static/js/
 
 # Ignore legacy debug/output files
 debug_output.txt
+.vercel/
