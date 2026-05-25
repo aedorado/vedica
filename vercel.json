@@ -2,6 +2,10 @@
   "version": 2,
   "builds": [
     {
+      "src": "static/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "index.py",
       "use": "@vercel/python"
     }
@@ -17,7 +21,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "index.py"
+      "dest": "/index.py"
     }
   ]
 }
