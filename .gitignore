@@ -45,8 +45,8 @@ htmlcov/
 .pytest_cache/
 
 # Static/Build
-static/css/
-static/js/
+# static/css/
+# static/js/
 
 # Misc
 *.swp
