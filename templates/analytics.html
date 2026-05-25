@@ -1,0 +1,910 @@
+{% extends "base.html" %}
+{% block title %}Analytics · Vedica{% endblock %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+/* ─── Analytics Page ─── */
+.analytics-hero {
+  text-align: center;
+  padding: 2.5rem 0 2rem;
+}
+.analytics-hero h1 {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--accent3);
+  letter-spacing: -.02em;
+  margin-bottom: .4rem;
+}
+.analytics-hero p { color: var(--text2); font-size: .95rem; }
+
+/* ─── Stats strip ─── */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 640px) {
+  .stats-strip { grid-template-columns: repeat(2, 1fr); }
+}
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: border-color .2s, box-shadow .2s;
+}
+.stat-card:hover { border-color: var(--border2); box-shadow: var(--glow); }
+.stat-value { font-size: 2rem; font-weight: 800; color: var(--accent2); line-height: 1.1; }
+.stat-label { font-size: .73rem; color: var(--text2); text-transform: uppercase; letter-spacing: .06em; margin-top: .3rem; }
+.stat-sub { font-size: .8rem; color: var(--gold2); margin-top: .2rem; font-weight: 600; }
+
+/* ─── Section header ─── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent3);
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+/* ─── Charts grid ─── */
+.charts-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 860px) { .charts-grid-2 { grid-template-columns: 1fr; } }
+
+/* ─── Chart card ─── */
+.chart-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition: border-color .2s;
+  position: relative;
+  overflow: hidden;
+}
+.chart-card:hover { border-color: var(--border2); }
+.chart-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--teal));
+  opacity: .5;
+}
+
+/* ─── Heatmap ─── */
+.heatmap-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: .25rem; }
+.heatmap-table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-size: .7rem;
+}
+.heatmap-table th {
+  padding: .3rem .15rem;
+  color: var(--text2);
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+.heatmap-table th.row-header {
+  text-align: right;
+  padding-right: .5rem;
+  color: var(--accent3);
+  font-size: .68rem;
+  min-width: 52px;
+  width: 52px;
+}
+.heatmap-table td {
+  text-align: center;
+  border-radius: 5px;
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform .12s, filter .12s, box-shadow .12s;
+  padding: .32rem .1rem;
+  min-width: 28px;
+}
+.heatmap-table td:hover { transform: scale(1.3); z-index: 2; filter: brightness(1.25); box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.heat-0  { background: var(--surface); color: var(--text3); cursor: default !important; }
+.heat-0:hover { transform: none !important; filter: none !important; box-shadow: none !important; }
+.heat-1  { background: rgba(139,92,246,.16); }
+.heat-2  { background: rgba(139,92,246,.28); }
+.heat-3  { background: rgba(139,92,246,.42); }
+.heat-4  { background: rgba(139,92,246,.56); }
+.heat-5  { background: rgba(139,92,246,.70); color: #fff; }
+.heat-6  { background: rgba(139,92,246,.84); color: #fff; }
+.heat-7  { background: rgba(139,92,246,1);   color: #fff; }
+[data-theme="light"] .heat-1  { background: rgba(180,120,30,.12); }
+[data-theme="light"] .heat-2  { background: rgba(180,120,30,.22); }
+[data-theme="light"] .heat-3  { background: rgba(180,120,30,.35); }
+[data-theme="light"] .heat-4  { background: rgba(180,120,30,.50); }
+[data-theme="light"] .heat-5  { background: rgba(180,120,30,.64); }
+[data-theme="light"] .heat-6  { background: rgba(180,120,30,.80); color: #fff; }
+[data-theme="light"] .heat-7  { background: rgba(180,120,30,.94); color: #fff; }
+
+/* ─── Rebuild button ─── */
+.rebuild-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--accent2);
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+}
+.rebuild-btn:hover { background: var(--surface2); border-color: var(--accent); box-shadow: var(--glow); }
+.rebuild-btn.loading { opacity: .65; pointer-events: none; }
+.spin { animation: spin .7s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.last-rebuilt { font-size: .72rem; color: var(--text3); }
+
+/* ─── Modal ─── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(6px);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 520px;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  animation: modal-in .2s ease;
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.modal-title { font-size: .95rem; font-weight: 700; color: var(--accent3); }
+.modal-count {
+  font-size: .75rem; color: var(--text3);
+  background: var(--surface); padding: .15rem .5rem;
+  border-radius: 99px; margin-left: .5rem;
+}
+.modal-close {
+  background: none; border: none; color: var(--text2);
+  font-size: 1.3rem; cursor: pointer; line-height: 1;
+  padding: .2rem .45rem; border-radius: var(--radius-sm);
+  transition: color .15s, background .15s;
+}
+.modal-close:hover { color: var(--text); background: var(--surface); }
+.modal-body { overflow-y: auto; padding: .75rem 1rem 1rem; flex: 1; }
+.modal-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+.modal-list li a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .65rem .9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  text-decoration: none;
+  font-size: .85rem;
+  transition: all .15s;
+}
+.modal-list li a:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent2); }
+.modal-list li a .chart-name { font-weight: 600; }
+.modal-list li a .chart-meta { font-size: .73rem; color: var(--text3); }
+.modal-list li a .arrow { color: var(--accent); font-size: .9rem; flex-shrink: 0; margin-left: .5rem; }
+
+/* ─── Loading / error ─── */
+.analytics-loading {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 5rem 1rem; gap: 1rem; color: var(--text2);
+}
+.analytics-loading .spinner {
+  width: 38px; height: 38px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+.analytics-error { text-align: center; padding: 3rem 1rem; color: var(--red); }
+.click-hint { font-size: .7rem; color: var(--text3); margin-top: .6rem; text-align: right; }
+.heatmap-legend {
+  display: flex; align-items: center; gap: .25rem;
+  font-size: .68rem; color: var(--text3); margin-top: .75rem; flex-wrap: wrap;
+}
+.legend-swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
+
+@media (max-width: 480px) {
+  .chart-card { padding: 1rem .85rem; }
+  .analytics-hero { padding: 1.5rem 0 1.5rem; }
+  .stats-strip { grid-template-columns: repeat(2, 1fr); gap: .65rem; }
+  .stat-value { font-size: 1.6rem; }
+  .modal-box { max-height: 90vh; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="max-width:1100px; margin:0 auto;">
+
+  <!-- Hero -->
+  <div class="analytics-hero">
+    <div style="font-size:2.5rem; margin-bottom:.4rem;">✦</div>
+    <h1>Collective Insights</h1>
+    <p>Patterns &amp; distributions across all saved charts</p>
+  </div>
+
+  <!-- Loading -->
+  <div class="analytics-loading" id="loading-state">
+    <div class="spinner"></div>
+    <p>Loading analytics…</p>
+  </div>
+
+  <!-- Error -->
+  <div class="analytics-error" id="error-state" style="display:none;">
+    <p>⚠ Could not load analytics.
+      <a href="#" onclick="loadAnalytics(); return false;" style="color:var(--accent2);">Retry</a>
+    </p>
+  </div>
+
+  <!-- Main content -->
+  <div id="analytics-content" style="display:none;">
+
+    <!-- Stats + rebuild row -->
+    <div id="stats-strip" class="stats-strip"></div>
+    <div style="display:flex; align-items:center; justify-content:flex-end; margin-bottom:1.75rem; gap:.75rem; flex-wrap:wrap;">
+      <span class="last-rebuilt" id="last-rebuilt"></span>
+      <button class="rebuild-btn" id="rebuild-btn" onclick="rebuildCache()">
+        <span>⟳</span> Rebuild Cache
+      </button>
+    </div>
+
+    <!-- Ascendant bar (full width) -->
+    <div class="chart-card" style="margin-bottom:1.5rem;">
+      <div class="section-header">
+        <div class="section-title">♈&nbsp; Ascendant Distribution</div>
+      </div>
+      <div style="position:relative; height:260px;">
+        <canvas id="chart-ascendant"></canvas>
+      </div>
+      <p class="click-hint">↑ Click a bar to see those charts</p>
+    </div>
+
+    <!-- Planet × Rashi heatmap (full width) -->
+    <div class="chart-card" style="margin-bottom:1.5rem;">
+      <div class="section-header">
+        <div class="section-title">⊕&nbsp; Planet in Sign (Rashi)</div>
+      </div>
+      <div class="heatmap-wrap">
+        <table class="heatmap-table" id="heatmap-rashi"></table>
+      </div>
+      <div class="heatmap-legend" id="legend-rashi"></div>
+      <p class="click-hint">↑ Click a cell to see those charts</p>
+    </div>
+
+    <!-- Planet × House heatmap (full width) -->
+    <div class="chart-card" style="margin-bottom:1.5rem;">
+      <div class="section-header">
+        <div class="section-title">🏠&nbsp; Planet in House</div>
+      </div>
+      <div class="heatmap-wrap">
+        <table class="heatmap-table" id="heatmap-house"></table>
+      </div>
+      <div class="heatmap-legend" id="legend-house"></div>
+      <p class="click-hint">↑ Click a cell to see those charts</p>
+    </div>
+
+    <!-- Planet Dignity heatmap (full width) -->
+    <div class="chart-card" style="margin-bottom:1.5rem;">
+      <div class="section-header">
+        <div class="section-title">✨&nbsp; Planet Dignity Distribution</div>
+      </div>
+      <div class="heatmap-wrap">
+        <table class="heatmap-table" id="heatmap-dignity"></table>
+      </div>
+      <div class="heatmap-legend" id="legend-dignity"></div>
+      <p class="click-hint">↑ Click a cell to see those charts</p>
+    </div>
+
+    <!-- Retrograde + Birth Month side by side -->
+    <div class="charts-grid-2">
+
+      <div class="chart-card">
+        <div class="section-header">
+          <div class="section-title">℞&nbsp; Retrograde Frequency</div>
+        </div>
+        <div style="position:relative; height:200px;">
+          <canvas id="chart-retrograde"></canvas>
+        </div>
+        <p class="click-hint">↑ Click a bar to see those charts</p>
+      </div>
+
+      <div class="chart-card">
+        <div class="section-header">
+          <div class="section-title">🗓&nbsp; Birth by Month</div>
+        </div>
+        <div style="position:relative; height:200px;">
+          <canvas id="chart-month"></canvas>
+        </div>
+        <p class="click-hint">↑ Click a bar to see those charts</p>
+      </div>
+
+    </div>
+
+    <!-- Birth year (full width) -->
+    <div class="chart-card">
+      <div class="section-header">
+        <div class="section-title">📅&nbsp; Birth Year Distribution</div>
+      </div>
+      <div style="position:relative; height:240px;">
+        <canvas id="chart-year"></canvas>
+      </div>
+      <p class="click-hint">↑ Click a bar to see those charts</p>
+    </div>
+
+  </div><!-- /#analytics-content -->
+
+</div>
+
+<!-- ─── Modal ─── -->
+<div class="modal-overlay" id="modal" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <span class="modal-title" id="modal-title"></span>
+        <span class="modal-count" id="modal-count"></span>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <ul class="modal-list" id="modal-list"></ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+/* ─── Labels ─── */
+const SIGNS_S  = ['Ari','Tau','Gem','Can','Leo','Vir','Lib','Sco','Sag','Cap','Aqu','Pis'];
+const SIGNS_F  = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+const PLANETS_S= ['Sun','Moon','Mars','Merc','Jup','Ven','Sat','Rahu','Ketu'];
+const PLANETS_F= ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+const MONTHS_S = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_F = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ─── CSS var helper ─── */
+const cv = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+/* ─── Chart.js defaults ─── */
+Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+Chart.defaults.plugins.tooltip.cornerRadius = 8;
+Chart.defaults.plugins.tooltip.padding = 10;
+Chart.defaults.plugins.legend.display = false;
+
+/* ─── State ─── */
+let analytics = {};
+let chartInst = {};
+let savedCharts = {};
+let dignityHeatmapData = {};
+
+/* ─── Boot ─── */
+document.addEventListener('DOMContentLoaded', loadAnalytics);
+
+async function loadAnalytics() {
+  show('loading-state');
+  hide('error-state');
+  hide('analytics-content');
+
+  try {
+    const [anaRes, listRes, dignityRes] = await Promise.all([
+      fetch('/api/analytics'),
+      fetch('/api/charts?limit=500'),
+      fetch('/api/planet-dignity-heatmap')
+    ]);
+
+    if (!anaRes.ok) throw new Error('analytics fetch failed');
+    analytics = await anaRes.json();
+
+    if (!listRes.ok) throw new Error('charts fetch failed');
+    const listData = await listRes.json();
+    
+    if (dignityRes.ok) {
+      dignityHeatmapData = await dignityRes.json();
+    }
+    
+    // Handle both array and {charts: []} response formats
+    const chartsArray = Array.isArray(listData) ? listData : (listData.charts || []);
+    
+    chartsArray.forEach(c => {
+      const m = c.meta || {};
+      const name = m.name || c.name || `Chart #${c.id}`;
+      const dob = m.date || m.dob || c.dob || '';
+      const tob = m.time || m.tob || c.tob || '';
+      const place = m.place || c.place || '';
+      
+      if (name && name !== 'undefined') {
+        savedCharts[c.id] = { name, dob, tob, place };
+      }
+    });
+
+    hide('loading-state');
+    show('analytics-content');
+
+    buildStats();
+    buildAscendantChart();
+    buildRashiHeatmap();
+    buildHouseHeatmap();
+    buildDignityHeatmap();
+    buildRetrogradeChart();
+    buildMonthChart();
+    buildYearChart();
+  } catch(e) {
+    console.error(e);
+    hide('loading-state');
+    show('error-state');
+  }
+}
+
+function show(id) { document.getElementById(id).style.display = ''; }
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+/* ─── Stats strip ─── */
+function buildStats() {
+  const total = Object.keys(savedCharts).length;
+
+  const ascArr = Array.from({length:12}, (_,i) => ({
+    sign: SIGNS_F[i],
+    count: (analytics[`ascendant:${i}`] || {count:0}).count
+  }));
+  const sorted = [...ascArr].sort((a,b) => b.count - a.count);
+  const most = sorted[0] || {sign:'–', count:0};
+  const rare = sorted.filter(a=>a.count>0).at(-1) || {sign:'–', count:0};
+
+  const retro = [2,3,4,5,6];
+  const maxRetro = retro.reduce((best, pi) => {
+    const c = (analytics[`retrograde:${pi}`] || {count:0}).count;
+    return c > best.count ? {planet: PLANETS_F[pi], count: c} : best;
+  }, {planet:'–', count:0});
+
+  document.getElementById('stats-strip').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-value">${total}</div>
+      <div class="stat-label">Total Charts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${most.count}</div>
+      <div class="stat-label">Top Ascendant</div>
+      <div class="stat-sub">${most.sign}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${rare.count}</div>
+      <div class="stat-label">Rarest Ascendant</div>
+      <div class="stat-sub">${rare.sign}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">${maxRetro.count}</div>
+      <div class="stat-label">Most Retrograde</div>
+      <div class="stat-sub">${maxRetro.planet}</div>
+    </div>`;
+}
+
+/* ─── Ascendant bar ─── */
+function buildAscendantChart() {
+  const counts = Array.from({length:12}, (_,i) => (analytics[`ascendant:${i}`] || {count:0}).count);
+  const max = Math.max(...counts, 1);
+  const colors = counts.map(c => `rgba(139,92,246,${(0.35 + (c/max)*0.65).toFixed(2)})`);
+
+  destroy('ascendant');
+  chartInst['ascendant'] = new Chart(
+    document.getElementById('chart-ascendant').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: SIGNS_F,
+      datasets: [{
+        data: counts,
+        backgroundColor: colors,
+        borderColor: 'rgba(139,92,246,.7)',
+        borderWidth: 1,
+        borderRadius: 6,
+        hoverBackgroundColor: 'rgba(167,139,250,.95)',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { tooltip: { callbacks: { label: c => ` ${c.raw} chart${c.raw!==1?'s':''}` } } },
+      scales: {
+        x: { ticks: { color: cv('--text2'), font:{size:11}, maxRotation:35 }, grid: { color: cv('--border') } },
+        y: { beginAtZero:true, ticks: { color:cv('--text2'), stepSize:1, precision:0, font:{size:11} }, grid: { color:cv('--border') } }
+      },
+      onClick: (_e, els) => {
+        if (!els.length) return;
+        const i = els[0].index;
+        openModal(`${SIGNS_F[i]} Ascendant`, analytics[`ascendant:${i}`]?.chart_ids || []);
+      }
+    }
+  });
+}
+
+/* ─── Planet × Rashi heatmap ─── */
+function buildRashiHeatmap() {
+  let maxV = 0;
+  for (let p=0;p<9;p++) for (let s=0;s<12;s++) {
+    const v = (analytics[`planet_rashi:${p}:${s}`]||{count:0}).count;
+    if (v>maxV) maxV=v;
+  }
+
+  let h = '<thead><tr><th class="row-header"></th>';
+  SIGNS_S.forEach(s => h += `<th>${s}</th>`);
+  h += '</tr></thead><tbody>';
+
+  for (let p=0;p<9;p++) {
+    h += `<tr><th class="row-header">${PLANETS_S[p]}</th>`;
+    for (let s=0;s<12;s++) {
+      const obj = analytics[`planet_rashi:${p}:${s}`] || {count:0, chart_ids:[]};
+      const cnt = obj.count;
+      const tier = cnt===0 ? 0 : Math.max(1, Math.ceil((cnt/maxV)*7));
+      const ids = (obj.chart_ids||[]).join(',');
+      h += `<td class="heat-${tier}"${cnt>0
+        ? ` onclick="openModal('${PLANETS_F[p]} in ${SIGNS_F[s]}', [${ids}])" title="${cnt} chart${cnt!==1?'s':''}"`
+        : ' title="0 charts"'}>${cnt>0?cnt:''}</td>`;
+    }
+    h += '</tr>';
+  }
+  h += '</tbody>';
+  document.getElementById('heatmap-rashi').innerHTML = h;
+  buildLegend('legend-rashi', maxV);
+}
+
+function buildLegend(id, maxV) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let h = '<span style="margin-right:.4rem">Count:</span>';
+  [0,1,2,3,5,maxV].forEach((v,i) => {
+    const tier = i===0 ? 0 : Math.max(1, Math.ceil((v/maxV)*7));
+    h += `<div class="legend-swatch heat-${tier}" title="${v}"></div>`;
+    if (i===0) h += '<span style="margin:0 .3rem;font-size:.68rem">0</span>';
+  });
+  h += `<span style="margin-left:.25rem;font-size:.68rem">${maxV}</span>`;
+  el.innerHTML = h;
+}
+
+/* ─── Planet × House heatmap ─── */
+function buildHouseHeatmap() {
+  let maxV = 0;
+  for (let p=0;p<9;p++) for (let h=1;h<=12;h++) {
+    const v = (analytics[`planet_house:${p}:${h}`]||{count:0}).count;
+    if (v>maxV) maxV=v;
+  }
+
+  let h = '<thead><tr><th class="row-header"></th>';
+  for (let i=1;i<=12;i++) h += `<th>H${i}</th>`;
+  h += '</tr></thead><tbody>';
+
+  for (let p=0;p<9;p++) {
+    h += `<tr><th class="row-header">${PLANETS_S[p]}</th>`;
+    for (let houseNum=1;houseNum<=12;houseNum++) {
+      const obj = analytics[`planet_house:${p}:${houseNum}`] || {count:0, chart_ids:[]};
+      const cnt = obj.count;
+      const tier = cnt===0 ? 0 : Math.max(1, Math.ceil((cnt/maxV)*7));
+      const ids = (obj.chart_ids||[]).join(',');
+      h += `<td class="heat-${tier}"${cnt>0
+        ? ` onclick="openModal('${PLANETS_F[p]} in House ${houseNum}', [${ids}])" title="${cnt} chart${cnt!==1?'s':''}"`
+        : ' title="0 charts"'}>${cnt>0?cnt:''}</td>`;
+    }
+    h += '</tr>';
+  }
+  h += '</tbody>';
+  document.getElementById('heatmap-house').innerHTML = h;
+  buildLegend('legend-house', maxV);
+}
+
+/* ─── Planet Dignity Heatmap ─── */
+function buildDignityHeatmap() {
+  if (!dignityHeatmapData.heatmap) return;
+  
+  const heatmap = dignityHeatmapData.heatmap;
+  const dignities = dignityHeatmapData.dignities || [];
+  const planets = dignityHeatmapData.planets || [];
+  
+  // Map dignity keys to display names
+  const dignityNames = {
+    'exalted': 'Exalted',
+    'deeply_exalted': 'Deep Exalt',
+    'debilitated': 'Debilitated',
+    'deeply_debilitated': 'Deep Debi',
+    'own_sign': 'Own',
+    'moola_trikona': 'Moola',
+    'combust': 'Combust',
+    'friendly_sign': 'Friendly',
+    'enemy_sign': 'Enemy',
+    'neutral_sign': 'Neutral'
+  };
+  
+  let maxV = 0;
+  for (const planet in heatmap) {
+    for (const dignity in heatmap[planet]) {
+      const v = heatmap[planet][dignity].count;
+      if (v > maxV) maxV = v;
+    }
+  }
+  
+  let h = '<thead><tr><th class="row-header"></th>';
+  dignities.forEach(d => {
+    const displayName = dignityNames[d] || d.replace(/_/g, ' ');
+    h += `<th title="${d}">${displayName}</th>`;
+  });
+  h += '</tr></thead><tbody>';
+  
+  planets.forEach(planet => {
+    h += `<tr><th class="row-header">${planet}</th>`;
+    dignities.forEach(dignity => {
+      const obj = heatmap[planet][dignity] || {count: 0, chart_ids: []};
+      const cnt = obj.count;
+      const tier = cnt === 0 ? 0 : Math.max(1, Math.ceil((cnt / maxV) * 7));
+      
+      // Build onclick with safely encoded chart IDs
+      const chartIds = (obj.chart_ids||[]).map(c => c.id).join(',');
+      const chartNames = (obj.chart_ids||[]).map(c => c.name).join('|');
+      
+      h += `<td class="heat-${tier}"${cnt > 0
+        ? ` onclick="openModalForDignity('${planet}', '${dignity}', '${chartIds}', '${chartNames}')" title="${cnt} chart${cnt !== 1 ? 's' : ''}"`
+        : ' title="0 charts"'}>${cnt > 0 ? cnt : ''}</td>`;
+    });
+    h += '</tr>';
+  });
+  h += '</tbody>';
+  document.getElementById('heatmap-dignity').innerHTML = h;
+  buildLegend('legend-dignity', maxV);
+}
+
+function openModalForDignity(planet, dignity, chartIds, chartNames) {
+  // Reconstruct chart objects from IDs and names
+  const ids = chartIds ? chartIds.split(',').map(id => parseInt(id)) : [];
+  const names = chartNames ? chartNames.split('|') : [];
+  const charts = ids.map((id, i) => ({id, name: names[i] || `Chart ${id}`}));
+  
+  const dignityDisplay = dignity.replace(/_/g, ' ');
+  const title = `${planet} - ${dignityDisplay}`;
+  openModal(title, charts);
+}
+
+/* ─── Retrograde bar ─── */
+function buildRetrogradeChart() {
+  const piList = [2,3,4,5,6];
+  const labels = piList.map(i => PLANETS_F[i]);
+  const counts = piList.map(i => (analytics[`retrograde:${i}`]||{count:0}).count);
+  const max = Math.max(...counts, 1);
+  const colors = counts.map(c => `rgba(20,184,166,${(0.3+(c/max)*0.7).toFixed(2)})`);
+
+  destroy('retrograde');
+  chartInst['retrograde'] = new Chart(
+    document.getElementById('chart-retrograde').getContext('2d'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data:counts, backgroundColor:colors, borderColor:'rgba(20,184,166,.7)', borderWidth:1, borderRadius:5, hoverBackgroundColor:'rgba(45,212,191,.9)' }] },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: { tooltip: { callbacks: { label: c => ` ${c.raw} charts` } } },
+      scales: {
+        x: { ticks:{color:cv('--text2'),font:{size:11}}, grid:{color:cv('--border')} },
+        y: { beginAtZero:true, ticks:{color:cv('--text2'),stepSize:1,precision:0,font:{size:11}}, grid:{color:cv('--border')} }
+      },
+      onClick: (_e, els) => {
+        if (!els.length) return;
+        const pi = piList[els[0].index];
+        openModal(`${PLANETS_F[pi]} Retrograde`, analytics[`retrograde:${pi}`]?.chart_ids || []);
+      }
+    }
+  });
+}
+
+/* ─── Birth month bar ─── */
+function buildMonthChart() {
+  const counts = Array.from({length:12}, (_,i) => {
+    const k = `month:${String(i+1).padStart(2,'0')}`;
+    return (analytics[k]||{count:0}).count;
+  });
+  const max = Math.max(...counts, 1);
+  const colors = counts.map(c => `rgba(245,158,11,${(0.3+(c/max)*0.7).toFixed(2)})`);
+
+  destroy('month');
+  chartInst['month'] = new Chart(
+    document.getElementById('chart-month').getContext('2d'), {
+    type: 'bar',
+    data: { labels:MONTHS_S, datasets: [{ data:counts, backgroundColor:colors, borderColor:'rgba(245,158,11,.7)', borderWidth:1, borderRadius:5, hoverBackgroundColor:'rgba(251,191,36,.9)' }] },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins: { tooltip: { callbacks: { label: c => ` ${c.raw} born in ${MONTHS_F[c.dataIndex]}` } } },
+      scales: {
+        x: { ticks:{color:cv('--text2'),font:{size:11}}, grid:{color:cv('--border')} },
+        y: { beginAtZero:true, ticks:{color:cv('--text2'),stepSize:1,precision:0,font:{size:11}}, grid:{color:cv('--border')} }
+      },
+      onClick: (_e, els) => {
+        if (!els.length) return;
+        const mi = els[0].index;
+        const k = `month:${String(mi+1).padStart(2,'0')}`;
+        openModal(`Born in ${MONTHS_F[mi]}`, analytics[k]?.chart_ids || []);
+      }
+    }
+  });
+}
+
+function destroy(key) {
+  if (chartInst[key]) { chartInst[key].destroy(); delete chartInst[key]; }
+}
+
+/* ─── Birth year bar ─── */
+function buildYearChart() {
+  // Collect all years from cache
+  const yearData = {};
+  const yearIds = {};
+  Object.entries(analytics).forEach(([k, v]) => {
+    if (k.startsWith('year:')) {
+      const year = parseInt(k.split(':')[1]);
+      yearData[year] = v.count;
+      yearIds[year] = v.chart_ids;
+    }
+  });
+  
+  if (Object.keys(yearData).length === 0) return; // no data
+  
+  const years = Object.keys(yearData).map(Number).sort((a,b)=>a-b);
+  const counts = years.map(y => yearData[y]);
+  const max = Math.max(...counts, 1);
+  const colors = counts.map(c => `rgba(168,85,247,${(0.35+(c/max)*0.65).toFixed(2)})`);
+
+  destroy('year');
+  const ctx = document.getElementById('chart-year').getContext('2d');
+  chartInst['year'] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [{
+        data: counts,
+        backgroundColor: colors,
+        borderColor: 'rgba(168,85,247,.7)',
+        borderWidth: 1,
+        borderRadius: 6,
+        hoverBackgroundColor: 'rgba(196,124,255,.95)',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { tooltip: { callbacks: { label: c => ` ${c.raw} chart${c.raw!==1?'s':''}` } } },
+      scales: {
+        x: { ticks: { color: cv('--text2'), font:{size:11}, maxRotation:45 }, grid: { color: cv('--border') } },
+        y: { beginAtZero:true, ticks: { color:cv('--text2'), stepSize:1, precision:0, font:{size:11} }, grid: { color:cv('--border') } }
+      },
+      onClick: (_e, els) => {
+        if (!els.length) return;
+        const year = years[els[0].index];
+        openModal(`Born in ${year}`, yearIds[year] || []);
+      }
+    }
+  });
+}
+
+/* ─── Modal ─── */
+function openModal(title, ids) {
+  if (!ids || !ids.length) return;
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-count').textContent = `${ids.length} chart${ids.length!==1?'s':''}`;
+
+  const list = document.getElementById('modal-list');
+  list.innerHTML = '';
+  ids.forEach(item => {
+    // Handle both: plain ID (number) or chart object {id, name}
+    const id = typeof item === 'object' ? item.id : item;
+    const c = savedCharts[id];
+    const name = (typeof item === 'object' && item.name) ? item.name : (c ? c.name : `Chart #${id}`);
+    const meta = c ? [c.dob, c.tob, c.place].filter(Boolean).join(' · ') : `ID ${id}`;
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <a href="/chart/${id}">
+        <span>
+          <span class="chart-name">${esc(name)}</span>
+          <br><span class="chart-meta">${esc(meta)}</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>`;
+    list.appendChild(li);
+  });
+
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOnOverlay(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ─── Rebuild cache ─── */
+async function rebuildCache() {
+  const btn = document.getElementById('rebuild-btn');
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="spin">⟳</span> Rebuilding…';
+  try {
+    const res = await fetch('/api/analytics/rebuild', { method:'POST' });
+    const d = await res.json();
+    if (d.ok) {
+      btn.innerHTML = '<span>✓</span> Done!';
+      btn.style.color = 'var(--green)';
+      setTimeout(() => {
+        btn.innerHTML = '<span>⟳</span> Rebuild Cache';
+        btn.style.color = '';
+        btn.classList.remove('loading');
+        Object.keys(chartInst).forEach(destroy);
+        savedCharts = {};
+        loadAnalytics();
+      }, 1200);
+    } else {
+      throw new Error(d.error);
+    }
+  } catch(e) {
+    btn.innerHTML = '⚠ Failed';
+    btn.style.color = 'var(--red)';
+    setTimeout(() => { btn.innerHTML = '<span>⟳</span> Rebuild Cache'; btn.style.color=''; btn.classList.remove('loading'); }, 2200);
+  }
+}
+
+/* ─── Theme toggle re-render ─── */
+const _orig = window.toggleTheme;
+window.toggleTheme = function() {
+  if (_orig) _orig();
+  setTimeout(() => {
+    buildAscendantChart();
+    buildRetrogradeChart();
+    buildMonthChart();
+    buildYearChart();
+  }, 80);
+};
+</script>
+{% endblock %}

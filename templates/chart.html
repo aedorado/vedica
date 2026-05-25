@@ -1,0 +1,980 @@
+{% extends "base.html" %}
+{% block title %}{{ data.meta.name }} – Birth Chart · Vedica{% endblock %}
+
+{% block head %}
+<style>
+  /* ─── Kundali grid ─── */
+  .kundali-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .chart-style-toggle {
+    display: flex;
+    gap: .4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .25rem;
+  }
+  .chart-style-btn {
+    padding: .3rem .9rem;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text3);
+    transition: all .2s;
+  }
+  .chart-style-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+  #kundali-container {
+    width: min(420px, 100%);
+    height: min(420px, 100%);
+    border: 1.5px solid var(--border2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .k-cell {
+    border: 1px solid var(--border);
+    padding: .35rem .4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    min-height: 0;
+    background: var(--surface);
+    transition: background .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .k-cell:hover { background: var(--surface2); }
+  .k-lagna {
+    background: rgba(251,191,36,.08) !important;
+    border-color: rgba(251,191,36,.4) !important;
+  }
+  .k-lagna-mark {
+    position: absolute;
+    top: 2px; right: 3px;
+    font-size: .6rem;
+    color: var(--gold2);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .k-house {
+    font-size: .62rem;
+    color: var(--text3);
+    font-weight: 600;
+    letter-spacing: .06em;
+    line-height: 1;
+  }
+  .k-lagna .k-house { color: var(--gold2); }
+  .k-sign {
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--text2);
+    line-height: 1;
+  }
+  .k-lagna .k-sign { color: var(--gold2); }
+  .k-planets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .15rem;
+    margin-top: .1rem;
+  }
+  .k-planet {
+    font-size: .90rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  .k-center {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .k-center-inner { text-align: center; }
+  /* ─── Hero chart ─── */
+  .hero-chart {
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-chart::before {
+    content: '✦';
+    position: absolute;
+    right: 1.5rem; top: 1rem;
+    font-size: 6rem;
+    opacity: .04;
+    line-height: 1;
+  }
+  .lagna-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: rgba(251,191,36,.12);
+    border: 1px solid rgba(251,191,36,.3);
+    border-radius: 999px;
+    padding: .3rem .85rem;
+    font-size: .82rem;
+    color: var(--gold2);
+    font-weight: 600;
+  }
+  .planet-row {
+    grid-template-columns: 2rem 6.5rem 9rem 8rem 1fr 4rem 4rem 8rem;
+    gap: .5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .65rem 1rem;
+    display: grid;
+    align-items: center;
+    background: var(--surface);
+    margin-bottom: .55rem;
+  }
+  #ascendant-row { margin-bottom: 1.2rem; }
+  .planet-row-header {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text3);
+    padding: .5rem 1rem;
+    display: grid;
+    grid-template-columns: 2rem 6.5rem 9rem 8rem 1fr 4rem 4rem 8rem;
+    gap: .75rem;
+    margin-bottom: 1rem;
+  }
+  .planet-glyph { text-align: center; font-size: 1.2rem; font-weight: 600; }
+  .planet-name { font-weight: 600; }
+  .planet-sign { display: flex; align-items: center; gap: .3rem; }
+  .planet-degree { font-family: monospace; font-size: .9rem; }
+  .planet-lord { font-size: .75rem; color: var(--text3); text-align: center; }
+  .planet-pada { text-align: center; font-size: .9rem; }
+  
+  /* Planet dignity badges */
+  .planet-dignity {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+    font-size: .7rem;
+    font-weight: 600;
+    align-items: center;
+  }
+  .dignity-badge {
+    padding: .2rem .4rem;
+    border-radius: 3px;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .dignity-exalted { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+  .dignity-debilitated { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+  .dignity-combust { background: rgba(249, 115, 22, 0.2); color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3); }
+  .dignity-own-sign { background: rgba(168, 85, 247, 0.2); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3); }
+  .dignity-moola-trikona { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3); }
+  .dignity-friendly { background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+  .dignity-enemy { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+  /* ── Medium screens ── */
+  @media (max-width: 1200px) {
+    .planet-row, .planet-row-header { grid-template-columns: 2rem 7rem 10rem 1fr 3.5rem 3rem 5rem; }
+    .planet-lord { display: none; }
+  }
+  @media (max-width: 992px) {
+    .planet-row, .planet-row-header { grid-template-columns: 2rem 6rem 9rem 1fr 3rem 4rem; }
+    .planet-degree, .planet-lord, .planet-pada { display: none; }
+  }
+
+  /* ── Mobile: card layout ── */
+  @media (max-width: 640px) {
+    .planet-row-header { display: none; }
+    #ascendant-row { margin-bottom: .8rem; }
+    .planet-row {
+      /* 5-col: glyph | name | nakshatra | lord | pada, 2 rows */
+      grid-template-columns: 2.2rem 4.5rem 1fr 2.4rem 2.4rem;
+      grid-template-rows: auto auto;
+      row-gap: .18rem;
+      column-gap: .4rem;
+      padding: .6rem .65rem;
+      align-items: center;
+    }
+    .planet-glyph  { grid-column: 1; grid-row: 1 / 3; align-self: center; font-size: 1.3rem; }
+    .planet-name   { grid-column: 2; grid-row: 1; font-size: .88rem; font-weight: 700; }
+    .planet-sign   { grid-column: 3 / 6; grid-row: 1; font-size: .83rem; justify-self: end; text-align: right; }
+    .planet-degree { grid-column: 2; grid-row: 2; font-size: .7rem; font-family: monospace; color: var(--text3); display: block; }
+    .planet-nakshatra { grid-column: 3; grid-row: 2; font-size: .7rem; color: var(--text3); display: block; }
+    .planet-lord   { grid-column: 4; grid-row: 2; font-size: .68rem; color: var(--text3); text-align: center; display: block; }
+    .planet-pada   { grid-column: 5; grid-row: 2; font-size: .7rem; color: var(--text3); text-align: center; display: block; }
+  }
+  /* ─── Varga tabs ─── */
+  .varga-tab {
+    display: flex; flex-direction: column; align-items: center;
+    padding: .4rem .75rem; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface);
+    cursor: pointer; transition: all .18s; line-height: 1.2;
+    font-size: .82rem; font-weight: 700; color: var(--text2);
+    white-space: nowrap;
+  }
+  .varga-tab .vt-name { font-size: .65rem; font-weight: 400; color: var(--text3); margin-top:.1rem; }
+  .varga-tab:hover { background: var(--surface2); border-color: var(--accent); color: var(--text); }
+  .varga-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .varga-tab.active .vt-name { color: rgba(255,255,255,.75); }
+  #varga-content table tr:hover td { background: var(--surface2); }
+  #varga-content table td { padding: .5rem .75rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  @media (max-width: 640px) {
+    .varga-tab { padding: .35rem .55rem; font-size: .75rem; }
+    .varga-tab .vt-name { display: none; }
+  }
+  /* ── Hero flex ── */
+  .hero-info-flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  @media (max-width: 640px) {
+    .hero-info-flex { flex-direction: column; gap: .75rem; }
+    .hero-info-flex > .hero-lagna {
+      width: 100%;
+      padding-top: .75rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-chart { padding: 1.25rem; }
+    #quick-stats { gap: .5rem; margin-top: 1rem !important; }
+  }
+
+  /* ─── Dasha UI ─── */
+  .dasha-wrap { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .dasha-banner {
+    background: linear-gradient(135deg, var(--bg3) 0%, rgba(139,92,246,.08) 100%);
+    border: 1px solid rgba(139,92,246,.2);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .dasha-badge {
+    display: inline-flex; align-items: center;
+    padding: .2rem .6rem; border-radius: 999px;
+    font-size: .7rem; font-weight: 700; letter-spacing: .04em;
+    border: 1px solid; white-space: nowrap;
+  }
+  .dasha-stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: .9rem 1.1rem;
+  }
+  .dasha-stat-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text3); margin-bottom: .3rem; }
+  .dasha-stat-value { font-size: 1.15rem; font-weight: 800; line-height: 1.2; margin-bottom: .2rem; }
+  .dasha-stat-meta { font-size: .75rem; color: var(--text2); }
+  .dasha-progress-bar {
+    height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+  }
+  .dasha-progress-fill { height: 100%; border-radius: 2px; transition: width .3s ease; }
+
+  .dasha-mini-card {
+    display: inline-flex; align-items: center; gap: .3rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: .4rem .75rem; font-size: .78rem;
+    flex-wrap: wrap;
+  }
+
+  /* Timeline */
+  .dasha-timeline-wrap { padding: .25rem 0; }
+  .dasha-timeline {
+    display: flex; height: 36px; border-radius: 6px; overflow: visible;
+    border: 1px solid var(--border);
+  }
+  .dasha-tl-bar {
+    flex-shrink: 0; position: relative; overflow: visible;
+    cursor: pointer; transition: filter .2s;
+    border-right: 1px solid rgba(0,0,0,.15);
+  }
+  .dasha-tl-bar:last-child { border-right: none; }
+  .dasha-tl-bar:hover { filter: brightness(1.2); z-index: 1; }
+  .dasha-tl-fill { position: absolute; inset: 0; opacity: .55; }
+  .dasha-tl-label {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .65rem; font-weight: 700; color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+    white-space: nowrap; overflow: hidden; gap: .15rem;
+  }
+  .dasha-tl-name { display: none; }
+  .dasha-tl-bar:hover .dasha-tl-name { display: inline; }
+  .dasha-tl-tooltip {
+    position: absolute; bottom: calc(100% + .6rem); left: 50%; transform: translateX(-50%);
+    background: rgba(20, 20, 35, 0.95); backdrop-filter: blur(12px);
+    border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 8px;
+    padding: .5rem .75rem; white-space: nowrap;
+    font-size: .7rem; color: var(--text2); opacity: 0; pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+    z-index: 50; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(139, 92, 246, 0.1);
+  }
+  .dasha-tl-bar:hover .dasha-tl-tooltip { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(-6px); }
+  .dasha-tl-now { position: absolute; top: 0; bottom: 0; transform: translateX(-50%); z-index: 5; pointer-events: none; }
+  .dasha-tl-now-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #fff; opacity: .9; }
+  .dasha-tl-now-dot { position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 8px; height: 8px; border-radius: 50%; background: #fff; border: 2px solid var(--accent); }
+
+  /* Accordion */
+  .dasha-accordion { display: flex; flex-direction: column; gap: .4rem; }
+  .dasha-maha-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .dasha-maha-item.is-active { border-color: rgba(139,92,246,.4); box-shadow: 0 0 0 1px rgba(139,92,246,.1); }
+  .dasha-maha-header {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .85rem 1.1rem; cursor: pointer;
+    background: var(--surface); transition: background .15s;
+    user-select: none;
+  }
+  .dasha-maha-header:hover { background: var(--surface2); }
+  .dasha-maha-body { border-top: 1px solid var(--border); background: var(--bg2); }
+
+  /* Antardasha */
+  .dasha-antar-list { padding: .5rem .75rem; display: flex; flex-direction: column; gap: .25rem; }
+  .dasha-antar-item { border-radius: 7px; overflow: hidden; }
+  .dasha-antar-item.is-active { background: rgba(139,92,246,.04); }
+  .dasha-antar-header {
+    display: flex; align-items: center; gap: .5rem;
+    padding: .6rem .85rem; cursor: pointer;
+    border-radius: 7px; transition: background .15s;
+    user-select: none;
+  }
+  .dasha-antar-header:hover { background: var(--surface); }
+  .dasha-antar-body { padding: 0 .5rem .5rem; }
+
+  /* Sub-period chips */
+  .dasha-sookshma-chip {
+    display: inline-flex; align-items: center; gap: .25rem;
+    padding: .2rem .5rem; border-radius: 5px;
+    font-size: .72rem; font-weight: 600;
+    border: 1px solid; cursor: default;
+    background: var(--surface);
+  }
+  .dasha-sookshma-chip.sookshma-active { font-weight: 700; }
+  .dasha-prana-chip {
+    display: inline-flex; align-items: center; gap: .2rem;
+    padding: .15rem .4rem; border-radius: 4px;
+    font-size: .65rem; font-weight: 500;
+    border: 1px solid; cursor: default;
+    background: var(--surface);
+  }
+  .dasha-prana-chip.prana-active { font-weight: 700; }
+
+  /* Status dots */
+  .dasha-dot-active {
+    display: inline-block; width: .55rem; height: .55rem;
+    border-radius: 50%; background: var(--green); flex-shrink: 0;
+    box-shadow: 0 0 6px var(--green);
+    animation: dashaPulse 2s ease-in-out infinite;
+  }
+  .dasha-dot-past { display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+  .dasha-dot-future { display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; background: transparent; border: 1.5px solid var(--border2); flex-shrink: 0; }
+  @keyframes dashaPulse {
+    0%, 100% { box-shadow: 0 0 4px var(--green); }
+    50% { box-shadow: 0 0 10px var(--green), 0 0 20px rgba(16,185,129,.3); }
+  }
+
+  .dasha-pratyan-row.is-active { transition: background .2s; }
+
+  @media (max-width: 640px) {
+    .dasha-banner { padding: .9rem; }
+    .dasha-stat-card { padding: .75rem; }
+    .dasha-mini-card { font-size: .72rem; padding: .35rem .6rem; }
+    .dasha-maha-header { padding: .7rem .85rem; }
+    .dasha-tl-label { font-size: .6rem; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% set meta = data.meta %}
+{% set asc = data.ascendant %}
+{% set planets = data.planets %}
+{% set order = ['Sun', 'Moon', 'Mars', 'Mercury', 'Jupiter', 'Venus', 'Saturn', 'Rahu', 'Ketu', 'Uranus', 'Neptune', 'Pluto'] %}
+{% set colors = {'Sun': '#f59e0b', 'Moon': '#e2e8f0', 'Mars': '#ef4444', 'Mercury': '#10b981', 'Jupiter': '#f97316', 'Venus': '#ec4899', 'Saturn': '#6366f1', 'Rahu': '#8b5cf6', 'Ketu': '#14b8a6', 'Uranus': '#06b6d4', 'Neptune': '#3b82f6', 'Pluto': '#71717a'} %}
+{% set glyphs = {'Sun': '☉', 'Moon': '☽', 'Mars': '♂', 'Mercury': '☿', 'Jupiter': '♃', 'Venus': '♀', 'Saturn': '♄', 'Rahu': '☊', 'Ketu': '☋', 'Uranus': 'ℌ', 'Neptune': '♆', 'Pluto': 'ℙ'} %}
+
+<!-- Hero info -->
+ 
+<div class="hero-chart">
+  <div class="hero-info-flex">
+    <div>
+      <h1 style="font-size:1.75rem; font-weight:800; color:var(--gold2);">{{ meta.name }}</h1>
+      <div style="color:var(--text2); font-size:.9rem; margin-top:.35rem;">
+        {{ meta.date }} &nbsp;·&nbsp; {{ meta.time }}
+        <span style="color:var(--text3);">({{ meta.timezone }})</span>
+        &nbsp;·&nbsp; {{ meta.place }}
+      </div>
+      <div style="color:var(--text3); font-size:.78rem; margin-top:.2rem;">
+        Lat {{ "%.4f"|format(meta.latitude) }}° &nbsp; Lon {{ "%.4f"|format(meta.longitude) }}°
+      </div>
+    </div>
+    <div class="hero-lagna">
+      <div class="lagna-badge">✦ Lagna (Ascendant)</div>
+      <div id="lagna-sign-display" style="margin-top:.5rem; font-size:1.5rem; font-weight:700; color:var(--gold2);"></div>
+      <div id="lagna-details-display" style="font-size:.85rem; color:var(--gold2); margin-top:.25rem;"></div>
+    </div>
+  </div>
+
+  <!-- Quick stats (JS rendered) -->
+  <div id="quick-stats" style="display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem;"></div>
+</div>
+
+<!-- Planet table -->
+<div class="card">
+
+  <!-- Visual Kundali chart -->
+  <div class="section-title">Kundali Chart</div>
+  <div class="kundali-wrap mb-2">
+    <div class="chart-style-toggle">
+      <button class="chart-style-btn active" id="btn-south" onclick="switchChartStyle('south')">South Indian</button>
+      <button class="chart-style-btn" id="btn-north" onclick="switchChartStyle('north')">North Indian</button>
+    </div>
+    <div id="kundali-container"></div>
+  </div>
+
+  <!-- JSON data for JS renderer -->
+  <script id="chart-raw" type="application/json">
+  {
+    "meta": {
+      "name": {{ data.meta.name | tojson }},
+      "dob": {{ data.meta.date | tojson }},
+      "tob": {{ data.meta.time | tojson }},
+      "timezone": {{ data.meta.timezone | tojson }},
+      "place": {{ data.meta.place | tojson }},
+      "latitude": {{ data.meta.latitude | tojson }},
+      "longitude": {{ data.meta.longitude | tojson }}
+    },
+    "raw_chart": {{ data.rasi_chart | tojson }},
+    "retrograde_planets": {{ data.retrograde_planets | tojson }},
+    "planet_dignity": {{ data.planet_dignity | tojson }},
+    "ayanamsha": {{ data.ayanamsha | tojson }}
+  }
+  </script>
+
+  <script id="chart-json" type="application/json">
+  {
+    "meta": {
+      "name": {{ data.meta.name | tojson }},
+      "date": {{ data.meta.date | tojson }},
+      "time": {{ data.meta.time | tojson }},
+      "timezone": {{ data.meta.timezone | tojson }},
+      "place": {{ data.meta.place | tojson }},
+      "latitude": {{ data.meta.latitude | tojson }},
+      "longitude": {{ data.meta.longitude | tojson }}
+    },
+    "planets": {},
+    "ascendant": null,
+    "house_cusps": [],
+    "ayanamsha": {{ data.ayanamsha | tojson }},
+    "display_order": ["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn","Rahu","Ketu"],
+    "retrograde_planets": {{ data.retrograde_planets | tojson }}
+  }
+  </script>
+
+  <div class="section-title">Planetary Positions</div>
+
+  <!-- Header row -->
+  <div class="planet-row-header">
+    <div></div>
+    <div>Planet</div>
+    <div>Sign (Rashi)</div>
+    <div>Degree</div>
+    <div>Nakshatra</div>
+    <div class="planet-lord">Lord</div>
+    <div style="text-align:center;">Pada</div>
+    <div>Dignity</div>
+  </div>
+
+  <!-- Ascendant row (JS rendered) -->
+  <div id="ascendant-row"></div>
+
+  <!-- Planet rows (JS rendered) -->
+  <div id="planet-grid" class="planet-grid"></div>
+</div>
+
+<!-- House cusps (collapsible) -->
+{% if data.house_cusps %}
+<details class="card mt-2" style="cursor:pointer;">
+  <summary class="section-title" style="cursor:pointer; list-style:none;">
+    ⌂ House Cusps (Placidus)
+  </summary>
+  <div style="margin-top:1rem; display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:.6rem;">
+    {% for h in data.house_cusps %}
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House {{ h.house }}</span>
+      <span>{{ h.position.sign }} {{ h.position.degree }}°{{ h.position.minute }}'</span>
+    </div>
+    {% endfor %}
+  </div>
+</details>
+{% endif %}
+
+<!-- Varga Charts Section -->
+<div class="card mt-3">
+  <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.75rem; margin-bottom:1.2rem;">
+    <div class="section-title" style="margin:0;">Varga Charts (Divisional)</div>
+    <div class="chart-style-toggle">
+      <button class="chart-style-btn" id="varga-view-table" onclick="vargaSetView('table')">📋 Table</button>
+      <button class="chart-style-btn active" id="varga-view-chart" onclick="vargaSetView('chart')">📊 Chart</button>
+    </div>
+  </div>
+
+  <!-- 16 Varga tabs -->
+  <div style="display:flex; gap:.4rem; flex-wrap:wrap; margin-bottom:1.2rem; padding:.6rem; background:var(--surface); border-radius:10px;">
+    {% set vargas = [(1,'Rashi'),(2,'Hora'),(3,'Drekkana'),(4,'Chaturthamsa'),(7,'Saptamsa'),(9,'Navamsa'),(10,'Dasamsa'),(12,'Dwadasamsa'),(16,'Shodasamsa'),(20,'Vimsamsa'),(24,'Chaturvimsamsa'),(27,'Nakshatramsa'),(30,'Trimsamsa'),(40,'Khavedamsa'),(45,'Akshavedamsa'),(60,'Shashtyamsa')] %}
+    {% for d, name in vargas %}
+    <button class="varga-tab{% if d == 1 %} active{% endif %}" data-div="{{ d }}" onclick="vargaSelect({{ d }})">
+      D{{ d }}<span class="vt-name">{{ name }}</span>
+    </button>
+    {% endfor %}
+  </div>
+
+  <div id="varga-content" style="min-height:300px;"></div>
+</div>
+
+<!-- Varga data (populated by server when divisional calcs are available) -->
+<script id="varga-data" type="application/json">{{ (data.divisional_charts or {'all_divisors': {}, 'major_charts': {}}) | tojson }}</script>
+
+<!-- Vimshottari Dasha data -->
+<script id="dasha-data" type="application/json">{{ (data.vimshottari_dasha or {}) | tojson }}</script>
+
+<!-- Vimshottari Dasha Section -->
+<div class="card mt-3">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1.2rem;flex-wrap:wrap;">
+    <div>
+      <div class="section-title" style="margin:0;">Vimshottari Dasha</div>
+      <div style="font-size:.75rem;color:var(--text3);margin-top:.25rem;">120-year planetary timing system · 5 levels deep</div>
+    </div>
+    <span class="dasha-badge" style="background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.25);color:var(--accent2);">Maha › Antar › Pratyantar › Sookshma › Prana</span>
+  </div>
+  <div id="dasha-container"></div>
+</div>
+
+<!-- Back button -->
+<div style="margin-top:1.5rem; display:flex; gap:.75rem; flex-wrap:wrap; align-items:center;">
+  <a href="/" class="btn btn-outline">← New Chart</a>
+  <button onclick="window.print()" class="btn btn-outline">⎙ Print</button>
+  {% if data.auto_saved %}
+  <span style="color: var(--green); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+    ✓ Auto-saved to database
+  </span>
+  {% else %}
+  <span style="color: var(--text3); font-size: 0.875rem;">Saving in progress...</span>
+  {% endif %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dasha.js') }}"></script>
+<script>
+// ─── TEST: Check if script is loading ─────────────────────────────────────
+window.__chart_script_start = Date.now();
+if (window.console) {
+  console.log('[Chart Script] Loading at:', new Date().toISOString());
+}
+
+// ─── RAW PYJHORA DATA PROCESSOR ───────────────────────────────────────────
+const SIGNS = ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+const SIGN_SYMBOLS = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const NAKSHATRAS = ['Ashwini','Bharani','Krittika','Rohini','Mrigashira','Ardra','Punarvasu','Pushya','Ashlesha','Magha','Purva Phalguni','Uttara Phalguni','Hasta','Chitra','Swati','Vishakha','Anuradha','Jyeshtha','Mula','Purva Ashadha','Uttara Ashadha','Shravana','Dhanishtha','Shatabhisha','Purva Bhadrapada','Uttara Bhadrapada','Revati'];
+const NAKSHATRA_LORDS = ['Ke','Ve','Su','Mo','Ma','Ra','Ju','Sa','Me','Ke','Ve','Su','Mo','Ma','Ra','Ju','Sa','Me','Ke','Ve','Su','Mo','Ma','Ra','Ju','Sa','Me'];
+const PLANET_NAMES = ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+
+// Calculate nakshatra from full longitude (0-360 degrees)
+function getNakshatra(fullLongitude) {
+  const NAK_SIZE = 360 / 27; // 13.333...
+  const idx = Math.floor(fullLongitude / NAK_SIZE) % 27;
+  const posInNak = fullLongitude - (idx * NAK_SIZE);
+  const pada = Math.floor(posInNak / (NAK_SIZE / 4)) + 1;
+  return {
+    name: NAKSHATRAS[idx],
+    idx: idx,
+    pada: Math.min(pada, 4),
+    lord: NAKSHATRA_LORDS[idx]
+  };
+}
+
+// Convert decimal degree to degree + minute
+function formatDegree(decimalDeg) {
+  const deg = Math.floor(decimalDeg);
+  const min = Math.round((decimalDeg - deg) * 60);
+  return { degree: deg, minute: min };
+}
+
+// Process raw PyJHora chart array into chart data object
+function processRawChart(rawChart, retrogradeList) {
+  const result = {
+    lagna_sign_idx: 0,
+    planets: {},
+    ascendant: null
+  };
+  
+  for (const [planetId, [rashiNum, longitudeDeg]] of rawChart) {
+    const signIdx = rashiNum % 12;
+    const fullLongitude = signIdx * 30 + longitudeDeg;
+    const { degree, minute } = formatDegree(longitudeDeg);
+    const nakshatra = getNakshatra(fullLongitude);
+    
+    if (planetId === 'L') {
+      result.lagna_sign_idx = signIdx;
+      result.ascendant = {
+        position: {
+          sign_idx: signIdx,
+          sign: SIGNS[signIdx],
+          symbol: SIGN_SYMBOLS[signIdx],
+          degree: degree,
+          minute: minute
+        },
+        nakshatra: nakshatra
+      };
+    } else {
+      const planetNum = parseInt(planetId);
+      if (planetNum >= 0 && planetNum < PLANET_NAMES.length) {
+        const planetName = PLANET_NAMES[planetNum];
+        const isRetro = retrogradeList.includes(planetNum) || [7, 8].includes(planetNum); // Rahu/Ketu always retrograde
+        
+        result.planets[planetName] = {
+          position: {
+            sign_idx: signIdx,
+            sign: SIGNS[signIdx],
+            symbol: SIGN_SYMBOLS[signIdx],
+            degree: degree,
+            minute: minute
+          },
+          nakshatra: nakshatra,
+          retrograde: isRetro
+        };
+      }
+    }
+  }
+  
+  return result;
+}
+
+// Initialize chart data from raw PyJHora data
+function initChartFromRaw() {
+  window.__initChartFromRaw_called = true;
+  const rawEl = document.getElementById('chart-raw');
+  const processedEl = document.getElementById('chart-json');
+  
+  if (rawEl) {
+    try {
+      const rawData = JSON.parse(rawEl.textContent);
+      const processed = processRawChart(rawData.raw_chart, rawData.retrograde_planets || []);
+      
+      // Update chart-json with processed data
+      const existingData = processedEl ? JSON.parse(processedEl.textContent) : {};
+      const merged = {
+        ...existingData,
+        ...processed,
+        meta: rawData.meta,
+        ayanamsha: rawData.ayanamsha,
+        planet_dignity: rawData.planet_dignity,
+        display_order: PLANET_NAMES,
+        retrograde_planets: rawData.retrograde_planets
+      };
+      
+      if (processedEl) {
+        processedEl.textContent = JSON.stringify(merged);
+      }
+      
+      // Render planetary table
+      renderPlanetaryTable(merged);
+      
+      // Update Ascendant display in hero section
+      if (merged.ascendant) {
+        const asc = merged.ascendant;
+        const lagnaSignDisplay = document.getElementById('lagna-sign-display');
+        const lagnaDetailsDisplay = document.getElementById('lagna-details-display');
+        if (lagnaSignDisplay) {
+          lagnaSignDisplay.innerHTML = `${asc.position.symbol} ${asc.position.sign}`;
+        }
+        if (lagnaDetailsDisplay) {
+          lagnaDetailsDisplay.innerHTML = `${asc.position.degree}° ${asc.position.minute}' &nbsp;·&nbsp; ${asc.nakshatra.name} P${asc.nakshatra.pada}`;
+        }
+      }
+    } catch (e) {
+      console.error('Error processing raw chart:', e);
+    }
+  }
+}
+
+// Render planetary positions table from processed data
+function renderPlanetaryTable(chartData) {
+  const glyphs = {Sun:'☉',Moon:'☽',Mars:'♂',Mercury:'☿',Jupiter:'♃',Venus:'♀',Saturn:'♄',Rahu:'☊',Ketu:'☋'};
+  const planetDignity = chartData.planet_dignity || {};
+  
+  // Helper function to get dignity badges for a planet
+  function getDignityBadges(planetIndex) {
+    const badges = [];
+    const planetId = String(planetIndex);
+    
+    if (planetDignity.exalted && planetDignity.exalted.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-exalted">Exalted</span>');
+    }
+    if (planetDignity.deeply_exalted && planetDignity.deeply_exalted.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-exalted" style="font-weight: bold;">Uchcha</span>');
+    }
+    if (planetDignity.debilitated && planetDignity.debilitated.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-debilitated">Debilitated</span>');
+    }
+    if (planetDignity.deeply_debilitated && planetDignity.deeply_debilitated.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-debilitated" style="font-weight: bold;">Neecha</span>');
+    }
+    if (planetDignity.own_sign && planetDignity.own_sign.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-own-sign">Own</span>');
+    }
+    if (planetDignity.moola_trikona && planetDignity.moola_trikona.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-moola-trikona">Moola Trikona</span>');
+    }
+    if (planetDignity.combust && planetDignity.combust.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-combust">Combust</span>');
+    }
+    if (planetDignity.friendly_sign && planetDignity.friendly_sign.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-friendly">Friendly</span>');
+    }
+    if (planetDignity.enemy_sign && planetDignity.enemy_sign.includes(planetIndex)) {
+      badges.push('<span class="dignity-badge dignity-enemy">Enemy</span>');
+    }
+    
+    return badges.length > 0 ? `<div class="planet-dignity">${badges.join('')}</div>` : '';
+  }
+  
+  // Render ascendant row
+  if (chartData.ascendant) {
+    const asc = chartData.ascendant;
+    const ascRow = document.createElement('div');
+    ascRow.className = 'planet-row';
+    ascRow.style.cssText = 'border-color: rgba(251,191,36,.4); background: rgba(251,191,36,.05); margin-bottom:.5rem;';
+    ascRow.innerHTML = `
+      <div class="planet-glyph" style="color:var(--gold2);">⬆</div>
+      <div class="planet-name" style="color:var(--gold2);">Ascendant</div>
+      <div class="planet-sign"><span class="sign-symbol">${asc.position.symbol}</span> ${asc.position.sign}</div>
+      <div class="planet-degree">${asc.position.degree}° ${asc.position.minute}'</div>
+      <div class="planet-nakshatra">${asc.nakshatra.name}</div>
+      <div class="planet-lord text-muted text-xs">${asc.nakshatra.lord}</div>
+      <div class="planet-pada">${asc.nakshatra.pada}</div>
+      <div></div>
+    `;
+    document.getElementById('ascendant-row').appendChild(ascRow);
+  }
+  
+  // Render planet rows
+  const planetGrid = document.getElementById('planet-grid');
+  for (let idx = 0; idx < chartData.display_order.length; idx++) {
+    const name = chartData.display_order[idx];
+    const p = chartData.planets[name];
+    if (!p) continue;
+    
+    const row = document.createElement('div');
+    row.className = 'planet-row';
+    const retroBadge = p.retrograde ? '<span style="font-size:.65rem;color:#ef4444;font-weight:700;margin-left:.2rem;">℞</span>' : '';
+    const dignityBadges = getDignityBadges(idx);
+    row.innerHTML = `
+      <div class="planet-glyph" style="color: ${PLANET_COLORS[name] || '#ccc'};">${glyphs[name] || name[0]}</div>
+      <div class="planet-name" style="color: ${PLANET_COLORS[name] || '#ccc'};">${name}${retroBadge}</div>
+      <div class="planet-sign"><span class="sign-symbol">${p.position.symbol}</span> ${p.position.sign}</div>
+      <div class="planet-degree">${p.position.degree}° ${p.position.minute}'</div>
+      <div class="planet-nakshatra">${p.nakshatra.name}</div>
+      <div class="planet-lord text-muted text-xs">${p.nakshatra.lord}</div>
+      <div class="planet-pada">${p.nakshatra.pada}</div>
+      ${dignityBadges}
+    `;
+    planetGrid.appendChild(row);
+  }
+  
+  // Render quick stats
+  const retroPlanets = Object.entries(chartData.planets)
+    .filter(([_, p]) => p.retrograde)
+    .map(([name]) => name);
+  
+  const statsHtml = `
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.5rem 1rem; font-size:.82rem;">
+      <span class="text-muted">Ayanamsha </span>
+      <span class="text-accent">${chartData.ayanamsha}°</span>
+    </div>
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.5rem 1rem; font-size:.82rem;">
+      <span class="text-muted">Retrograde </span>
+      <span style="color:var(--red);">${retroPlanets.length ? retroPlanets.join(', ') : 'None'}</span>
+    </div>
+    ${chartData.ascendant ? `
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.5rem 1rem; font-size:.82rem;">
+      <span class="text-muted">Nakshatra Lagna </span>
+      <span class="text-gold">${chartData.ascendant.nakshatra.name}, Pada ${chartData.ascendant.nakshatra.pada}</span>
+    </div>
+    ` : ''}
+  `;
+  
+  document.getElementById('quick-stats').innerHTML = statsHtml;
+}
+
+// Initialize chart immediately after function definitions
+window.__init_attempted = true;
+try {
+  initChartFromRaw();
+  window.__init_success = true;
+} catch (e) {
+  window.__init_error = e.message;
+  if (window.console) {
+    console.error('[Chart Script] Error initializing chart:', e.message);
+  }
+}
+
+// ─── Varga chart renderer ─────────────────────────────────────────────────
+(function() {
+  const VARGA_NAMES = {1:'Rashi',2:'Hora',3:'Drekkana',4:'Chaturthamsa',7:'Saptamsa',9:'Navamsa',10:'Dasamsa',12:'Dwadasamsa',16:'Shodasamsa',20:'Vimsamsa',24:'Chaturvimsamsa',27:'Nakshatramsa',30:'Trimsamsa',40:'Khavedamsa',45:'Akshavedamsa',60:'Shashtyamsa'};
+  const VARGA_DESC  = {1:'Overall personality & life events',2:'Wealth & material prosperity',3:'Siblings, courage & co-borns',4:'Property & immovable assets',7:'Children, progeny & fertility',9:'Marriage, spouse & dharma',10:'Career, profession & public life',12:'Parents & family lineage',16:'Vehicles, pleasures & comforts',20:'Spiritual inclinations',24:'Education & knowledge',27:'Nakshatra-level timing',30:'Auspiciousness & misfortunes',40:'Maternal legacy',45:'Paternal legacy',60:'Karma & past life'};
+  const PLANET_ORDER  = ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+  // PLANET_COLORS and SIGNS are already defined globally above
+  let currentDiv = 1, currentView = 'chart';
+  
+  function d1() {
+    const d = JSON.parse(document.getElementById('chart-json').textContent);
+    return { lagna_sign_idx: d.lagna_sign_idx, planets: d.planets, planet_dignity: d.planet_dignity || {} };
+  }
+
+  function getVargaData(div) {
+    const el = document.getElementById('varga-data');
+    if (el) {
+      const vd = JSON.parse(el.textContent);
+      if (vd.all_divisors && vd.all_divisors[String(div)]) {
+        const planets = vd.all_divisors[String(div)];
+        // Extract lagna_sign_idx from Ascendant in planets dict (not from major_charts)
+        const ascendantData = planets.Ascendant;
+        const lagnaIdx = ascendantData && ascendantData.position ? ascendantData.position.sign_idx : 0;
+        // Try to get dignity data from parent chart (D1/Rashi)
+        const dignityData = vd.all_divisors && vd.all_divisors['1'] && vd.all_divisors['1'].planet_dignity 
+          ? vd.all_divisors['1'].planet_dignity 
+          : {};
+        return { lagna_sign_idx: lagnaIdx, planets: planets, planet_dignity: dignityData };
+      }
+    }
+    return null;
+  }
+
+  function buildChartData(rawData) {
+    const cd = { lagna_sign_idx: rawData.lagna_sign_idx || 0, planets: {}, planet_dignity: rawData.planet_dignity || {} };
+    for (const [name, p] of Object.entries(rawData.planets)) {
+      if (p) cd.planets[name] = { position: { sign_idx: p.position.sign_idx }, retrograde: p.retrograde || false };
+    }
+    return cd;
+  }
+
+  function header(div, isPlaceholder) {
+    const badge = isPlaceholder
+      ? ''
+      : '';
+    return `<div style="margin-bottom:1.2rem;">
+        <div style="font-size:1.05rem;font-weight:700;color:var(--text);">D${div} – ${VARGA_NAMES[div]||'D'+div}</div>
+        <div style="font-size:.85rem;color:var(--text3);margin-top:.2rem;">${VARGA_DESC[div]||''}</div>
+        ${badge ? '<div style="margin-top:.5rem;">'+badge+'</div>' : ''}
+      </div>`;
+  }
+
+  function renderChartView(div) {
+    const raw = getVargaData(div) || d1();
+    const isPlaceholder = !getVargaData(div);
+    const cd = buildChartData(raw);
+    const content = document.getElementById('varga-content');
+    content.innerHTML = header(div, isPlaceholder) +
+      `<div id="vc-wrap" style="display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;"></div>`;
+    requestAnimationFrame(() => {
+      const wrap = document.getElementById('vc-wrap');
+      const avail = wrap.offsetWidth;
+      const chartSize = Math.min(420, avail > 500 ? Math.floor((avail - 24) / 2) : avail - 4);
+      ['south','north'].forEach(type => {
+        const col = document.createElement('div');
+        col.style.cssText = `flex:0 0 ${chartSize}px;text-align:center;`;
+        col.innerHTML = `<div style="font-size:.72rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;">${type === 'south' ? 'South Indian' : 'North Indian'}</div><div id="vc-${type}"></div>`;
+        wrap.appendChild(col);
+      });
+      renderSouthIndian(document.getElementById('vc-south'), cd);
+      renderNorthIndian(document.getElementById('vc-north'), cd);
+    });
+  }
+
+  function renderTableView(div) {
+    const raw = getVargaData(div) || d1();
+    const isPlaceholder = !getVargaData(div);
+    const content = document.getElementById('varga-content');
+    const dignityData = raw.planet_dignity || {};
+    const PLANET_INDEX_MAP = { Sun:0,Moon:1,Mars:2,Mercury:3,Jupiter:4,Venus:5,Saturn:6,Rahu:7,Ketu:8 };
+    const DIGNITY_MARKERS = { exalted: '^', debilitated: '\u2228', combust: '\u00d7' };
+    const DIGNITY_COLORS = { exalted: '#22c55e', debilitated: '#ef4444', combust: '#f97316' };
+    
+    let cards = '';
+    for (const name of PLANET_ORDER) {
+      const p = raw.planets[name]; if (!p) continue;
+      const si = p.position.sign_idx;
+      const deg = p.position.degree !== undefined ? `${p.position.degree}°${p.position.minute}'` : '—';
+      const nak = p.nakshatra ? p.nakshatra.name : '—';
+      const retro = p.retrograde ? ' ℞' : '';
+      
+      // Determine dignity marker
+      let dignityMarker = '';
+      let dignityColor = PLANET_COLORS[name] || '#ccc';
+      const pIdx = PLANET_INDEX_MAP[name];
+      if (pIdx !== undefined) {
+        if (dignityData.exalted && dignityData.exalted.includes(pIdx)) {
+          dignityMarker = DIGNITY_MARKERS.exalted;
+          dignityColor = DIGNITY_COLORS.exalted;
+        } else if (dignityData.debilitated && dignityData.debilitated.includes(pIdx)) {
+          dignityMarker = DIGNITY_MARKERS.debilitated;
+          dignityColor = DIGNITY_COLORS.debilitated;
+        } else if (dignityData.combust && dignityData.combust.includes(pIdx)) {
+          dignityMarker = DIGNITY_MARKERS.combust;
+          dignityColor = DIGNITY_COLORS.combust;
+        }
+      }
+      
+      cards += `<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem;">
+        <div style="font-size:.9rem;font-weight:700;color:${dignityColor};margin-bottom:.4rem;">${name}${retro}${dignityMarker?`<span style="color:${dignityColor};font-size:0.75em;vertical-align:super;font-weight:700;margin-left:0.15em;">${dignityMarker}</span>`:''}</div>
+        <div style="display:grid;gap:.3rem;font-size:.8rem;color:var(--text3);">
+          <div><span style="color:var(--text2);font-weight:600;">${SIGNS[si]}</span></div>
+          <div>${deg}</div>
+          <div style="font-size:.75rem;">${nak}</div>
+        </div>
+      </div>`;
+    }
+    content.innerHTML = header(div, isPlaceholder) +
+      `<div style="display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:.8rem;">${cards}</div>`;
+  }
+
+  function render() {
+    currentView === 'chart' ? renderChartView(currentDiv) : renderTableView(currentDiv);
+  }
+
+  window.vargaSelect = function(div) {
+    currentDiv = div;
+    document.querySelectorAll('.varga-tab').forEach(b => b.classList.toggle('active', +b.dataset.div === div));
+    render();
+  };
+  window.vargaSetView = function(v) {
+    currentView = v;
+    document.getElementById('varga-view-table').classList.toggle('active', v === 'table');
+    document.getElementById('varga-view-chart').classList.toggle('active', v === 'chart');
+    render();
+  };
+
+  render();
+})();
+</script>
+{% endblock %}

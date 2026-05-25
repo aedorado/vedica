@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+
+# Virtual environments
+myenv/
+venv/
+env/
+.venv/
+
+# SQLite and DB files
+*.db
+*.sqlite3
+*.sqlite
+
+# Logs
+*.log
+*.bak
+logs/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Compiled files
+*.exe
+*.dll
+*.o
+*.a
+*.out
+
+# Test/coverage
+htmlcov/
+.coverage
+.tox/
+.pytest_cache/
+
+# Static/Build
+static/css/
+static/js/
+
+# Misc
+*.swp
+*~
+
+# Ignore legacy debug/output files
+debug_output.txt

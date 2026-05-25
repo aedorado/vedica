@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} - Birth Chart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .chart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .chart-header {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .chart-header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .chart-header p {
+            font-size: 1.1em;
+            margin: 8px 0;
+            opacity: 0.9;
+        }
+        
+        /* North Indian Chart Style - Traditional 4x4 Grid */
+        .north-indian-chart {
+            width: 100%;
+            max-width: 700px;
+            aspect-ratio: 1;
+            margin: 0 auto 30px;
+            background: #fff;
+            border: 4px solid #333;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 0;
+            padding: 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        
+        .chart-house {
+            border: 2px solid #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 4px;
+            font-size: 0.9em;
+            text-align: center;
+            color: #333;
+            background: #f8f9fa;
+            position: relative;
+            min-height: 120px;
+            overflow: hidden;
+        }
+        
+        /* Traditional North Indian positions: 12-1-2-3 / 11-center-center-4 / 10-center-center-5 / 9-8-7-6 */
+        .house-12 { grid-column: 1; grid-row: 1; }
+        .house-1  { grid-column: 2; grid-row: 1; background: #fff8e1; }
+        .house-2  { grid-column: 3; grid-row: 1; }
+        .house-3  { grid-column: 4; grid-row: 1; }
+        .house-11 { grid-column: 1; grid-row: 2; }
+        .house-4  { grid-column: 4; grid-row: 2; }
+        .house-10 { grid-column: 1; grid-row: 3; }
+        .house-5  { grid-column: 4; grid-row: 3; }
+        .house-9  { grid-column: 1; grid-row: 4; }
+        .house-8  { grid-column: 2; grid-row: 4; }
+        .house-7  { grid-column: 3; grid-row: 4; }
+        .house-6  { grid-column: 4; grid-row: 4; }
+        
+        .house-center {
+            grid-column: 2 / 4;
+            grid-row: 2 / 4;
+            background: #fff8e1 !important;
+            border: 3px solid #ffc107 !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .house-label {
+            font-size: 0.7em;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+        
+        .house-sign {
+            font-size: 0.75em;
+            color: #777;
+            font-style: italic;
+            margin-bottom: 3px;
+            line-height: 1;
+        }
+        
+        .planets-list {
+            font-size: 0.85em;
+            line-height: 1.4;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            justify-content: center;
+        }
+        
+        .planets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            justify-content: center;
+            width: 100%;
+            max-height: 105px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-content: flex-start;
+            padding: 3px 2px;
+        }
+        
+        /* Scrollbar styling for planets div */
+        .planets::-webkit-scrollbar {
+            width: 4px;
+        }
+        .planets::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 2px;
+        }
+        .planets::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.3);
+            border-radius: 2px;
+        }
+        .planets::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .planet-badge {
+            background: #007bff;
+            color: white;
+            padding: 3px 5px;
+            border-radius: 2px;
+            font-size: 0.75em;
+            font-weight: bold;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            min-height: 16px;
+        }
+        
+        .planet-badge.retrograde {
+            border-right: 2px solid #ff9800;
+        }
+        
+        .planet-badge.exalted {
+            background: #28a745;
+            box-shadow: 0 0 0 2px #c3e6cb;
+        }
+        
+        .planet-badge.debilitated {
+            background: #dc3545;
+            box-shadow: 0 0 0 2px #f8d7da;
+        }
+        
+        .planet-badge.combusted {
+            background: #ff6b6b;
+        }
+        
+        .planet-badge.afflicted {
+            border: 2px dashed #ff9800;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid #666;
+        }
+        
+        .planets-table {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 30px;
+        }
+        
+        .planets-table table {
+            color: #333;
+            margin-bottom: 0;
+        }
+        
+        .planets-table th {
+            background: #ffc107;
+            color: #333;
+            font-weight: bold;
+            border-bottom: 2px solid #ff9800;
+        }
+        
+        .planets-table td {
+            border-color: #ddd;
+            padding: 12px;
+        }
+        
+        .planets-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: #5a6268;
+            text-decoration: none;
+        }
+        
+        .chart-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-section h2 {
+            color: #ffc107;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <a href="/" class="back-button">← Back to Dashboard</a>
+        
+        <div class="chart-header">
+            <h1>📊 {{ name }}</h1>
+            <p><strong>Birth Time:</strong> {{ birth_time }}</p>
+            <p><strong>Location:</strong> {{ location }}</p>
+            <p><strong>Chart ID:</strong> {{ chart_id }}</p>
+        </div>
+        
+        <!-- Charts Container -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+            <!-- North Indian Chart D1 -->
+            <div class="chart-section" style="margin-bottom: 0;">
+                <h2 style="font-size: 1.5em;">🔷 D1 - Rashi</h2>
+                <div class="north-indian-chart" id="northIndianChart">
+                    <!-- Chart will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- North Indian Chart D9 -->
+            <div class="chart-section" style="margin-bottom: 0;">
+                <h2 style="font-size: 1.5em;">🔶 D9 - Navamsa</h2>
+                <div class="north-indian-chart" id="northIndianChartD9">
+                    <!-- Chart will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chart Legend -->
+        <div class="chart-section">
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #007bff;"></div>
+                    <span>Regular Planet</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #28a745;"></div>
+                    <span>Exalted</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc3545;"></div>
+                    <span>Debilitated</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff6b6b;"></div>
+                    <span>Combusted</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Planets Table -->
+        <div class="chart-section">
+            <h2>📋 Planetary Details</h2>
+            <div class="planets-table">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Planet</th>
+                            <th>Sign (Rashi)</th>
+                            <th>House</th>
+                            <th>Degree</th>
+                            <th>Status</th>
+                            <th>Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody id="planetsTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Yogas Section -->
+        <div class="chart-section">
+            <h2>🔮 Vedic Yogas Detected</h2>
+            <div id="yogasContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Vimshottari Dasha Timeline -->
+        <div class="chart-section">
+            <h2>⏳ Vimshottari Dasha Timeline</h2>
+            <p class="text-muted small">Mahadasha (Y) → Antardasha (Y/M/D) → Pratyantar (Days) → Sookshma (Days) → Prana (d/h)</p>
+            <div id="dashaContainer" style="overflow-x: auto;">
+                <div id="dashaAccordion" class="accordion dasha-accordion">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+            <style>
+                /* Dasha Timeline Styling */
+                .dasha-accordion {
+                    background: rgba(255, 255, 255, 0.03);
+                    border-radius: 8px;
+                    padding: 12px;
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                }
+                
+                .dasha-row {
+                    padding: 10px 14px;
+                    margin: 4px 0;
+                    border-radius: 6px;
+                    font-size: 0.95rem;
+                    transition: all 0.2s ease;
+                    border-left: 3px solid transparent;
+                    background: rgba(255, 255, 255, 0.05);
+                    color: #e0e0e0;
+                }
+                
+                /* Current dasha highlight */
+                .dasha-row.current {
+                    background: rgba(255, 215, 0, 0.15);
+                    border-left: 3px solid #ffc107;
+                    box-shadow: 0 2px 6px rgba(255, 215, 0, 0.1);
+                    font-weight: 600;
+                }
+                
+                /* Level-based styling with subtle color distinction */
+                .dasha-level-1 {
+                    background: rgba(63, 81, 181, 0.08);
+                    font-weight: 700;
+                    font-size: 1rem;
+                    border-left: 3px solid rgba(63, 81, 181, 0.4);
+                    margin: 8px 0;
+                }
+                
+                .dasha-level-2 {
+                    background: rgba(103, 58, 183, 0.06);
+                    margin-left: 20px;
+                    font-weight: 600;
+                    border-left: 3px solid rgba(103, 58, 183, 0.3);
+                }
+                
+                .dasha-level-3 {
+                    background: rgba(56, 142, 60, 0.05);
+                    margin-left: 40px;
+                    font-size: 0.9rem;
+                    border-left: 3px solid rgba(56, 142, 60, 0.25);
+                }
+                
+                .dasha-level-4 {
+                    background: rgba(230, 81, 0, 0.05);
+                    margin-left: 60px;
+                    font-size: 0.85rem;
+                    border-left: 3px solid rgba(230, 81, 0, 0.2);
+                }
+                
+                .dasha-level-5 {
+                    background: rgba(198, 40, 40, 0.05);
+                    margin-left: 80px;
+                    font-size: 0.8rem;
+                    border-left: 3px solid rgba(198, 40, 40, 0.2);
+                }
+                
+                .dasha-row:hover {
+                    transform: translateX(2px);
+                    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+                }
+                
+                .dasha-toggle {
+                    cursor: pointer;
+                    user-select: none;
+                    display: inline-block;
+                    width: 24px;
+                    text-align: center;
+                    font-weight: bold;
+                }
+                
+                .dasha-info {
+                    display: flex;
+                    gap: 16px;
+                    align-items: center;
+                    width: 100%;
+                    flex-wrap: wrap;
+                }
+                
+                .dasha-planet {
+                    font-weight: 700;
+                    min-width: 90px;
+                    color: #ffc107;
+                }
+                
+                .dasha-period {
+                    min-width: 110px;
+                    background: rgba(255,255,255,0.08);
+                    padding: 3px 8px;
+                    border-radius: 4px;
+                    font-family: 'Courier New', monospace;
+                    font-size: 0.9rem;
+                    color: #b0bec5;
+                    border: 1px solid rgba(255,255,255,0.1);
+                }
+                
+                .dasha-dates {
+                    min-width: 200px;
+                    font-size: 0.9rem;
+                    color: #90caf9;
+                    display: flex;
+                    gap: 8px;
+                }
+                
+                .dasha-dates-from {
+                    background: rgba(144,202,249,0.1);
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    border: 1px solid rgba(144,202,249,0.2);
+                }
+                
+                .dasha-dates-arrow {
+                    color: #90caf9;
+                    font-weight: bold;
+                }
+                
+                .dasha-dates-to {
+                    background: rgba(144,202,249,0.1);
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    border: 1px solid rgba(144,202,249,0.2);
+                }
+                
+                .dasha-remaining {
+                    color: #d32f2f;
+                    font-weight: 700;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    background: rgba(211, 47, 47, 0.1);
+                    padding: 4px 10px;
+                    border-radius: 20px;
+                    min-width: 140px;
+                }
+                
+                .expand-icon {
+                    display: inline-block;
+                    width: 20px;
+                    text-align: center;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+                
+                /* Responsive layout */
+                @media (max-width: 768px) {
+                    .dasha-info {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 8px;
+                    }
+                    .dasha-level-2 { margin-left: 15px; }
+                    .dasha-level-3 { margin-left: 30px; }
+                    .dasha-level-4 { margin-left: 45px; }
+                    .dasha-level-5 { margin-left: 60px; }
+                }
+            </style>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fetch and populate chart data
+        async function loadChartData() {
+            try {
+                const response = await fetch(`/api/chart/{{ chart_id }}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    document.body.innerHTML = `<div class="alert alert-danger">Error: ${data.error}</div>`;
+                    return;
+                }
+                
+                populateNorthIndianChart(data.planet_data, data.house_data, 'northIndianChart');
+                // Try to populate D9 if data exists
+                try {
+                    populateNorthIndianChartD9(data.planet_data, data.house_data, 'northIndianChartD9');
+                } catch(e) {
+                    console.log('D9 chart not available:', e);
+                }
+                populatePlanetsTable(data.planet_data);
+                
+                // Load dasha if available
+                if (data.dasha_periods) {
+                    populateDashaTable(data.dasha_periods);
+                }
+                
+                // Load yogas if available
+                if (data.yogas) {
+                    populateYogas(data.yogas);
+                }
+            } catch (error) {
+                console.error('Error loading chart:', error);
+                alert('Failed to load chart data');
+            }
+        }
+        
+        function populateNorthIndianChart(planetData, houseData, chartId = 'northIndianChart') {
+            const chart = document.getElementById(chartId);
+            if (!chart) return;
+            
+            // North Indian chart house order: 12-1-2-3 / 11-center-center-4 / 10-center-center-5 / 9-8-7-6
+            const houseOrder = [12, 1, 2, 3, 11, 4, 10, 5, 9, 8, 7, 6];
+            
+            // Create 12 house cells
+            houseOrder.forEach(house => {
+                const div = document.createElement('div');
+                div.className = `chart-house house-${house}`;
+                
+                const houseInfo = houseData[house.toString()] || {};
+                const sign = houseInfo.HouseRasiSign?.Name || '?';
+                const planets = houseInfo.PlanetsInHouseBasedOnSign || [];
+                
+                // House label
+                let content = `<span class="house-label"><strong>H${house}</strong></span>`;
+                
+                // Sign (Rashi)
+                content += `<span class="house-sign">${sign}</span>`;
+                
+                // Planets in house
+                if (planets.length > 0) {
+                    content += `<div class="planets">`;
+                    planets.forEach(p => {
+                        const pData = planetData[p] || {};
+                        let classes = 'planet-badge';
+                        if (pData.IsPlanetRetrograde === "True") classes += ' retrograde';
+                        if (pData.IsPlanetExaltedSign === "True") classes += ' exalted';
+                        if (pData.IsPlanetDebilitated === "True") classes += ' debilitated';
+                        if (pData.IsPlanetCombust === "True") classes += ' combusted';
+                        if (pData.IsPlanetAfflicted === "True") classes += ' afflicted';
+                        
+                        // Show planet with retrograde symbol
+                        const retroSymbol = pData.IsPlanetRetrograde === "True" ? '℞' : '';
+                        content += `<span class="${classes}" title="${p}">${p.substring(0, 2)}${retroSymbol}</span>`;
+                    });
+                    content += `</div>`;
+                }
+                
+                div.innerHTML = content;
+                chart.appendChild(div);
+            });
+            
+            // Add center cell for Lagna
+            const center = document.createElement('div');
+            center.className = 'chart-house house-center';
+            
+            const lagna = houseData['1'] || {};
+            const lagnaSign = lagna.HouseRasiSign?.Name || 'Unknown';
+            const lagnaRuler = lagna.HouseRasiSign?.Ruler || '?';
+            
+            center.innerHTML = `
+                <div style="font-size: 1.2em; font-weight: bold;">LAGNA</div>
+                <div style="font-size: 0.9em;">${lagnaSign}</div>
+                <div style="font-size: 0.75em; opacity: 0.8;">Ruler: ${lagnaRuler}</div>
+            `;
+            chart.appendChild(center);
+        }
+        
+        function signToNumber(signName) {
+            const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+            return signs.indexOf(signName) + 1;
+        }
+        
+        function calculateAbsoluteDegree(signName, degree) {
+            const signNum = signToNumber(signName);
+            if (signNum === 0) return 0;
+            return (signNum - 1) * 30 + parseFloat(degree);
+        }
+        
+        function normalizeAngle(angle) {
+            while (angle >= 360) angle -= 360;
+            while (angle < 0) angle += 360;
+            return angle;
+        }
+        
+        function getPlanetsInD9House(house, houseData, planetData) {
+            // In Navamsha (D9), each house corresponds to one zodiac sign.
+            // A planet belongs to whichever D9 house has the same sign as the planet's PlanetNavamshaD9Sign.
+            const houseInfo = houseData[house.toString()] || {};
+            const houseD9SignName = houseInfo.HouseNavamshaD9Sign?.Name;
+            if (!houseD9SignName) return [];
+            
+            return Object.entries(planetData)
+                .filter(([_, pData]) => pData.PlanetNavamshaD9Sign?.Name === houseD9SignName)
+                .map(([name, _]) => name);
+        }
+        
+        function populateNorthIndianChartD9(planetData, houseData, chartId) {
+            const chart = document.getElementById(chartId);
+            if (!chart) return;
+            
+            // North Indian chart house order: 12-1-2-3 / 11-center-center-4 / 10-center-center-5 / 9-8-7-6
+            const houseOrder = [12, 1, 2, 3, 11, 4, 10, 5, 9, 8, 7, 6];
+            
+            // Create 12 house cells - using D9 data
+            houseOrder.forEach(house => {
+                const div = document.createElement('div');
+                div.className = `chart-house house-${house}`;
+                
+                // For D9, we use the D9 house sign
+                const houseInfo = houseData[house.toString()] || {};
+                const sign = houseInfo.HouseNavamshaD9Sign?.Name || '?';
+                
+                // Get planets actually in this D9 house
+                const planets = getPlanetsInD9House(house, houseData, planetData);
+                
+                // House label
+                let content = `<span class="house-label"><strong>H${house}</strong></span>`;
+                
+                // Sign (Navamsa)
+                content += `<span class="house-sign">${sign}</span>`;
+                
+                // Planets in house
+                if (planets.length > 0) {
+                    content += `<div class="planets">`;
+                    planets.forEach(p => {
+                        const pData = planetData[p] || {};
+                        let classes = 'planet-badge';
+                        
+                        if (pData.IsPlanetRetrograde === "True") classes += ' retrograde';
+                        if (pData.IsPlanetAfflicted === "True") classes += ' afflicted';
+                        
+                        const retroSymbol = pData.IsPlanetRetrograde === "True" ? '℞' : '';
+                        content += `<span class="${classes}" title="${p}">${p.substring(0, 2)}${retroSymbol}</span>`;
+                    });
+                    content += `</div>`;
+                }
+                
+                div.innerHTML = content;
+                chart.appendChild(div);
+            });
+            
+            // Add center cell for Navamsa Lagna
+            const center = document.createElement('div');
+            center.className = 'chart-house house-center';
+            
+            const lagna = houseData['1'] || {};
+            const lagnaSign = lagna.HouseNavamshaD9Sign?.Name || 'Unknown';
+            const lagnaRuler = lagna.HouseNavamshaD9Sign?.Ruler || '?';
+            
+            center.innerHTML = `
+                <div style="font-size: 1.2em; font-weight: bold;">LAGNA</div>
+                <div style="font-size: 0.9em;">${lagnaSign}</div>
+                <div style="font-size: 0.75em; opacity: 0.8;">Ruler: ${lagnaRuler}</div>
+            `;
+            chart.appendChild(center);
+        }
+        
+        
+        function populatePlanetsTable(planetData) {
+            const tbody = document.getElementById('planetsTableBody');
+            const planets = ['Sun', 'Moon', 'Mars', 'Mercury', 'Jupiter', 'Venus', 'Saturn', 'Rahu', 'Ketu'];
+            
+            planets.forEach(planet => {
+                const pData = planetData[planet] || {};
+                const sign = pData.PlanetRasiD1Sign?.Name || 'N/A';
+                const house = pData.HousePlanetOccupiesBasedOnSign || 'N/A';
+                const degree = pData.PlanetDegreeInSign || 'N/A';
+                const speed = pData.PlanetSpeed || 'N/A';
+                
+                let status = [];
+                if (pData.IsPlanetRetrograde === "True") status.push('Retrograde ℞');
+                if (pData.IsPlanetExaltedSign === "True") status.push('Exalted ⬆️');
+                if (pData.IsPlanetDebilitated === "True") status.push('Debilitated ⬇️');
+                if (pData.IsPlanetCombust === "True") status.push('Combusted 🔥');
+                if (pData.IsPlanetAfflicted === "True") status.push('Afflicted');
+                
+                const statusText = status.length > 0 ? status.join(', ') : 'Normal';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${planet}</strong></td>
+                    <td>${sign}</td>
+                    <td>${house}</td>
+                    <td>${typeof degree === 'number' ? degree.toFixed(2) : degree}°</td>
+                    <td>${statusText}</td>
+                    <td>${typeof speed === 'number' ? speed.toFixed(2) : speed}°/day</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        function populateDashaTable(dashaData) {
+            const container = document.getElementById('dashaAccordion');
+            container.innerHTML = '';
+            
+            if (!dashaData || dashaData.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">No dasha data available</div>';
+                return;
+            }
+            
+            function renderDashaLevel(dasha, parent, level) {
+                const levelClass = `dasha-level-${level}`;
+                const currentClass = dasha.is_current ? 'current' : '';
+                const hasSub = dasha.sub_periods && dasha.sub_periods.length > 0;
+                
+                const row = document.createElement('div');
+                row.className = `dasha-row ${levelClass} ${currentClass}`;
+                
+                // Expand icon
+                const expandIcon = document.createElement('span');
+                expandIcon.className = 'expand-icon';
+                expandIcon.innerHTML = hasSub ? '▼' : '•';
+                expandIcon.style.fontWeight = 'bold';
+                
+                // Create the info content
+                const info = document.createElement('div');
+                info.className = 'dasha-info';
+                
+                const planet = document.createElement('span');
+                planet.className = 'dasha-planet';
+                planet.textContent = dasha.planet;
+                
+                const period = document.createElement('span');
+                period.className = 'dasha-period';
+                period.textContent = dasha.duration_formatted || `${dasha.duration_years.toFixed(2)} years`;
+                
+                const dates = document.createElement('span');
+                dates.className = 'dasha-dates';
+                dates.innerHTML = `<span class="dasha-dates-from">${dasha.start_date}</span>
+                                    <span class="dasha-dates-arrow">→</span>
+                                    <span class="dasha-dates-to">${dasha.end_date}</span>`;
+                
+                const remaining = document.createElement('span');
+                if (dasha.is_current) {
+                    remaining.className = 'dasha-remaining';
+                    remaining.innerHTML = `🔥 <strong>${dasha.days_remaining} days</strong>`;
+                }
+                
+                info.appendChild(expandIcon);
+                info.appendChild(planet);
+                info.appendChild(period);
+                info.appendChild(dates);
+                if (dasha.is_current) {
+                    info.appendChild(remaining);
+                }
+                
+                row.appendChild(info);
+                parent.appendChild(row);
+                
+                // Create sub-periods container if needed
+                if (hasSub) {
+                    const subContainer = document.createElement('div');
+                    subContainer.className = 'dasha-subperiods';
+                    subContainer.style.display = 'none';
+                    
+                    dasha.sub_periods.forEach(subDasha => {
+                        renderDashaLevel(subDasha, subContainer, level + 1);
+                    });
+                    
+                    parent.appendChild(subContainer);
+                    
+                    // Toggle on expand icon click
+                    expandIcon.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const isVisible = subContainer.style.display !== 'none';
+                        subContainer.style.display = isVisible ? 'none' : 'block';
+                        expandIcon.textContent = isVisible ? '▶' : '▼';
+                    });
+                    
+                    // Also toggle on row click (if level < 5 to limit depth)
+                    if (level < 5) {
+                        row.style.cursor = 'pointer';
+                        row.addEventListener('click', (e) => {
+                            if (e.target.className.includes('expand-icon')) return;
+                            const isVisible = subContainer.style.display !== 'none';
+                            subContainer.style.display = isVisible ? 'none' : 'block';
+                            expandIcon.textContent = isVisible ? '▶' : '▼';
+                        });
+                    }
+                }
+            }
+            
+            // Render all main dashas
+            dashaData.forEach(dasha => {
+                renderDashaLevel(dasha, container, 1);
+            });
+        }
+        
+        function populateYogas(yogasData) {
+            const container = document.getElementById('yogasContainer');
+            container.innerHTML = '';
+            
+            if (!yogasData) {
+                container.innerHTML = '<div class="alert alert-info">No yoga data available</div>';
+                return;
+            }
+            
+            // Define yoga categories with icons
+            const yogaCategories = [
+                { key: 'moon_yogas', title: '🌙 Moon Yogas', color: '#ffc107' },
+                { key: 'sun_yogas', title: '☀️ Sun Yogas', color: '#ff9800' },
+                { key: 'raja_yogas', title: '👑 Raja Yogas', color: '#9c27b0' },
+                { key: 'dhana_yogas', title: '💰 Dhana Yogas', color: '#4caf50' },
+                { key: 'pancha_mahapurusha', title: '🌟 Pancha Mahapurusha', color: '#2196f3' },
+                { key: 'parivartan_yogas', title: '🔄 Parivartan Yogas', color: '#ff5722' },
+                { key: 'nabhasa_yogas', title: '🌐 Nabhasa Yogas', color: '#00bcd4' },
+                { key: 'malika_yogas', title: '⛓️ Malika Yogas', color: '#795548' },
+                { key: 'neech_bhanga', title: '💫 Neech Bhanga', color: '#e91e63' },
+                { key: 'vipreet_raja', title: '🔮 Vipreet Raja', color: '#673ab7' }
+            ];
+            
+            // Render each yoga category
+            yogaCategories.forEach(category => {
+                const yogas = yogasData[category.key] || [];
+                
+                const card = document.createElement('div');
+                card.style.cssText = `
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 2px solid ${category.color};
+                    border-radius: 10px;
+                    padding: 15px;
+                    color: #fff;
+                    opacity: ${yogas.length > 0 ? '1' : '0.6'};
+                `;
+                
+                const title = document.createElement('h4');
+                title.style.cssText = `color: ${category.color}; margin-bottom: 12px; font-weight: bold;`;
+                title.textContent = `${category.title} (${yogas.length})`;
+                card.appendChild(title);
+                
+                if (yogas.length > 0) {
+                    const yogasList = document.createElement('ul');
+                    yogasList.style.cssText = 'list-style: none; padding: 0; margin: 0;';
+                    
+                    yogas.forEach(yoga => {
+                        const li = document.createElement('li');
+                        li.style.cssText = `
+                            padding: 8px 0;
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                            font-size: 0.9rem;
+                            cursor: help;
+                        `;
+                        
+                        // Create yoga name span with tooltip
+                        const yogaName = yoga.name.replace(/_/g, ' ').toUpperCase();
+                        let yogaText = `<strong class="yoga-tooltip" data-yoga-name="${yoga.name}" style="cursor: help; text-decoration: underline dotted; opacity: 0.9; transition: opacity 0.2s;">${yogaName}</strong>`;
+                        
+                        if (yoga.description) {
+                            yogaText += `<br><span style="font-size: 0.85rem; opacity: 0.8;">${yoga.description}</span>`;
+                        }
+                        
+                        if (yoga.strength !== undefined) {
+                            const strength = Math.round(yoga.strength * 100) / 100;
+                            yogaText += `<br><span style="font-size: 0.85rem; color: ${category.color};">Strength: ${strength}</span>`;
+                        }
+                        
+                        li.innerHTML = yogaText;
+                        
+                        // Add tooltip on hover
+                        li.addEventListener('mouseenter', async (e) => {
+                            const yogaElement = e.target.querySelector('.yoga-tooltip') || e.currentTarget.querySelector('.yoga-tooltip');
+                            if (yogaElement) {
+                                const yogaName = yogaElement.dataset.yogaName;
+                                try {
+                                    const response = await fetch(`/api/yoga/info/${yogaName}`);
+                                    const info = await response.json();
+                                    
+                                    // Create tooltip
+                                    let tooltip = document.getElementById(`tooltip-${yogaName}`);
+                                    if (!tooltip) {
+                                        tooltip = document.createElement('div');
+                                        tooltip.id = `tooltip-${yogaName}`;
+                                        tooltip.style.cssText = `
+                                            position: fixed;
+                                            background: rgba(0, 0, 0, 0.95);
+                                            color: #fff;
+                                            padding: 12px;
+                                            border-radius: 6px;
+                                            font-size: 0.85rem;
+                                            max-width: 300px;
+                                            z-index: 1000;
+                                            border-left: 3px solid ${category.color};
+                                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                                            pointer-events: none;
+                                        `;
+                                        
+                                        tooltip.innerHTML = `
+                                            <div style="font-weight: bold; margin-bottom: 6px; color: ${category.color};">${info.name}</div>
+                                            <div style="margin-bottom: 6px;"><strong>Formation:</strong> ${info.formation}</div>
+                                            <div style="margin-bottom: 6px;"><strong>Effect:</strong> ${info.effect}</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.8;">
+                                                <strong>Type:</strong> ${info.benefic ? '✨ Benefic' : '⚠️ Malefic'} | 
+                                                <strong>Intensity:</strong> ${info.intensity}
+                                            </div>
+                                        `;
+                                        
+                                        document.body.appendChild(tooltip);
+                                    }
+                                    
+                                    // Position tooltip near mouse
+                                    const rect = yogaElement.getBoundingClientRect();
+                                    tooltip.style.left = Math.max(10, rect.right + 10) + 'px';
+                                    tooltip.style.top = (rect.top - 10) + 'px';
+                                    tooltip.style.display = 'block';
+                                } catch (error) {
+                                    console.error('Error fetching yoga info:', error);
+                                }
+                            }
+                        });
+                        
+                        li.addEventListener('mouseleave', () => {
+                            const tooltips = document.querySelectorAll('[id^="tooltip-"]');
+                            tooltips.forEach(t => t.style.display = 'none');
+                        });
+                        
+                        yogasList.appendChild(li);
+                    });
+                    
+                    card.appendChild(yogasList);
+                } else {
+                    const noYogaText = document.createElement('p');
+                    noYogaText.style.cssText = 'margin: 0; font-size: 0.9rem; opacity: 0.8; font-style: italic;';
+                    noYogaText.textContent = 'None detected in this chart';
+                    card.appendChild(noYogaText);
+                }
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadChartData);
+    </script>
+</body>
+</html>

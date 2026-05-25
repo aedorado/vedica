@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+{% block title %}Vedica – Birth Chart{% endblock %}
+
+{% block content %}
+<div style="max-width:680px; margin:3rem auto;">
+
+  <!-- Hero -->
+  <div style="text-align:center; margin-bottom:2.5rem;">
+    <div style="font-size:3rem; margin-bottom:.5rem;">✦</div>
+    <h1 style="font-size:2rem; font-weight:800; color:var(--accent3); letter-spacing:-.01em;">
+      Vedic Birth Chart
+    </h1>
+    <p class="text-muted text-sm mt-1">
+      Sidereal zodiac · Lahiri Ayanamsha · Swiss Ephemeris
+    </p>
+  </div>
+
+  {% if error %}
+  <div class="alert alert-error mb-2">{{ error }}</div>
+  {% endif %}
+
+  <!-- Form card -->
+  <div class="card">
+    <form method="POST" action="/chart" id="chart-form">
+
+      <!-- Name -->
+      <div class="field mb-2">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="e.g. Anurag Sharma" required />
+      </div>
+
+      <!-- DoB + ToB -->
+      <div class="grid-2 mb-2">
+        <div class="field">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required />
+        </div>
+        <div class="field">
+          <label for="tob">Time of Birth <span style="color:var(--red)">*</span></label>
+          <input type="time" id="tob" name="tob" required />
+        </div>
+      </div>
+
+      <!-- Timezone -->
+      <div class="field mb-2">
+        <label for="timezone">Timezone (UTC offset)</label>
+        <select id="timezone" name="timezone">
+          <option value="-12:00">UTC-12:00</option>
+          <option value="-11:00">UTC-11:00</option>
+          <option value="-10:00">UTC-10:00 (Hawaii)</option>
+          <option value="-09:00">UTC-09:00 (Alaska)</option>
+          <option value="-08:00">UTC-08:00 (PST)</option>
+          <option value="-07:00">UTC-07:00 (MST/PDT)</option>
+          <option value="-06:00">UTC-06:00 (CST/MDT)</option>
+          <option value="-05:00">UTC-05:00 (EST/CDT)</option>
+          <option value="-04:00">UTC-04:00 (EDT/AST)</option>
+          <option value="-03:30">UTC-03:30 (Newfoundland)</option>
+          <option value="-03:00">UTC-03:00 (BRT/ART)</option>
+          <option value="-02:00">UTC-02:00</option>
+          <option value="-01:00">UTC-01:00</option>
+          <option value="+00:00">UTC+00:00 (GMT/WET)</option>
+          <option value="+01:00">UTC+01:00 (CET)</option>
+          <option value="+02:00">UTC+02:00 (EET/CEST)</option>
+          <option value="+03:00">UTC+03:00 (MSK/EAT)</option>
+          <option value="+03:30">UTC+03:30 (Tehran)</option>
+          <option value="+04:00">UTC+04:00 (GST/AZT)</option>
+          <option value="+04:30">UTC+04:30 (Kabul)</option>
+          <option value="+05:00">UTC+05:00 (PKT)</option>
+          <option value="+05:30" selected>UTC+05:30 (IST – India)</option>
+          <option value="+05:45">UTC+05:45 (NPT – Nepal)</option>
+          <option value="+06:00">UTC+06:00 (BST/OMSK)</option>
+          <option value="+06:30">UTC+06:30 (MMT – Myanmar)</option>
+          <option value="+07:00">UTC+07:00 (ICT/WIB)</option>
+          <option value="+08:00">UTC+08:00 (CST/HKT/SGT)</option>
+          <option value="+09:00">UTC+09:00 (JST/KST)</option>
+          <option value="+09:30">UTC+09:30 (ACST)</option>
+          <option value="+10:00">UTC+10:00 (AEST)</option>
+          <option value="+11:00">UTC+11:00 (AEDT)</option>
+          <option value="+12:00">UTC+12:00 (NZST)</option>
+        </select>
+      </div>
+
+      <!-- Place autocomplete -->
+      <div class="field mb-2">
+        <label for="place-search">Place of Birth</label>
+        <div class="autocomplete-wrapper">
+          <input
+            type="text"
+            id="place-search"
+            placeholder="Start typing a city… e.g. Dehradun"
+            autocomplete="off"
+          />
+          <div class="autocomplete-list" id="place-list"></div>
+        </div>
+        <!-- Hidden fields populated by JS -->
+        <input type="hidden" name="lat" id="lat" />
+        <input type="hidden" name="lon" id="lon" />
+        <input type="hidden" name="place_display" id="place_display" />
+      </div>
+
+      <!-- Submit -->
+      <div style="display:flex; align-items:center; gap:1rem; margin-top:1.5rem;">
+        <button type="submit" class="btn btn-primary w-full" id="submit-btn">
+          <span>✦</span> Calculate Chart
+        </button>
+        <div style="position:relative;">
+          <button type="button" class="btn" id="dev-menu-btn" style="background:var(--accent2); color:#fff; padding:.5rem .75rem; font-size:.75rem; cursor:pointer; border-radius:.25rem;">
+            ⚙ Dev
+          </button>
+          <div id="dev-menu" style="display:none; position:absolute; right:0; top:100%; margin-top:.25rem; background:#fff; border:1px solid var(--border); border-radius:.5rem; box-shadow:0 4px 6px rgba(0,0,0,.1); z-index:100; min-width:200px;">
+            <button type="button" class="dev-test" data-test="anurag" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Anurag Sharma
+            </button>
+            <button type="button" class="dev-test" data-test="pragati" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Pragati Tripathi
+            </button>
+            <button type="button" class="dev-test" data-test="prashant_kumar" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Prashant Kumar
+            </button>
+            <button type="button" class="dev-test" data-test="armaan_jain" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Armaan Jain
+            </button>
+            <button type="button" class="dev-test" data-test="prateek" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Prateek Chatarjee
+            </button>
+            <button type="button" class="dev-test" data-test="shantal" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Shantal Raj
+            </button>
+            <button type="button" class="dev-test" data-test="nikita" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Nikita Agarwal
+            </button>
+            <button type="button" class="dev-test" data-test="srinidhi" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Srinidhi Sridhar
+            </button>
+            <button type="button" class="dev-test" data-test="anjali" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Anjali Mittal
+            </button>
+            <button type="button" class="dev-test" data-test="prashant_tiwari" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; border-bottom:1px solid var(--border);">
+              Prashant Tiwari
+            </button>
+            <button type="button" id="dev-delete-all" style="display:block; width:100%; text-align:left; padding:.75rem 1rem; border:none; background:none; cursor:pointer; font-size:.875rem; color:var(--red); border-bottom:1px solid var(--border); font-weight:500;">
+              🗑 Delete All Charts
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-muted" style="margin-top:.75rem; text-align:center;">
+        <span style="color:var(--red)">*</span> Time of birth is required for accurate Ascendant (Lagna) calculation.
+      </p>
+
+    </form>
+  </div>
+
+  <!-- Footer note -->
+  <p class="text-xs text-muted" style="text-align:center; margin-top:1.5rem;">
+    Powered by Swiss Ephemeris · Geocoding by OpenStreetMap Nominatim
+  </p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Validate place was selected before submit
+  document.getElementById('chart-form').addEventListener('submit', function(e) {
+    const lat = document.getElementById('lat').value;
+    const lon = document.getElementById('lon').value;
+    if (!lat || !lon) {
+      e.preventDefault();
+      const wrapper = document.querySelector('.autocomplete-wrapper');
+      const err = document.createElement('div');
+      err.style.cssText = 'font-size:.8rem; color:var(--red); margin-top:.35rem;';
+      err.textContent = '⚠ Please select a place from the dropdown.';
+      // Remove existing error if any
+      const existing = wrapper.parentNode.querySelector('.place-err');
+      if (existing) existing.remove();
+      err.className = 'place-err';
+      wrapper.parentNode.appendChild(err);
+    }
+  });
+
+  // Dev menu toggle
+  const devMenuBtn = document.getElementById('dev-menu-btn');
+  const devMenu = document.getElementById('dev-menu');
+  
+  devMenuBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    devMenu.style.display = devMenu.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Dev test cases
+  const testCases = {
+    anurag: {
+      name: 'Anurag Sharma',
+      dob: '1994-03-15',
+      tob: '12:01',
+      timezone: '+05:30',
+      place: 'Dehradun'
+    },
+    pragati: {
+      name: 'Pragati Tripathi',
+      dob: '1996-11-28',
+      tob: '07:50',
+      timezone: '+05:30',
+      place: 'Mumbai'
+    },
+    prashant_kumar: {
+      name: 'Prashant Kumar',
+      dob: '1996-08-23',
+      tob: '04:50',
+      timezone: '+05:30',
+      place: 'New Delhi'
+    },
+    armaan_jain: {
+      name: 'Armaan Jain',
+      dob: '2001-09-02',
+      tob: '16:02',
+      timezone: '+05:30',
+      place: 'Tohana'
+    },
+    prateek: {
+      name: 'Prateek Chatarjee',
+      dob: '1999-03-08',
+      tob: '09:05',
+      timezone: '+05:30',
+      place: 'Bhilai'
+    },
+    shantal: {
+      name: 'Shantal Raj',
+      dob: '1996-09-26',
+      tob: '13:49',
+      timezone: '+05:30',
+      place: 'Patna'
+    },
+    nikita: {
+      name: 'Nikita Agarwal',
+      dob: '1994-09-24',
+      tob: '10:20',
+      timezone: '+05:30',
+      place: 'Lucknow'
+    },
+    srinidhi: {
+      name: 'Srinidhi Sridhar',
+      dob: '1996-03-08',
+      tob: '13:20',
+      timezone: '+05:30',
+      place: 'Surat'
+    },
+    anjali: {
+      name: 'Anjali Mittal',
+      dob: '1996-03-03',
+      tob: '23:30',
+      timezone: '+05:30',
+      place: 'Jaipur'
+    },
+    prashant_tiwari: {
+      name: 'Prashant Tiwari',
+      dob: '1996-09-01',
+      tob: '08:00',
+      timezone: '+05:30',
+      place: 'Gonda'
+    }
+  };
+
+  document.querySelectorAll('.dev-test').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const testKey = btn.getAttribute('data-test');
+      const test = testCases[testKey];
+      
+      // Fill form fields
+      document.getElementById('name').value = test.name;
+      document.getElementById('dob').value = test.dob;
+      document.getElementById('tob').value = test.tob;
+      document.getElementById('timezone').value = test.timezone;
+      document.getElementById('place-search').value = test.place;
+      
+      // Close dev menu
+      devMenu.style.display = 'none';
+      
+      // Trigger geocoding
+      const placeSearch = document.getElementById('place-search');
+      const event = new Event('input', { bubbles: true });
+      placeSearch.dispatchEvent(event);
+      
+      // Wait a moment and focus on place input to show autocomplete
+      setTimeout(() => placeSearch.focus(), 100);
+    });
+  });
+
+  // Delete all charts handler
+  document.getElementById('dev-delete-all').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!confirm('Delete all saved charts? This cannot be undone.')) return;
+    
+    try {
+      const res = await fetch('/api/charts/delete-all', { method: 'DELETE' });
+      const data = await res.json();
+      
+      devMenu.style.display = 'none';
+      alert(`✓ Deleted ${data.count || 0} chart(s)`);
+    } catch (err) {
+      alert('❌ Error deleting charts: ' + err.message);
+    }
+  });
+
+  // Close dev menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (e.target !== devMenuBtn && !devMenuBtn.contains(e.target)) {
+      devMenu.style.display = 'none';
+    }
+  });
+</script>
+{% endblock %}

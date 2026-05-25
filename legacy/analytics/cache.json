@@ -1,0 +1,5085 @@
+{
+  "total_charts": 65,
+  "lagna": {
+    "Aries": {
+      "count": 5,
+      "charts": [
+        5,
+        13,
+        15,
+        39,
+        49
+      ]
+    },
+    "Taurus": {
+      "count": 4,
+      "charts": [
+        23,
+        41,
+        47,
+        60
+      ]
+    },
+    "Gemini": {
+      "count": 8,
+      "charts": [
+        1,
+        8,
+        27,
+        31,
+        48,
+        53,
+        55,
+        59
+      ]
+    },
+    "Cancer": {
+      "count": 8,
+      "charts": [
+        3,
+        18,
+        28,
+        29,
+        36,
+        37,
+        42,
+        56
+      ]
+    },
+    "Leo": {
+      "count": 2,
+      "charts": [
+        35,
+        40
+      ]
+    },
+    "Virgo": {
+      "count": 8,
+      "charts": [
+        10,
+        11,
+        24,
+        25,
+        34,
+        46,
+        54,
+        61
+      ]
+    },
+    "Libra": {
+      "count": 6,
+      "charts": [
+        9,
+        12,
+        19,
+        20,
+        21,
+        63
+      ]
+    },
+    "Scorpio": {
+      "count": 9,
+      "charts": [
+        2,
+        7,
+        17,
+        30,
+        44,
+        51,
+        58,
+        62,
+        65
+      ]
+    },
+    "Sagittarius": {
+      "count": 8,
+      "charts": [
+        4,
+        6,
+        32,
+        33,
+        50,
+        52,
+        57,
+        64
+      ]
+    },
+    "Capricorn": {
+      "count": 4,
+      "charts": [
+        14,
+        16,
+        22,
+        26
+      ]
+    },
+    "Aquarius": {
+      "count": 1,
+      "charts": [
+        43
+      ]
+    },
+    "Pisces": {
+      "count": 2,
+      "charts": [
+        38,
+        45
+      ]
+    }
+  },
+  "combos_2": {
+    "Su+Me": {
+      "count": 32,
+      "charts": [
+        2,
+        8,
+        9,
+        12,
+        13,
+        16,
+        17,
+        20,
+        22,
+        23,
+        28,
+        31,
+        33,
+        34,
+        35,
+        36,
+        37,
+        40,
+        45,
+        46,
+        49,
+        50,
+        52,
+        53,
+        54,
+        55,
+        57,
+        59,
+        62,
+        63,
+        64,
+        65
+      ]
+    },
+    "Me+Ve": {
+      "count": 18,
+      "charts": [
+        5,
+        7,
+        14,
+        15,
+        22,
+        28,
+        36,
+        42,
+        43,
+        45,
+        50,
+        53,
+        54,
+        57,
+        58,
+        63,
+        64,
+        65
+      ]
+    },
+    "Su+Ve": {
+      "count": 17,
+      "charts": [
+        1,
+        22,
+        24,
+        27,
+        28,
+        36,
+        39,
+        41,
+        45,
+        50,
+        53,
+        54,
+        57,
+        60,
+        63,
+        64,
+        65
+      ]
+    },
+    "Su+Ma": {
+      "count": 15,
+      "charts": [
+        8,
+        9,
+        15,
+        26,
+        30,
+        31,
+        32,
+        36,
+        39,
+        51,
+        55,
+        59,
+        62,
+        64,
+        65
+      ]
+    },
+    "Sa+Ke": {
+      "count": 13,
+      "charts": [
+        2,
+        3,
+        6,
+        8,
+        9,
+        10,
+        28,
+        31,
+        43,
+        51,
+        53,
+        64,
+        65
+      ]
+    },
+    "Me+Ra": {
+      "count": 12,
+      "charts": [
+        3,
+        7,
+        10,
+        18,
+        30,
+        32,
+        40,
+        48,
+        58,
+        59,
+        64,
+        65
+      ]
+    },
+    "Ve+Ma": {
+      "count": 12,
+      "charts": [
+        3,
+        6,
+        11,
+        16,
+        21,
+        36,
+        39,
+        48,
+        49,
+        52,
+        64,
+        65
+      ]
+    },
+    "Ju+Ve": {
+      "count": 11,
+      "charts": [
+        5,
+        7,
+        11,
+        13,
+        21,
+        25,
+        36,
+        47,
+        56,
+        64,
+        65
+      ]
+    },
+    "Me+Ma": {
+      "count": 11,
+      "charts": [
+        1,
+        8,
+        9,
+        25,
+        31,
+        36,
+        55,
+        59,
+        62,
+        64,
+        65
+      ]
+    },
+    "Mo+Ma": {
+      "count": 9,
+      "charts": [
+        5,
+        11,
+        13,
+        14,
+        17,
+        32,
+        46,
+        64,
+        65
+      ]
+    },
+    "Mo+Ra": {
+      "count": 9,
+      "charts": [
+        8,
+        36,
+        45,
+        51,
+        53,
+        56,
+        58,
+        64,
+        65
+      ]
+    },
+    "Ju+Sa": {
+      "count": 9,
+      "charts": [
+        15,
+        18,
+        20,
+        35,
+        40,
+        50,
+        60,
+        64,
+        65
+      ]
+    },
+    "Su+Ra": {
+      "count": 8,
+      "charts": [
+        6,
+        14,
+        21,
+        40,
+        56,
+        59,
+        64,
+        65
+      ]
+    },
+    "Mo+Ve": {
+      "count": 8,
+      "charts": [
+        11,
+        18,
+        20,
+        24,
+        58,
+        62,
+        64,
+        65
+      ]
+    },
+    "Ju+Ra": {
+      "count": 8,
+      "charts": [
+        4,
+        7,
+        17,
+        19,
+        24,
+        47,
+        64,
+        65
+      ]
+    },
+    "Ju+Ma": {
+      "count": 8,
+      "charts": [
+        11,
+        12,
+        15,
+        21,
+        30,
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Ju": {
+      "count": 7,
+      "charts": [
+        15,
+        30,
+        36,
+        43,
+        44,
+        64,
+        65
+      ]
+    },
+    "Su+Mo": {
+      "count": 7,
+      "charts": [
+        24,
+        32,
+        33,
+        48,
+        56,
+        64,
+        65
+      ]
+    },
+    "Mo+Ke": {
+      "count": 7,
+      "charts": [
+        7,
+        24,
+        25,
+        26,
+        44,
+        64,
+        65
+      ]
+    },
+    "Su+Ke": {
+      "count": 6,
+      "charts": [
+        13,
+        23,
+        24,
+        29,
+        64,
+        65
+      ]
+    },
+    "Mo+Ju": {
+      "count": 6,
+      "charts": [
+        11,
+        39,
+        52,
+        57,
+        64,
+        65
+      ]
+    },
+    "Mo+Me": {
+      "count": 6,
+      "charts": [
+        29,
+        33,
+        58,
+        60,
+        64,
+        65
+      ]
+    },
+    "Ju+Me": {
+      "count": 6,
+      "charts": [
+        5,
+        7,
+        26,
+        36,
+        64,
+        65
+      ]
+    },
+    "Ju+Ke": {
+      "count": 6,
+      "charts": [
+        38,
+        41,
+        42,
+        46,
+        64,
+        65
+      ]
+    },
+    "Me+Sa": {
+      "count": 6,
+      "charts": [
+        1,
+        27,
+        30,
+        39,
+        64,
+        65
+      ]
+    },
+    "Ve+Ra": {
+      "count": 6,
+      "charts": [
+        7,
+        47,
+        55,
+        58,
+        64,
+        65
+      ]
+    },
+    "Ra+Ma": {
+      "count": 6,
+      "charts": [
+        41,
+        43,
+        54,
+        59,
+        64,
+        65
+      ]
+    },
+    "Ve+Sa": {
+      "count": 5,
+      "charts": [
+        26,
+        33,
+        34,
+        64,
+        65
+      ]
+    },
+    "Sa+Ma": {
+      "count": 5,
+      "charts": [
+        1,
+        15,
+        56,
+        64,
+        65
+      ]
+    },
+    "Sa+Ra": {
+      "count": 5,
+      "charts": [
+        30,
+        37,
+        61,
+        64,
+        65
+      ]
+    },
+    "Me+Ke": {
+      "count": 4,
+      "charts": [
+        13,
+        23,
+        64,
+        65
+      ]
+    },
+    "Su+Sa": {
+      "count": 3,
+      "charts": [
+        15,
+        64,
+        65
+      ]
+    },
+    "Mo+Sa": {
+      "count": 3,
+      "charts": [
+        41,
+        64,
+        65
+      ]
+    },
+    "Ve+Ke": {
+      "count": 3,
+      "charts": [
+        24,
+        64,
+        65
+      ]
+    },
+    "Ke+Ma": {
+      "count": 3,
+      "charts": [
+        4,
+        64,
+        65
+      ]
+    },
+    "Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    }
+  },
+  "combos_3": {
+    "Su+Me+Ve": {
+      "count": 11,
+      "charts": [
+        22,
+        28,
+        36,
+        45,
+        50,
+        53,
+        54,
+        57,
+        63,
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ma": {
+      "count": 9,
+      "charts": [
+        8,
+        9,
+        31,
+        36,
+        55,
+        59,
+        62,
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ma": {
+      "count": 5,
+      "charts": [
+        15,
+        30,
+        36,
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve": {
+      "count": 5,
+      "charts": [
+        5,
+        7,
+        36,
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Ma": {
+      "count": 5,
+      "charts": [
+        11,
+        21,
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ke": {
+      "count": 4,
+      "charts": [
+        13,
+        23,
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Ma": {
+      "count": 4,
+      "charts": [
+        36,
+        39,
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ra": {
+      "count": 4,
+      "charts": [
+        40,
+        59,
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Ra": {
+      "count": 4,
+      "charts": [
+        7,
+        47,
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Ra": {
+      "count": 4,
+      "charts": [
+        7,
+        58,
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Sa": {
+      "count": 3,
+      "charts": [
+        15,
+        64,
+        65
+      ]
+    },
+    "Su+Sa+Ma": {
+      "count": 3,
+      "charts": [
+        15,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve": {
+      "count": 3,
+      "charts": [
+        24,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ke": {
+      "count": 3,
+      "charts": [
+        24,
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Ke": {
+      "count": 3,
+      "charts": [
+        24,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ma": {
+      "count": 3,
+      "charts": [
+        32,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me": {
+      "count": 3,
+      "charts": [
+        33,
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ra": {
+      "count": 3,
+      "charts": [
+        56,
+        64,
+        65
+      ]
+    },
+    "Su+Ra+Ma": {
+      "count": 3,
+      "charts": [
+        59,
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve": {
+      "count": 3,
+      "charts": [
+        11,
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ma": {
+      "count": 3,
+      "charts": [
+        11,
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Ma": {
+      "count": 3,
+      "charts": [
+        11,
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Ke": {
+      "count": 3,
+      "charts": [
+        24,
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve": {
+      "count": 3,
+      "charts": [
+        58,
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ra": {
+      "count": 3,
+      "charts": [
+        58,
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Ra": {
+      "count": 3,
+      "charts": [
+        58,
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ra": {
+      "count": 3,
+      "charts": [
+        7,
+        64,
+        65
+      ]
+    },
+    "Ju+Sa+Ma": {
+      "count": 3,
+      "charts": [
+        15,
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ma": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Me+Sa+Ma": {
+      "count": 3,
+      "charts": [
+        1,
+        64,
+        65
+      ]
+    },
+    "Me+Sa+Ra": {
+      "count": 3,
+      "charts": [
+        30,
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Ma": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Me+Ra+Ma": {
+      "count": 3,
+      "charts": [
+        59,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    }
+  },
+  "combos_4": {
+    "Su+Ju+Sa+Ma": {
+      "count": 3,
+      "charts": [
+        15,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Ke": {
+      "count": 3,
+      "charts": [
+        24,
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ma": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Ma": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Ma": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ra+Ma": {
+      "count": 3,
+      "charts": [
+        59,
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Ma": {
+      "count": 3,
+      "charts": [
+        11,
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Ra": {
+      "count": 3,
+      "charts": [
+        58,
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Ra": {
+      "count": 3,
+      "charts": [
+        7,
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Ma": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    }
+  },
+  "combos_5": {
+    "Su+Ju+Me+Ve+Ma": {
+      "count": 3,
+      "charts": [
+        36,
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ve": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ve+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    }
+  },
+  "combos_6": {
+    "Su+Mo+Ju+Me+Ve+Sa": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ve+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ve+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ve+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Me+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ju+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Me+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Mo+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Me+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ju+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Me+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Su+Ve+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Sa+Ra": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Sa+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Sa+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ve+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Me+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ju+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Me+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Mo+Ve+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Sa+Ra+Ke": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Sa+Ra+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Sa+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Ve+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Me+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Ju+Ve+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    },
+    "Me+Ve+Sa+Ra+Ke+Ma": {
+      "count": 2,
+      "charts": [
+        64,
+        65
+      ]
+    }
+  },
+  "combustion": {
+    "Mercury": {
+      "count": 17,
+      "charts": [
+        16,
+        20,
+        23,
+        28,
+        33,
+        35,
+        36,
+        45,
+        47,
+        49,
+        50,
+        52,
+        53,
+        54,
+        55,
+        57,
+        63
+      ]
+    },
+    "Venus": {
+      "count": 11,
+      "charts": [
+        22,
+        24,
+        28,
+        36,
+        39,
+        41,
+        45,
+        50,
+        53,
+        54,
+        63
+      ]
+    },
+    "Mars": {
+      "count": 10,
+      "charts": [
+        8,
+        9,
+        12,
+        26,
+        30,
+        31,
+        32,
+        39,
+        51,
+        55
+      ]
+    },
+    "Saturn": {
+      "count": 5,
+      "charts": [
+        8,
+        9,
+        30,
+        31,
+        50
+      ]
+    },
+    "Jupiter": {
+      "count": 4,
+      "charts": [
+        13,
+        36,
+        43,
+        44
+      ]
+    }
+  },
+  "retrograde": {
+    "Saturn": {
+      "count": 27,
+      "charts": [
+        2,
+        3,
+        6,
+        7,
+        10,
+        13,
+        16,
+        17,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        32,
+        35,
+        36,
+        37,
+        41,
+        45,
+        46,
+        49,
+        52,
+        54,
+        58,
+        62,
+        63
+      ]
+    },
+    "Jupiter": {
+      "count": 15,
+      "charts": [
+        1,
+        3,
+        10,
+        20,
+        24,
+        27,
+        29,
+        33,
+        34,
+        35,
+        41,
+        48,
+        57,
+        58,
+        59
+      ]
+    },
+    "Mercury": {
+      "count": 12,
+      "charts": [
+        17,
+        18,
+        20,
+        26,
+        28,
+        36,
+        40,
+        50,
+        53,
+        54,
+        55,
+        62
+      ]
+    },
+    "Venus": {
+      "count": 5,
+      "charts": [
+        11,
+        27,
+        36,
+        54,
+        60
+      ]
+    },
+    "Mars": {
+      "count": 2,
+      "charts": [
+        44,
+        53
+      ]
+    }
+  },
+  "exalted_debilitated": {
+    "exalted": {
+      "Venus": {
+        "count": 9,
+        "charts": [
+          1,
+          5,
+          15,
+          29,
+          32,
+          54,
+          56,
+          60,
+          61
+        ]
+      },
+      "Moon": {
+        "count": 8,
+        "charts": [
+          16,
+          17,
+          22,
+          29,
+          32,
+          38,
+          43,
+          62
+        ]
+      },
+      "Mercury": {
+        "count": 6,
+        "charts": [
+          3,
+          4,
+          10,
+          21,
+          50,
+          52
+        ]
+      },
+      "Sun": {
+        "count": 6,
+        "charts": [
+          15,
+          28,
+          29,
+          51,
+          53,
+          56
+        ]
+      },
+      "Mars": {
+        "count": 5,
+        "charts": [
+          11,
+          14,
+          26,
+          27,
+          39
+        ]
+      },
+      "Rahu": {
+        "count": 4,
+        "charts": [
+          12,
+          14,
+          30,
+          61
+        ]
+      },
+      "Ketu": {
+        "count": 4,
+        "charts": [
+          12,
+          14,
+          30,
+          61
+        ]
+      },
+      "Jupiter": {
+        "count": 3,
+        "charts": [
+          12,
+          14,
+          57
+        ]
+      },
+      "Saturn": {
+        "count": 1,
+        "charts": [
+          50
+        ]
+      }
+    },
+    "debilitated": {
+      "Sun": {
+        "count": 1,
+        "charts": [
+          27
+        ]
+      },
+      "Mars": {
+        "count": 1,
+        "charts": [
+          29
+        ]
+      },
+      "Jupiter": {
+        "count": 1,
+        "charts": [
+          43
+        ]
+      }
+    }
+  },
+  "afflicted": {
+    "Rahu": {
+      "count": 63,
+      "charts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    "Ketu": {
+      "count": 63,
+      "charts": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    "Mercury": {
+      "count": 48,
+      "charts": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        10,
+        12,
+        13,
+        14,
+        16,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        28,
+        30,
+        32,
+        33,
+        35,
+        36,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    "Moon": {
+      "count": 46,
+      "charts": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        19,
+        20,
+        24,
+        25,
+        26,
+        27,
+        28,
+        30,
+        31,
+        32,
+        33,
+        36,
+        37,
+        38,
+        41,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        53,
+        56,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    "Saturn": {
+      "count": 46,
+      "charts": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        13,
+        15,
+        18,
+        20,
+        21,
+        22,
+        23,
+        25,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43,
+        44,
+        45,
+        46,
+        47,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        57,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    "Venus": {
+      "count": 45,
+      "charts": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+        10,
+        11,
+        13,
+        14,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        28,
+        29,
+        30,
+        33,
+        34,
+        35,
+        36,
+        38,
+        39,
+        41,
+        42,
+        43,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        62,
+        63
+      ]
+    },
+    "Jupiter": {
+      "count": 43,
+      "charts": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        13,
+        14,
+        15,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        41,
+        42,
+        43,
+        44,
+        46,
+        47,
+        51,
+        54,
+        58,
+        60,
+        61
+      ]
+    },
+    "Sun": {
+      "count": 42,
+      "charts": [
+        2,
+        6,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        18,
+        20,
+        21,
+        22,
+        23,
+        24,
+        27,
+        29,
+        30,
+        31,
+        32,
+        33,
+        35,
+        36,
+        38,
+        40,
+        41,
+        44,
+        47,
+        48,
+        49,
+        50,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        59,
+        61,
+        62,
+        63
+      ]
+    },
+    "Mars": {
+      "count": 40,
+      "charts": [
+        1,
+        4,
+        5,
+        8,
+        9,
+        11,
+        12,
+        14,
+        15,
+        17,
+        18,
+        21,
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        35,
+        37,
+        39,
+        40,
+        41,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        51,
+        54,
+        55,
+        56,
+        57,
+        59,
+        60,
+        62
+      ]
+    }
+  },
+  "sun_moon_yogas": {
+    "sun_yogas": {
+      "vesi": 49,
+      "vasi": 37,
+      "budha_aditya": 32,
+      "obhayachari": 26
+    },
+    "moon_yogas": {
+      "vasumati": 59,
+      "adhi": 41,
+      "amala": 32,
+      "gajakesari": 27,
+      "sunapha": 26,
+      "anapha": 21,
+      "kemadruma": 17,
+      "sakata": 15,
+      "chandra_mangala": 13,
+      "durdhura": 10,
+      "rajalakshana": 2
+    },
+    "yoga_charts": {
+      "Moon_amala": [
+        1,
+        3,
+        4,
+        6,
+        10,
+        11,
+        12,
+        16,
+        18,
+        21,
+        23,
+        24,
+        25,
+        28,
+        29,
+        30,
+        32,
+        34,
+        35,
+        37,
+        39,
+        40,
+        41,
+        48,
+        49,
+        50,
+        52,
+        58,
+        60,
+        61,
+        63,
+        65
+      ],
+      "Moon_gajakesari": [
+        1,
+        2,
+        7,
+        8,
+        11,
+        14,
+        20,
+        22,
+        23,
+        24,
+        26,
+        27,
+        29,
+        30,
+        37,
+        38,
+        39,
+        49,
+        50,
+        51,
+        52,
+        55,
+        57,
+        60,
+        61,
+        64,
+        65
+      ],
+      "Moon_adhi": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        14,
+        15,
+        16,
+        17,
+        19,
+        20,
+        22,
+        23,
+        24,
+        27,
+        29,
+        31,
+        33,
+        35,
+        37,
+        38,
+        40,
+        41,
+        42,
+        43,
+        46,
+        49,
+        50,
+        53,
+        54,
+        55,
+        57,
+        58,
+        59,
+        61
+      ],
+      "Moon_vasumati": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        34,
+        35,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65
+      ],
+      "Moon_anapha": [
+        1,
+        10,
+        18,
+        19,
+        20,
+        25,
+        26,
+        28,
+        32,
+        33,
+        38,
+        40,
+        45,
+        48,
+        49,
+        53,
+        55,
+        56,
+        62,
+        64,
+        65
+      ],
+      "Sun_vasi": [
+        1,
+        2,
+        4,
+        6,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17,
+        19,
+        20,
+        21,
+        26,
+        28,
+        29,
+        30,
+        32,
+        33,
+        34,
+        37,
+        38,
+        42,
+        43,
+        47,
+        48,
+        51,
+        53,
+        55,
+        56,
+        59,
+        60,
+        61,
+        62,
+        64,
+        65
+      ],
+      "Moon_kemadruma": [
+        2,
+        4,
+        5,
+        7,
+        8,
+        13,
+        14,
+        16,
+        30,
+        41,
+        43,
+        50,
+        51,
+        54,
+        57,
+        58,
+        59
+      ],
+      "Sun_obhayachari": [
+        2,
+        4,
+        10,
+        11,
+        12,
+        14,
+        17,
+        19,
+        20,
+        21,
+        26,
+        29,
+        30,
+        33,
+        37,
+        38,
+        42,
+        47,
+        48,
+        51,
+        55,
+        56,
+        59,
+        61,
+        64,
+        65
+      ],
+      "Sun_budha_aditya": [
+        2,
+        8,
+        9,
+        12,
+        13,
+        16,
+        17,
+        20,
+        22,
+        23,
+        28,
+        31,
+        33,
+        34,
+        35,
+        36,
+        37,
+        40,
+        45,
+        46,
+        49,
+        50,
+        52,
+        53,
+        54,
+        55,
+        57,
+        59,
+        62,
+        63,
+        64,
+        65
+      ],
+      "Sun_vesi": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        14,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30,
+        31,
+        33,
+        35,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        44,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        54,
+        55,
+        56,
+        58,
+        59,
+        61,
+        64,
+        65
+      ],
+      "Moon_sunapha": [
+        3,
+        6,
+        17,
+        21,
+        23,
+        24,
+        25,
+        28,
+        33,
+        34,
+        35,
+        36,
+        37,
+        40,
+        42,
+        44,
+        45,
+        47,
+        48,
+        56,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65
+      ],
+      "Moon_sakata": [
+        3,
+        5,
+        12,
+        17,
+        19,
+        33,
+        40,
+        42,
+        44,
+        45,
+        46,
+        54,
+        58,
+        59,
+        63
+      ],
+      "Moon_chandra_mangala": [
+        5,
+        9,
+        11,
+        13,
+        14,
+        16,
+        17,
+        28,
+        31,
+        32,
+        46,
+        64,
+        65
+      ],
+      "Moon_rajalakshana": [
+        14,
+        65
+      ],
+      "Moon_durdhura": [
+        25,
+        28,
+        33,
+        40,
+        45,
+        48,
+        56,
+        62,
+        64,
+        65
+      ]
+    }
+  },
+  "planet_rashi_heatmap": {
+    "Mars": {
+      "Pisces": 2,
+      "Scorpio": 7,
+      "Capricorn": 5,
+      "Aries": 9,
+      "Sagittarius": 3,
+      "Taurus": 3,
+      "Cancer": 5,
+      "Libra": 7,
+      "Aquarius": 6,
+      "Leo": 6,
+      "Virgo": 8,
+      "Gemini": 4
+    },
+    "Moon": {
+      "Pisces": 4,
+      "Scorpio": 3,
+      "Capricorn": 4,
+      "Aries": 10,
+      "Sagittarius": 6,
+      "Taurus": 8,
+      "Cancer": 4,
+      "Libra": 3,
+      "Aquarius": 6,
+      "Leo": 6,
+      "Virgo": 9,
+      "Gemini": 2
+    },
+    "Mercury": {
+      "Pisces": 3,
+      "Scorpio": 8,
+      "Capricorn": 5,
+      "Aries": 5,
+      "Sagittarius": 5,
+      "Taurus": 6,
+      "Cancer": 4,
+      "Libra": 5,
+      "Aquarius": 7,
+      "Leo": 8,
+      "Virgo": 6,
+      "Gemini": 3
+    },
+    "Venus": {
+      "Pisces": 9,
+      "Scorpio": 6,
+      "Capricorn": 4,
+      "Aries": 8,
+      "Sagittarius": 7,
+      "Taurus": 2,
+      "Cancer": 6,
+      "Libra": 5,
+      "Aquarius": 4,
+      "Leo": 6,
+      "Virgo": 2,
+      "Gemini": 6
+    },
+    "Saturn": {
+      "Pisces": 19,
+      "Scorpio": 5,
+      "Capricorn": 4,
+      "Aries": 10,
+      "Sagittarius": 3,
+      "Taurus": 8,
+      "Cancer": 1,
+      "Libra": 1,
+      "Aquarius": 11,
+      "Leo": 1,
+      "Virgo": 0,
+      "Gemini": 2
+    },
+    "Rahu": {
+      "Pisces": 3,
+      "Scorpio": 2,
+      "Capricorn": 3,
+      "Aries": 5,
+      "Sagittarius": 3,
+      "Taurus": 4,
+      "Cancer": 6,
+      "Libra": 7,
+      "Aquarius": 2,
+      "Leo": 10,
+      "Virgo": 12,
+      "Gemini": 8
+    },
+    "Jupiter": {
+      "Pisces": 4,
+      "Scorpio": 4,
+      "Capricorn": 11,
+      "Aries": 5,
+      "Sagittarius": 10,
+      "Taurus": 4,
+      "Cancer": 3,
+      "Libra": 7,
+      "Aquarius": 5,
+      "Leo": 3,
+      "Virgo": 1,
+      "Gemini": 8
+    },
+    "Sun": {
+      "Pisces": 3,
+      "Scorpio": 5,
+      "Capricorn": 6,
+      "Aries": 7,
+      "Sagittarius": 5,
+      "Taurus": 4,
+      "Cancer": 7,
+      "Libra": 7,
+      "Aquarius": 6,
+      "Leo": 7,
+      "Virgo": 4,
+      "Gemini": 4
+    },
+    "Ketu": {
+      "Pisces": 12,
+      "Scorpio": 4,
+      "Capricorn": 6,
+      "Aries": 8,
+      "Sagittarius": 8,
+      "Taurus": 2,
+      "Cancer": 3,
+      "Libra": 4,
+      "Aquarius": 11,
+      "Leo": 1,
+      "Virgo": 3,
+      "Gemini": 3
+    }
+  },
+  "avastha_matrix": {
+    "Mars": {
+      "Kshudita": 24,
+      "Mudita": 29,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 5
+    },
+    "Moon": {
+      "Kshudita": 48,
+      "Mudita": 35,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 8
+    },
+    "Mercury": {
+      "Kshudita": 32,
+      "Mudita": 41,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 0
+    },
+    "Venus": {
+      "Kshudita": 40,
+      "Mudita": 37,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 1
+    },
+    "Saturn": {
+      "Kshudita": 39,
+      "Mudita": 27,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 6
+    },
+    "Rahu": {
+      "Kshudita": 0,
+      "Mudita": 3,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 1
+    },
+    "Jupiter": {
+      "Kshudita": 18,
+      "Mudita": 34,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 1
+    },
+    "Sun": {
+      "Kshudita": 22,
+      "Mudita": 27,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 7
+    },
+    "Ketu": {
+      "Kshudita": 0,
+      "Mudita": 1,
+      "Trashita": 0,
+      "Kshobhita": 0,
+      "Lajjita": 0,
+      "Garvita": 1
+    }
+  },
+  "yogas": {},
+  "planet_strengths": {
+    "strong": {
+      "Sun": 55,
+      "Moon": 43,
+      "Mars": 44,
+      "Venus": 47,
+      "Saturn": 39,
+      "Rahu": 59,
+      "Ketu": 48,
+      "Mercury": 32,
+      "Jupiter": 31
+    },
+    "moderate": {
+      "Mercury": 33,
+      "Jupiter": 33,
+      "Sun": 9,
+      "Moon": 22,
+      "Venus": 18,
+      "Saturn": 26,
+      "Mars": 21,
+      "Ketu": 17,
+      "Rahu": 6
+    },
+    "weak": {
+      "Sun": 1,
+      "Jupiter": 1
+    }
+  }
+}

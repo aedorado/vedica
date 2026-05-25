@@ -1,0 +1,78 @@
+{
+  "name": "John Doe",
+  "lagna_sign_idx": 1,
+  "planets": {
+    "Sun": {
+      "position": {
+        "sign_idx": 9
+      },
+      "retrograde": false
+    },
+    "Moon": {
+      "position": {
+        "sign_idx": 4
+      },
+      "retrograde": false
+    },
+    "Mars": {
+      "position": {
+        "sign_idx": 7
+      },
+      "retrograde": false
+    },
+    "Mercury": {
+      "position": {
+        "sign_idx": 8
+      },
+      "retrograde": true
+    },
+    "Jupiter": {
+      "position": {
+        "sign_idx": 2
+      },
+      "retrograde": true
+    },
+    "Venus": {
+      "position": {
+        "sign_idx": 9
+      },
+      "retrograde": true
+    },
+    "Saturn": {
+      "position": {
+        "sign_idx": 8
+      },
+      "retrograde": false
+    },
+    "Rahu": {
+      "position": {
+        "sign_idx": 9
+      },
+      "retrograde": true
+    },
+    "Ketu": {
+      "position": {
+        "sign_idx": 3
+      },
+      "retrograde": false
+    },
+    "Uranus": {
+      "position": {
+        "sign_idx": 8
+      },
+      "retrograde": false
+    },
+    "Neptune": {
+      "position": {
+        "sign_idx": 8
+      },
+      "retrograde": false
+    },
+    "Pluto": {
+      "position": {
+        "sign_idx": 6
+      },
+      "retrograde": false
+    }
+  }
+}

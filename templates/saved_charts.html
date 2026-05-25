@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% block title %}Saved Charts · Vedica{% endblock %}
+
+{% block head %}
+<style>
+  .charts-list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .chart-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .chart-card-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--text1);
+  }
+  
+  .chart-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text3);
+  }
+  
+  .chart-card-meta-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .chart-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    justify-content: flex-end;
+  }
+  
+  .chart-card-actions button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-open {
+    background: var(--accent);
+    color: white;
+    flex: 1;
+  }
+  
+  .btn-open:hover {
+    background: var(--accent-dark);
+  }
+  
+  .btn-delete {
+    background: var(--surface-alt);
+    color: var(--text2);
+    border: 1px solid var(--border);
+  }
+  
+  .btn-delete:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+  }
+  
+  .search-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--text1);
+    width: 100%;
+    margin-bottom: 2rem;
+    font-family: inherit;
+  }
+  
+  .search-box:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text3);
+  }
+  
+  .empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="margin-bottom:2rem;">
+  <h1 style="font-size:1.75rem; font-weight:800;">Saved Charts</h1>
+  <p class="text-muted text-sm mt-1">Click any chart to view, or delete to remove.</p>
+</div>
+
+<input 
+  type="text" 
+  class="search-box" 
+  id="search-input" 
+  placeholder="Search by name or place..."
+/>
+
+<div id="charts-container" class="charts-list">
+  <div class="empty-state">
+    <div class="empty-state-icon">📭</div>
+    <p>No saved charts yet.</p>
+    <a href="/" class="btn btn-primary mt-2">Create Chart</a>
+  </div>
+</div>
+
+<script>
+let allCharts = [];
+
+async function loadCharts(query = '') {
+  try {
+    const url = query 
+      ? `/api/charts/search?q=${encodeURIComponent(query)}`
+      : '/api/charts';
+    const response = await fetch(url);
+    const charts = await response.json();
+    allCharts = charts;
+    renderCharts(charts);
+  } catch (err) {
+    console.error('Error loading charts:', err);
+  }
+}
+
+function formatDate(dateStr) {
+  try {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  } catch (e) {
+    return 'N/A';
+  }
+}
+
+function renderCharts(charts) {
+  const container = document.getElementById('charts-container');
+  
+  if (!charts || charts.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state" style="grid-column: 1 / -1;">
+        <div class="empty-state-icon">📭</div>
+        <p>No saved charts found.</p>
+        <a href="/" class="btn btn-primary mt-2">Create Chart</a>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = charts.map(chart => {
+    const meta = chart.meta || chart;
+    return `
+    <div class="chart-card">
+      <div class="chart-card-name">${escapeHtml(meta.name || 'Chart')}</div>
+      <div class="chart-card-meta">
+        <div class="chart-card-meta-row">
+          <span>📅 DOB:</span>
+          <span>${meta.date || meta.dob || 'N/A'}</span>
+        </div>
+        <div class="chart-card-meta-row">
+          <span>🕐 Time:</span>
+          <span>${meta.time || meta.tob || 'N/A'}</span>
+        </div>
+        <div class="chart-card-meta-row">
+          <span>📍 Place:</span>
+          <span>${escapeHtml(meta.place || 'N/A')}</span>
+        </div>
+      </div>
+      <div class="chart-card-actions">
+        <button class="btn-open" onclick="viewChart('${chart.id}', event)">
+          View Chart
+        </button>
+        <button class="btn-delete" onclick="deleteChart('${chart.id}', event)">
+          Delete
+        </button>
+      </div>
+    </div>
+  `}).join('');
+}
+
+function viewChart(chartId, event) {
+  event.stopPropagation();
+  window.location.href = `/chart/${chartId}`;
+}
+
+async function deleteChart(chartId, event) {
+  event.stopPropagation();
+  
+  if (!confirm('Are you sure you want to delete this chart?')) {
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/api/chart/${chartId}`, {
+      method: 'DELETE'
+    });
+    
+    if (response.ok) {
+      loadCharts(document.getElementById('search-input').value);
+    } else {
+      alert('Failed to delete chart');
+    }
+  } catch (err) {
+    console.error('Error deleting chart:', err);
+    alert('Error deleting chart');
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+document.getElementById('search-input').addEventListener('input', (e) => {
+  loadCharts(e.target.value);
+});
+
+// Load charts on page load
+loadCharts();
+</script>
+{% endblock %}

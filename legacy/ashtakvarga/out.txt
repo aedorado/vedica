@@ -1,0 +1,1957 @@
+Input Bhinnashtakvarga Points for SAV
+   Aries (1) = 24
+   Taurus (2) = 29
+   Gemini (3) = 27
+   Cancer (4) = 26
+   Leo (5) = 27
+   Virgo (6) = 26
+   Libra (7) = 29
+   Scorpio (8) = 39
+   Sagittarius (9) = 28
+   Capricorn (10) = 32
+   Aquarius (11) = 27
+   Pisces (12) = 23
+
+
+=== Special SAV Processing: Divide by 12 (remainder never 0) ===
+   Aries (1): 24 → 24 mod 12 = 12
+   Taurus (2): 29 → 29 mod 12 = 5
+   Gemini (3): 27 → 27 mod 12 = 3
+   Cancer (4): 26 → 26 mod 12 = 2
+   Leo (5): 27 → 27 mod 12 = 3
+   Virgo (6): 26 → 26 mod 12 = 2
+   Libra (7): 29 → 29 mod 12 = 5
+   Scorpio (8): 39 → 39 mod 12 = 3
+   Sagittarius (9): 28 → 28 mod 12 = 4
+   Capricorn (10): 32 → 32 mod 12 = 8
+   Aquarius (11): 27 → 27 mod 12 = 3
+   Pisces (12): 23 → 23 mod 12 = 11
+After SAV Division by 12 for SAV
+   Aries (1) = 12
+   Taurus (2) = 5
+   Gemini (3) = 3
+   Cancer (4) = 2
+   Leo (5) = 3
+   Virgo (6) = 2
+   Libra (7) = 5
+   Scorpio (8) = 3
+   Sagittarius (9) = 4
+   Capricorn (10) = 8
+   Aquarius (11) = 3
+   Pisces (12) = 11
+
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 12
+   Leo (5) = 3
+   Sagittarius (9) = 4
+   Rule 1: Unequal → subtract lowest (3) from each
+      Aries (1) = 9
+      Leo (5) = 0
+      Sagittarius (9) = 1
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 5
+   Virgo (6) = 2
+   Capricorn (10) = 8
+   Rule 1: Unequal → subtract lowest (2) from each
+      Taurus (2) = 3
+      Virgo (6) = 0
+      Capricorn (10) = 6
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 3
+   Libra (7) = 5
+   Aquarius (11) = 3
+   Rule 1: Unequal → subtract lowest (3) from each
+      Gemini (3) = 0
+      Libra (7) = 2
+      Aquarius (11) = 0
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 2
+   Scorpio (8) = 3
+   Pisces (12) = 11
+   Rule 1: Unequal → subtract lowest (2) from each
+      Cancer (4) = 0
+      Scorpio (8) = 1
+      Pisces (12) = 9
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for SAV
+   Aries (1) = 9
+   Taurus (2) = 3
+   Gemini (3) = 0
+   Cancer (4) = 0
+   Leo (5) = 0
+   Virgo (6) = 0
+   Libra (7) = 2
+   Scorpio (8) = 1
+   Sagittarius (9) = 1
+   Capricorn (10) = 6
+   Aquarius (11) = 0
+   Pisces (12) = 9
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 9, 1
+   Occupancy: Aries = None, Scorpio = ['SU']
+   Scorpio occupied, Aries not → apply rule 4.
+   Unoccupied (Aries) > occupied (9>1) → set to 1
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 0, 0
+   Occupancy: Gemini = None, Virgo = ['MA']
+   One sign has 0 points → no reduction.
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 1, 9
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   Sagittarius occupied, Pisces not → apply rule 4.
+   Unoccupied (Pisces) > occupied (9>1) → set to 1
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 3, 2
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   Libra occupied, Taurus not → apply rule 4.
+   Unoccupied (Taurus) > occupied (3>2) → set to 2
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 6, 0
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for SAV
+   Aries (1) = 1
+   Taurus (2) = 2
+   Gemini (3) = 0
+   Cancer (4) = 0
+   Leo (5) = 0
+   Virgo (6) = 0
+   Libra (7) = 2
+   Scorpio (8) = 1
+   Sagittarius (9) = 1
+   Capricorn (10) = 6
+   Aquarius (11) = 0
+   Pisces (12) = 1
+
+=== Final Results ===
+Aries (1) = 1
+Taurus (2) = 2
+Gemini (3) = 0
+Cancer (4) = 0
+Leo (5) = 0
+Virgo (6) = 0
+Libra (7) = 2
+Scorpio (8) = 1
+Sagittarius (9) = 1
+Capricorn (10) = 6
+Aquarius (11) = 0
+Pisces (12) = 1
+
+=== Rasi Pinda for SAV (bindus × Rasi Gunakara) ===
+ 1. Aries        1   X 7   = 7  
+ 2. Taurus       2   X 10  = 20 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       0   X 4   = 0  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        0   X 5   = 0  
+ 7. Libra        2   X 7   = 14 
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  1   X 9   = 9  
+10. Capricorn    6   X 5   = 30 
+11. Aquarius     0   X 11  = 0  
+12. Pisces       1   X 12  = 12 
+Total Rasi Pinda = 100
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 0  × 5  = 0    | Total = 0
+MA : Virgo       ( 6): 0  × 8  = 0    | Total = 0
+ME : Libra       ( 7): 2  × 5  = 10   | Total = 10
+JU : Sagittarius ( 9): 1  × 10 = 10   | Total = 10
+VE : Libra       ( 7): 2  × 7  = 14   | Total = 14
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 100
+Graha Pinda = 39
+Shodhya Pinda (Total) for SA = 139
+
+
+=== Nakshatra Ayu Calculation (SAV) ===
+
+=== Rasi Pinda for SAV (bindus × Rasi Gunakara) ===
+ 1. Aries        1   X 7   = 7  
+ 2. Taurus       2   X 10  = 20 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       0   X 4   = 0  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        0   X 5   = 0  
+ 7. Libra        2   X 7   = 14 
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  1   X 9   = 9  
+10. Capricorn    6   X 5   = 30 
+11. Aquarius     0   X 11  = 0  
+12. Pisces       1   X 12  = 12 
+Total Rasi Pinda = 100
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 0  × 5  = 0    | Total = 0
+MA : Virgo       ( 6): 0  × 8  = 0    | Total = 0
+ME : Libra       ( 7): 2  × 5  = 10   | Total = 10
+JU : Sagittarius ( 9): 1  × 10 = 10   | Total = 10
+VE : Libra       ( 7): 2  × 7  = 14   | Total = 14
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 100
+Graha Pinda = 39
+Shodhya Pinda (Total) for SA = 139
+
+Shodhya Pinda (SAV) = 139
+Step 1: 139 × 7 ÷ 27 = 36.04 (Quotient = 36)
+Step 2: 36 × 324 ÷ 365 = 31.96
+
+✨ Nakshatra Ayu = 31 years (approx.)
+
+
+
+
+======================================================================================================================================================
+
+
+
+Input Bhinnashtakvarga Points for SU
+   Aries (1) = 6
+   Taurus (2) = 6
+   Gemini (3) = 5
+   Cancer (4) = 3
+   Leo (5) = 4
+   Virgo (6) = 7
+   Libra (7) = 3
+   Scorpio (8) = 2
+   Sagittarius (9) = 5
+   Capricorn (10) = 0
+   Aquarius (11) = 3
+   Pisces (12) = 4
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 6
+   Leo (5) = 4
+   Sagittarius (9) = 5
+   Rule 1: Unequal → subtract lowest (4) from each
+      Aries (1) = 2
+      Leo (5) = 0
+      Sagittarius (9) = 1
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 6
+   Virgo (6) = 7
+   Capricorn (10) = 0
+   Rule 2: One zero → no reduction
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 5
+   Libra (7) = 3
+   Aquarius (11) = 3
+   Rule 1: Unequal → subtract lowest (3) from each
+      Gemini (3) = 2
+      Libra (7) = 0
+      Aquarius (11) = 0
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 3
+   Scorpio (8) = 2
+   Pisces (12) = 4
+   Rule 1: Unequal → subtract lowest (2) from each
+      Cancer (4) = 1
+      Scorpio (8) = 0
+      Pisces (12) = 2
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for SU
+   Aries (1) = 2
+   Taurus (2) = 6
+   Gemini (3) = 2
+   Cancer (4) = 1
+   Leo (5) = 0
+   Virgo (6) = 7
+   Libra (7) = 0
+   Scorpio (8) = 0
+   Sagittarius (9) = 1
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 2
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 2, 0
+   Occupancy: Aries = None, Scorpio = ['SU']
+   One sign has 0 points → no reduction.
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 2, 7
+   Occupancy: Gemini = None, Virgo = ['MA']
+   Virgo occupied, Gemini not → apply rule 4.
+   Unoccupied (Gemini) ≤ occupied → set to 0
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 1, 2
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   Sagittarius occupied, Pisces not → apply rule 4.
+   Unoccupied (Pisces) > occupied (2>1) → set to 1
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 6, 0
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   One sign has 0 points → no reduction.
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 0, 0
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for SU
+   Aries (1) = 2
+   Taurus (2) = 6
+   Gemini (3) = 0
+   Cancer (4) = 1
+   Leo (5) = 0
+   Virgo (6) = 7
+   Libra (7) = 0
+   Scorpio (8) = 0
+   Sagittarius (9) = 1
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 1
+
+=== Final Results ===
+Aries (1) = 2
+Taurus (2) = 6
+Gemini (3) = 0
+Cancer (4) = 1
+Leo (5) = 0
+Virgo (6) = 7
+Libra (7) = 0
+Scorpio (8) = 0
+Sagittarius (9) = 1
+Capricorn (10) = 0
+Aquarius (11) = 0
+Pisces (12) = 1
+
+=== Rasi Pinda for SU (bindus × Rasi Gunakara) ===
+ 1. Aries        2   X 7   = 14 
+ 2. Taurus       6   X 10  = 60 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       1   X 4   = 4  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        7   X 5   = 35 
+ 7. Libra        0   X 7   = 0  
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  1   X 9   = 9  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       1   X 12  = 12 
+Total Rasi Pinda = 134
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 1  × 5  = 5    | Total = 5
+MA : Virgo       ( 6): 7  × 8  = 56   | Total = 56
+ME : Libra       ( 7): 0  × 5  = 0    | Total = 0
+JU : Sagittarius ( 9): 1  × 10 = 10   | Total = 10
+VE : Libra       ( 7): 0  × 7  = 0    | Total = 0
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 134
+Graha Pinda = 71
+Shodhya Pinda (Total) for SA = 205
+
+
+=== Longevity Contribution from SU ===
+
+=== Rasi Pinda for SU (bindus × Rasi Gunakara) ===
+ 1. Aries        2   X 7   = 14 
+ 2. Taurus       6   X 10  = 60 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       1   X 4   = 4  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        7   X 5   = 35 
+ 7. Libra        0   X 7   = 0  
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  1   X 9   = 9  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       1   X 12  = 12 
+Total Rasi Pinda = 134
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 1  × 5  = 5    | Total = 5
+MA : Virgo       ( 6): 7  × 8  = 56   | Total = 56
+ME : Libra       ( 7): 0  × 5  = 0    | Total = 0
+JU : Sagittarius ( 9): 1  × 10 = 10   | Total = 10
+VE : Libra       ( 7): 0  × 7  = 0    | Total = 0
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 134
+Graha Pinda = 71
+Shodhya Pinda (Total) for SA = 205
+
+Shodhya Pinda = 205
+205 × 7 = 1435
+1435 ÷ 27 = 53.15
+Quotient 53.15 > 27, so balance = 53.15 mod 27 = 26.15
+✨ Gross years of longevity from SU = 26.15 years
+
+=== Longevity Reduction Summary ===
+
+=== Longevity Reductions ===
+
+📍 Analyzing SU in Scorpio (House 8)
+   Co-occupants: None
+   Gross years before reduction: 26.15
+
+🔍 Checking First Reduction (Half if multiple planets or debilitated):
+   ✗ Single planet in sign: No reduction
+   ✗ Not debilitated (debilitation sign: Libra): No reduction
+
+🔍 Checking Second Reduction (Third if in enemy sign):
+   ✗ Not in enemy sign (enemy signs: Taurus, Libra, Capricorn, Aquarius): No reduction
+
+🔍 Checking Third Reduction (Visible half - houses 7-12):
+   Planet house (from ascendant Cancer): 5
+   ✗ Not in visible half (houses 7-12): No reduction
+
+📊 Summary of Applicable Reductions:
+   No reductions applicable
+
+✨ Net longevity from SU = 26.15 years (unchanged)
+
+
+
+
+======================================================================================================================================================
+
+
+
+Input Bhinnashtakvarga Points for MO
+   Aries (1) = 5
+   Taurus (2) = 5
+   Gemini (3) = 5
+   Cancer (4) = 5
+   Leo (5) = 3
+   Virgo (6) = 4
+   Libra (7) = 4
+   Scorpio (8) = 2
+   Sagittarius (9) = 6
+   Capricorn (10) = 6
+   Aquarius (11) = 3
+   Pisces (12) = 1
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 5
+   Leo (5) = 3
+   Sagittarius (9) = 6
+   Rule 1: Unequal → subtract lowest (3) from each
+      Aries (1) = 2
+      Leo (5) = 0
+      Sagittarius (9) = 3
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 5
+   Virgo (6) = 4
+   Capricorn (10) = 6
+   Rule 1: Unequal → subtract lowest (4) from each
+      Taurus (2) = 1
+      Virgo (6) = 0
+      Capricorn (10) = 2
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 5
+   Libra (7) = 4
+   Aquarius (11) = 3
+   Rule 1: Unequal → subtract lowest (3) from each
+      Gemini (3) = 2
+      Libra (7) = 1
+      Aquarius (11) = 0
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 5
+   Scorpio (8) = 2
+   Pisces (12) = 1
+   Rule 1: Unequal → subtract lowest (1) from each
+      Cancer (4) = 4
+      Scorpio (8) = 1
+      Pisces (12) = 0
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for MO
+   Aries (1) = 2
+   Taurus (2) = 1
+   Gemini (3) = 2
+   Cancer (4) = 4
+   Leo (5) = 0
+   Virgo (6) = 0
+   Libra (7) = 1
+   Scorpio (8) = 1
+   Sagittarius (9) = 3
+   Capricorn (10) = 2
+   Aquarius (11) = 0
+   Pisces (12) = 0
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 2, 1
+   Occupancy: Aries = None, Scorpio = ['SU']
+   Scorpio occupied, Aries not → apply rule 4.
+   Unoccupied (Aries) > occupied (2>1) → set to 1
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 2, 0
+   Occupancy: Gemini = None, Virgo = ['MA']
+   One sign has 0 points → no reduction.
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 3, 0
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   One sign has 0 points → no reduction.
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 1, 1
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   Libra occupied, Taurus not → apply rule 4.
+   Unoccupied (Taurus) ≤ occupied → set to 0
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 2, 0
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for MO
+   Aries (1) = 1
+   Taurus (2) = 0
+   Gemini (3) = 2
+   Cancer (4) = 4
+   Leo (5) = 0
+   Virgo (6) = 0
+   Libra (7) = 1
+   Scorpio (8) = 1
+   Sagittarius (9) = 3
+   Capricorn (10) = 2
+   Aquarius (11) = 0
+   Pisces (12) = 0
+
+=== Final Results ===
+Aries (1) = 1
+Taurus (2) = 0
+Gemini (3) = 2
+Cancer (4) = 4
+Leo (5) = 0
+Virgo (6) = 0
+Libra (7) = 1
+Scorpio (8) = 1
+Sagittarius (9) = 3
+Capricorn (10) = 2
+Aquarius (11) = 0
+Pisces (12) = 0
+
+=== Rasi Pinda for MO (bindus × Rasi Gunakara) ===
+ 1. Aries        1   X 7   = 7  
+ 2. Taurus       0   X 10  = 0  
+ 3. Gemini       2   X 8   = 16 
+ 4. Cancer       4   X 4   = 16 
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        0   X 5   = 0  
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  3   X 9   = 27 
+10. Capricorn    2   X 5   = 10 
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 91
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 4  × 5  = 20   | Total = 20
+MA : Virgo       ( 6): 0  × 8  = 0    | Total = 0
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 3  × 10 = 30   | Total = 30
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 91
+Graha Pinda = 67
+Shodhya Pinda (Total) for SA = 158
+
+
+=== Longevity Contribution from MO ===
+
+=== Rasi Pinda for MO (bindus × Rasi Gunakara) ===
+ 1. Aries        1   X 7   = 7  
+ 2. Taurus       0   X 10  = 0  
+ 3. Gemini       2   X 8   = 16 
+ 4. Cancer       4   X 4   = 16 
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        0   X 5   = 0  
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  3   X 9   = 27 
+10. Capricorn    2   X 5   = 10 
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 91
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 4  × 5  = 20   | Total = 20
+MA : Virgo       ( 6): 0  × 8  = 0    | Total = 0
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 3  × 10 = 30   | Total = 30
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 91
+Graha Pinda = 67
+Shodhya Pinda (Total) for SA = 158
+
+Shodhya Pinda = 158
+158 × 7 = 1106
+1106 ÷ 27 = 40.96
+Quotient 40.96 > 27, so balance = 40.96 mod 27 = 13.96
+✨ Gross years of longevity from MO = 13.96 years
+
+=== Longevity Reduction Summary ===
+
+=== Longevity Reductions ===
+
+📍 Analyzing MO in Cancer (House 4)
+   Co-occupants: None
+   Gross years before reduction: 13.96
+
+🔍 Checking First Reduction (Half if multiple planets or debilitated):
+   ✗ Single planet in sign: No reduction
+   ✗ Not debilitated (debilitation sign: Scorpio): No reduction
+
+🔍 Checking Second Reduction (Third if in enemy sign):
+   ✗ Not in enemy sign (enemy signs: None): No reduction
+
+🔍 Checking Third Reduction (Visible half - houses 7-12):
+   Planet house (from ascendant Cancer): 1
+   ✗ Not in visible half (houses 7-12): No reduction
+
+📊 Summary of Applicable Reductions:
+   No reductions applicable
+
+✨ Net longevity from MO = 13.96 years (unchanged)
+
+
+
+
+======================================================================================================================================================
+
+
+
+Input Bhinnashtakvarga Points for MA
+   Aries (1) = 4
+   Taurus (2) = 5
+   Gemini (3) = 2
+   Cancer (4) = 2
+   Leo (5) = 4
+   Virgo (6) = 6
+   Libra (7) = 2
+   Scorpio (8) = 2
+   Sagittarius (9) = 4
+   Capricorn (10) = 1
+   Aquarius (11) = 2
+   Pisces (12) = 5
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 4
+   Leo (5) = 4
+   Sagittarius (9) = 4
+   Rule 4: All equal → make all zero
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 5
+   Virgo (6) = 6
+   Capricorn (10) = 1
+   Rule 1: Unequal → subtract lowest (1) from each
+      Taurus (2) = 4
+      Virgo (6) = 5
+      Capricorn (10) = 0
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 2
+   Libra (7) = 2
+   Aquarius (11) = 2
+   Rule 4: All equal → make all zero
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 2
+   Scorpio (8) = 2
+   Pisces (12) = 5
+   Rule 1: Unequal → subtract lowest (2) from each
+      Cancer (4) = 0
+      Scorpio (8) = 0
+      Pisces (12) = 3
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for MA
+   Aries (1) = 0
+   Taurus (2) = 4
+   Gemini (3) = 0
+   Cancer (4) = 0
+   Leo (5) = 0
+   Virgo (6) = 5
+   Libra (7) = 0
+   Scorpio (8) = 0
+   Sagittarius (9) = 0
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 3
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 0, 0
+   Occupancy: Aries = None, Scorpio = ['SU']
+   One sign has 0 points → no reduction.
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 0, 5
+   Occupancy: Gemini = None, Virgo = ['MA']
+   One sign has 0 points → no reduction.
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 0, 3
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   One sign has 0 points → no reduction.
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 4, 0
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   One sign has 0 points → no reduction.
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 0, 0
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for MA
+   Aries (1) = 0
+   Taurus (2) = 4
+   Gemini (3) = 0
+   Cancer (4) = 0
+   Leo (5) = 0
+   Virgo (6) = 5
+   Libra (7) = 0
+   Scorpio (8) = 0
+   Sagittarius (9) = 0
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 3
+
+=== Final Results ===
+Aries (1) = 0
+Taurus (2) = 4
+Gemini (3) = 0
+Cancer (4) = 0
+Leo (5) = 0
+Virgo (6) = 5
+Libra (7) = 0
+Scorpio (8) = 0
+Sagittarius (9) = 0
+Capricorn (10) = 0
+Aquarius (11) = 0
+Pisces (12) = 3
+
+=== Rasi Pinda for MA (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       4   X 10  = 40 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       0   X 4   = 0  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        5   X 5   = 25 
+ 7. Libra        0   X 7   = 0  
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  0   X 9   = 0  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       3   X 12  = 36 
+Total Rasi Pinda = 101
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 0  × 5  = 0    | Total = 0
+MA : Virgo       ( 6): 5  × 8  = 40   | Total = 40
+ME : Libra       ( 7): 0  × 5  = 0    | Total = 0
+JU : Sagittarius ( 9): 0  × 10 = 0    | Total = 0
+VE : Libra       ( 7): 0  × 7  = 0    | Total = 0
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 101
+Graha Pinda = 40
+Shodhya Pinda (Total) for SA = 141
+
+
+=== Longevity Contribution from MA ===
+
+=== Rasi Pinda for MA (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       4   X 10  = 40 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       0   X 4   = 0  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        5   X 5   = 25 
+ 7. Libra        0   X 7   = 0  
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  0   X 9   = 0  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       3   X 12  = 36 
+Total Rasi Pinda = 101
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 0  × 5  = 0    | Total = 0
+MA : Virgo       ( 6): 5  × 8  = 40   | Total = 40
+ME : Libra       ( 7): 0  × 5  = 0    | Total = 0
+JU : Sagittarius ( 9): 0  × 10 = 0    | Total = 0
+VE : Libra       ( 7): 0  × 7  = 0    | Total = 0
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 101
+Graha Pinda = 40
+Shodhya Pinda (Total) for SA = 141
+
+Shodhya Pinda = 141
+141 × 7 = 987
+987 ÷ 27 = 36.56
+Quotient 36.56 > 27, so balance = 36.56 mod 27 = 9.560000000000002
+✨ Gross years of longevity from MA = 9.560000000000002 years
+
+=== Longevity Reduction Summary ===
+
+=== Longevity Reductions ===
+
+📍 Analyzing MA in Virgo (House 6)
+   Co-occupants: None
+   Gross years before reduction: 9.560000000000002
+
+🔍 Checking First Reduction (Half if multiple planets or debilitated):
+   ✗ Single planet in sign: No reduction
+   ✗ Not debilitated (debilitation sign: Cancer): No reduction
+
+🔍 Checking Second Reduction (Third if in enemy sign):
+   ✓ MA in enemy sign Virgo: Reduction = 33.33%
+
+🔍 Checking Third Reduction (Visible half - houses 7-12):
+   Planet house (from ascendant Cancer): 3
+   ✗ Not in visible half (houses 7-12): No reduction
+
+📊 Summary of Applicable Reductions:
+   • Enemy sign: -33.33%
+
+🎯 Applying HIGHEST reduction only:
+   Reason: Enemy sign
+   Reduction: -33.33%
+   Multiplier: 66.67%
+
+✨ Calculation: 9.560000000000002 years × 66.67% = 6.37 years
+   Net longevity from MA = 6.37 years
+
+
+
+
+======================================================================================================================================================
+
+
+
+Input Bhinnashtakvarga Points for ME
+   Aries (1) = 5
+   Taurus (2) = 5
+   Gemini (3) = 4
+   Cancer (4) = 5
+   Leo (5) = 5
+   Virgo (6) = 4
+   Libra (7) = 7
+   Scorpio (8) = 3
+   Sagittarius (9) = 5
+   Capricorn (10) = 1
+   Aquarius (11) = 5
+   Pisces (12) = 4
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 5
+   Leo (5) = 5
+   Sagittarius (9) = 5
+   Rule 4: All equal → make all zero
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 5
+   Virgo (6) = 4
+   Capricorn (10) = 1
+   Rule 1: Unequal → subtract lowest (1) from each
+      Taurus (2) = 4
+      Virgo (6) = 3
+      Capricorn (10) = 0
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 4
+   Libra (7) = 7
+   Aquarius (11) = 5
+   Rule 1: Unequal → subtract lowest (4) from each
+      Gemini (3) = 0
+      Libra (7) = 3
+      Aquarius (11) = 1
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 5
+   Scorpio (8) = 3
+   Pisces (12) = 4
+   Rule 1: Unequal → subtract lowest (3) from each
+      Cancer (4) = 2
+      Scorpio (8) = 0
+      Pisces (12) = 1
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for ME
+   Aries (1) = 0
+   Taurus (2) = 4
+   Gemini (3) = 0
+   Cancer (4) = 2
+   Leo (5) = 0
+   Virgo (6) = 3
+   Libra (7) = 3
+   Scorpio (8) = 0
+   Sagittarius (9) = 0
+   Capricorn (10) = 0
+   Aquarius (11) = 1
+   Pisces (12) = 1
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 0, 0
+   Occupancy: Aries = None, Scorpio = ['SU']
+   One sign has 0 points → no reduction.
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 0, 3
+   Occupancy: Gemini = None, Virgo = ['MA']
+   One sign has 0 points → no reduction.
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 0, 1
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   One sign has 0 points → no reduction.
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 4, 3
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   Libra occupied, Taurus not → apply rule 4.
+   Unoccupied (Taurus) > occupied (4>3) → set to 3
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 0, 1
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for ME
+   Aries (1) = 0
+   Taurus (2) = 3
+   Gemini (3) = 0
+   Cancer (4) = 2
+   Leo (5) = 0
+   Virgo (6) = 3
+   Libra (7) = 3
+   Scorpio (8) = 0
+   Sagittarius (9) = 0
+   Capricorn (10) = 0
+   Aquarius (11) = 1
+   Pisces (12) = 1
+
+=== Final Results ===
+Aries (1) = 0
+Taurus (2) = 3
+Gemini (3) = 0
+Cancer (4) = 2
+Leo (5) = 0
+Virgo (6) = 3
+Libra (7) = 3
+Scorpio (8) = 0
+Sagittarius (9) = 0
+Capricorn (10) = 0
+Aquarius (11) = 1
+Pisces (12) = 1
+
+=== Rasi Pinda for ME (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       3   X 10  = 30 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       2   X 4   = 8  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        3   X 5   = 15 
+ 7. Libra        3   X 7   = 21 
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  0   X 9   = 0  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     1   X 11  = 11 
+12. Pisces       1   X 12  = 12 
+Total Rasi Pinda = 97
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 2  × 5  = 10   | Total = 10
+MA : Virgo       ( 6): 3  × 8  = 24   | Total = 24
+ME : Libra       ( 7): 3  × 5  = 15   | Total = 15
+JU : Sagittarius ( 9): 0  × 10 = 0    | Total = 0
+VE : Libra       ( 7): 3  × 7  = 21   | Total = 21
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 97
+Graha Pinda = 70
+Shodhya Pinda (Total) for SA = 167
+
+
+=== Longevity Contribution from ME ===
+
+=== Rasi Pinda for ME (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       3   X 10  = 30 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       2   X 4   = 8  
+ 5. Leo          0   X 10  = 0  
+ 6. Virgo        3   X 5   = 15 
+ 7. Libra        3   X 7   = 21 
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  0   X 9   = 0  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     1   X 11  = 11 
+12. Pisces       1   X 12  = 12 
+Total Rasi Pinda = 97
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 2  × 5  = 10   | Total = 10
+MA : Virgo       ( 6): 3  × 8  = 24   | Total = 24
+ME : Libra       ( 7): 3  × 5  = 15   | Total = 15
+JU : Sagittarius ( 9): 0  × 10 = 0    | Total = 0
+VE : Libra       ( 7): 3  × 7  = 21   | Total = 21
+SA : Leo         ( 5): 0  × 5  = 0    | Total = 0
+
+Rasi Pinda = 97
+Graha Pinda = 70
+Shodhya Pinda (Total) for SA = 167
+
+Shodhya Pinda = 167
+167 × 7 = 1169
+1169 ÷ 27 = 43.3
+Quotient 43.3 > 27, so balance = 43.3 mod 27 = 16.299999999999997
+✨ Gross years of longevity from ME = 16.299999999999997 years
+
+=== Longevity Reduction Summary ===
+
+=== Longevity Reductions ===
+
+📍 Analyzing ME in Libra (House 7)
+   Co-occupants: VE, ME
+   Gross years before reduction: 16.299999999999997
+
+🔍 Checking First Reduction (Half if multiple planets or debilitated):
+   ✓ Multiple planets in Libra: Reduction = 50%
+   ✗ Not debilitated (debilitation sign: Pisces): No reduction
+
+🔍 Checking Second Reduction (Third if in enemy sign):
+   ✗ Not in enemy sign (enemy signs: Cancer): No reduction
+
+🔍 Checking Third Reduction (Visible half - houses 7-12):
+   Planet house (from ascendant Cancer): 4
+   ✗ Not in visible half (houses 7-12): No reduction
+
+📊 Summary of Applicable Reductions:
+   • Multiple planets in sign: -50.00%
+
+🎯 Applying HIGHEST reduction only:
+   Reason: Multiple planets in sign
+   Reduction: -50.00%
+   Multiplier: 50.00%
+
+✨ Calculation: 16.299999999999997 years × 50.00% = 8.15 years
+   Net longevity from ME = 8.15 years
+
+
+
+
+======================================================================================================================================================
+
+
+
+Input Bhinnashtakvarga Points for JU
+   Aries (1) = 2
+   Taurus (2) = 3
+   Gemini (3) = 5
+   Cancer (4) = 7
+   Leo (5) = 5
+   Virgo (6) = 3
+   Libra (7) = 5
+   Scorpio (8) = 5
+   Sagittarius (9) = 5
+   Capricorn (10) = 6
+   Aquarius (11) = 4
+   Pisces (12) = 6
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 2
+   Leo (5) = 5
+   Sagittarius (9) = 5
+   Rule 1: Unequal → subtract lowest (2) from each
+      Aries (1) = 0
+      Leo (5) = 3
+      Sagittarius (9) = 3
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 3
+   Virgo (6) = 3
+   Capricorn (10) = 6
+   Rule 1: Unequal → subtract lowest (3) from each
+      Taurus (2) = 0
+      Virgo (6) = 0
+      Capricorn (10) = 3
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 5
+   Libra (7) = 5
+   Aquarius (11) = 4
+   Rule 1: Unequal → subtract lowest (4) from each
+      Gemini (3) = 1
+      Libra (7) = 1
+      Aquarius (11) = 0
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 7
+   Scorpio (8) = 5
+   Pisces (12) = 6
+   Rule 1: Unequal → subtract lowest (5) from each
+      Cancer (4) = 2
+      Scorpio (8) = 0
+      Pisces (12) = 1
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for JU
+   Aries (1) = 0
+   Taurus (2) = 0
+   Gemini (3) = 1
+   Cancer (4) = 2
+   Leo (5) = 3
+   Virgo (6) = 0
+   Libra (7) = 1
+   Scorpio (8) = 0
+   Sagittarius (9) = 3
+   Capricorn (10) = 3
+   Aquarius (11) = 0
+   Pisces (12) = 1
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 0, 0
+   Occupancy: Aries = None, Scorpio = ['SU']
+   One sign has 0 points → no reduction.
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 1, 0
+   Occupancy: Gemini = None, Virgo = ['MA']
+   One sign has 0 points → no reduction.
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 3, 1
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   Sagittarius occupied, Pisces not → apply rule 4.
+   Unoccupied (Pisces) ≤ occupied → set to 0
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 0, 1
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   One sign has 0 points → no reduction.
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 3, 0
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for JU
+   Aries (1) = 0
+   Taurus (2) = 0
+   Gemini (3) = 1
+   Cancer (4) = 2
+   Leo (5) = 3
+   Virgo (6) = 0
+   Libra (7) = 1
+   Scorpio (8) = 0
+   Sagittarius (9) = 3
+   Capricorn (10) = 3
+   Aquarius (11) = 0
+   Pisces (12) = 0
+
+=== Final Results ===
+Aries (1) = 0
+Taurus (2) = 0
+Gemini (3) = 1
+Cancer (4) = 2
+Leo (5) = 3
+Virgo (6) = 0
+Libra (7) = 1
+Scorpio (8) = 0
+Sagittarius (9) = 3
+Capricorn (10) = 3
+Aquarius (11) = 0
+Pisces (12) = 0
+
+=== Rasi Pinda for JU (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       0   X 10  = 0  
+ 3. Gemini       1   X 8   = 8  
+ 4. Cancer       2   X 4   = 8  
+ 5. Leo          3   X 10  = 30 
+ 6. Virgo        0   X 5   = 0  
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  3   X 9   = 27 
+10. Capricorn    3   X 5   = 15 
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 95
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 2  × 5  = 10   | Total = 10
+MA : Virgo       ( 6): 0  × 8  = 0    | Total = 0
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 3  × 10 = 30   | Total = 30
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 3  × 5  = 15   | Total = 15
+
+Rasi Pinda = 95
+Graha Pinda = 67
+Shodhya Pinda (Total) for SA = 162
+
+
+=== Longevity Contribution from JU ===
+
+=== Rasi Pinda for JU (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       0   X 10  = 0  
+ 3. Gemini       1   X 8   = 8  
+ 4. Cancer       2   X 4   = 8  
+ 5. Leo          3   X 10  = 30 
+ 6. Virgo        0   X 5   = 0  
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      0   X 8   = 0  
+ 9. Sagittarius  3   X 9   = 27 
+10. Capricorn    3   X 5   = 15 
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 95
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 0  × 5  = 0    | Total = 0
+MO : Cancer      ( 4): 2  × 5  = 10   | Total = 10
+MA : Virgo       ( 6): 0  × 8  = 0    | Total = 0
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 3  × 10 = 30   | Total = 30
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 3  × 5  = 15   | Total = 15
+
+Rasi Pinda = 95
+Graha Pinda = 67
+Shodhya Pinda (Total) for SA = 162
+
+Shodhya Pinda = 162
+162 × 7 = 1134
+1134 ÷ 27 = 42.0
+Quotient 42.0 > 27, so balance = 42.0 mod 27 = 15.0
+✨ Gross years of longevity from JU = 15.0 years
+
+=== Longevity Reduction Summary ===
+
+=== Longevity Reductions ===
+
+📍 Analyzing JU in Sagittarius (House 9)
+   Co-occupants: None
+   Gross years before reduction: 15.0
+
+🔍 Checking First Reduction (Half if multiple planets or debilitated):
+   ✗ Single planet in sign: No reduction
+   ✗ Not debilitated (debilitation sign: Capricorn): No reduction
+
+🔍 Checking Second Reduction (Third if in enemy sign):
+   ✗ Not in enemy sign (enemy signs: Taurus, Gemini, Virgo, Libra): No reduction
+
+🔍 Checking Third Reduction (Visible half - houses 7-12):
+   Planet house (from ascendant Cancer): 6
+   ✗ Not in visible half (houses 7-12): No reduction
+
+📊 Summary of Applicable Reductions:
+   No reductions applicable
+
+✨ Net longevity from JU = 15.0 years (unchanged)
+
+
+
+
+======================================================================================================================================================
+
+
+
+Input Bhinnashtakvarga Points for VE
+   Aries (1) = 2
+   Taurus (2) = 5
+   Gemini (3) = 5
+   Cancer (4) = 5
+   Leo (5) = 6
+   Virgo (6) = 4
+   Libra (7) = 6
+   Scorpio (8) = 5
+   Sagittarius (9) = 3
+   Capricorn (10) = 2
+   Aquarius (11) = 5
+   Pisces (12) = 4
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 2
+   Leo (5) = 6
+   Sagittarius (9) = 3
+   Rule 1: Unequal → subtract lowest (2) from each
+      Aries (1) = 0
+      Leo (5) = 4
+      Sagittarius (9) = 1
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 5
+   Virgo (6) = 4
+   Capricorn (10) = 2
+   Rule 1: Unequal → subtract lowest (2) from each
+      Taurus (2) = 3
+      Virgo (6) = 2
+      Capricorn (10) = 0
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 5
+   Libra (7) = 6
+   Aquarius (11) = 5
+   Rule 1: Unequal → subtract lowest (5) from each
+      Gemini (3) = 0
+      Libra (7) = 1
+      Aquarius (11) = 0
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 5
+   Scorpio (8) = 5
+   Pisces (12) = 4
+   Rule 1: Unequal → subtract lowest (4) from each
+      Cancer (4) = 1
+      Scorpio (8) = 1
+      Pisces (12) = 0
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for VE
+   Aries (1) = 0
+   Taurus (2) = 3
+   Gemini (3) = 0
+   Cancer (4) = 1
+   Leo (5) = 4
+   Virgo (6) = 2
+   Libra (7) = 1
+   Scorpio (8) = 1
+   Sagittarius (9) = 1
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 0
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 0, 1
+   Occupancy: Aries = None, Scorpio = ['SU']
+   One sign has 0 points → no reduction.
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 0, 2
+   Occupancy: Gemini = None, Virgo = ['MA']
+   One sign has 0 points → no reduction.
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 1, 0
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   One sign has 0 points → no reduction.
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 3, 1
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   Libra occupied, Taurus not → apply rule 4.
+   Unoccupied (Taurus) > occupied (3>1) → set to 1
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 0, 0
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for VE
+   Aries (1) = 0
+   Taurus (2) = 1
+   Gemini (3) = 0
+   Cancer (4) = 1
+   Leo (5) = 4
+   Virgo (6) = 2
+   Libra (7) = 1
+   Scorpio (8) = 1
+   Sagittarius (9) = 1
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 0
+
+=== Final Results ===
+Aries (1) = 0
+Taurus (2) = 1
+Gemini (3) = 0
+Cancer (4) = 1
+Leo (5) = 4
+Virgo (6) = 2
+Libra (7) = 1
+Scorpio (8) = 1
+Sagittarius (9) = 1
+Capricorn (10) = 0
+Aquarius (11) = 0
+Pisces (12) = 0
+
+=== Rasi Pinda for VE (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       1   X 10  = 10 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       1   X 4   = 4  
+ 5. Leo          4   X 10  = 40 
+ 6. Virgo        2   X 5   = 10 
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  1   X 9   = 9  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 88
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 1  × 5  = 5    | Total = 5
+MA : Virgo       ( 6): 2  × 8  = 16   | Total = 16
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 1  × 10 = 10   | Total = 10
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 4  × 5  = 20   | Total = 20
+
+Rasi Pinda = 88
+Graha Pinda = 68
+Shodhya Pinda (Total) for SA = 156
+
+
+=== Longevity Contribution from VE ===
+
+=== Rasi Pinda for VE (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       1   X 10  = 10 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       1   X 4   = 4  
+ 5. Leo          4   X 10  = 40 
+ 6. Virgo        2   X 5   = 10 
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  1   X 9   = 9  
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 88
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 1  × 5  = 5    | Total = 5
+MA : Virgo       ( 6): 2  × 8  = 16   | Total = 16
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 1  × 10 = 10   | Total = 10
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 4  × 5  = 20   | Total = 20
+
+Rasi Pinda = 88
+Graha Pinda = 68
+Shodhya Pinda (Total) for SA = 156
+
+Shodhya Pinda = 156
+156 × 7 = 1092
+1092 ÷ 27 = 40.44
+Quotient 40.44 > 27, so balance = 40.44 mod 27 = 13.439999999999998
+✨ Gross years of longevity from VE = 13.439999999999998 years
+
+=== Longevity Reduction Summary ===
+
+=== Longevity Reductions ===
+
+📍 Analyzing VE in Libra (House 7)
+   Co-occupants: VE, ME
+   Gross years before reduction: 13.439999999999998
+
+🔍 Checking First Reduction (Half if multiple planets or debilitated):
+   ✓ Multiple planets in Libra: Reduction = 50%
+   ✗ Not debilitated (debilitation sign: Virgo): No reduction
+
+🔍 Checking Second Reduction (Third if in enemy sign):
+   ✗ Not in enemy sign (enemy signs: Cancer, Leo): No reduction
+
+🔍 Checking Third Reduction (Visible half - houses 7-12):
+   Planet house (from ascendant Cancer): 4
+   ✗ Not in visible half (houses 7-12): No reduction
+
+📊 Summary of Applicable Reductions:
+   • Multiple planets in sign: -50.00%
+
+🎯 Applying HIGHEST reduction only:
+   Reason: Multiple planets in sign
+   Reduction: -50.00%
+   Multiplier: 50.00%
+
+✨ Calculation: 13.439999999999998 years × 50.00% = 6.72 years
+   Net longevity from VE = 6.72 years
+
+
+
+
+======================================================================================================================================================
+
+
+
+Input Bhinnashtakvarga Points for SA
+   Aries (1) = 2
+   Taurus (2) = 5
+   Gemini (3) = 4
+   Cancer (4) = 3
+   Leo (5) = 4
+   Virgo (6) = 5
+   Libra (7) = 3
+   Scorpio (8) = 3
+   Sagittarius (9) = 4
+   Capricorn (10) = 2
+   Aquarius (11) = 2
+   Pisces (12) = 2
+
+
+=== Trikona Śodhana (1st Reduction) ===
+
+→ Fiery (Aries, Leo, Sagittarius)
+   Aries (1) = 2
+   Leo (5) = 4
+   Sagittarius (9) = 4
+   Rule 1: Unequal → subtract lowest (2) from each
+      Aries (1) = 0
+      Leo (5) = 2
+      Sagittarius (9) = 2
+
+→ Earthy (Taurus, Virgo, Capricorn)
+   Taurus (2) = 5
+   Virgo (6) = 5
+   Capricorn (10) = 2
+   Rule 1: Unequal → subtract lowest (2) from each
+      Taurus (2) = 3
+      Virgo (6) = 3
+      Capricorn (10) = 0
+
+→ Airy (Gemini, Libra, Aquarius)
+   Gemini (3) = 4
+   Libra (7) = 3
+   Aquarius (11) = 2
+   Rule 1: Unequal → subtract lowest (2) from each
+      Gemini (3) = 2
+      Libra (7) = 1
+      Aquarius (11) = 0
+
+→ Watery (Cancer, Scorpio, Pisces)
+   Cancer (4) = 3
+   Scorpio (8) = 3
+   Pisces (12) = 2
+   Rule 1: Unequal → subtract lowest (2) from each
+      Cancer (4) = 1
+      Scorpio (8) = 1
+      Pisces (12) = 0
+
+=== End of Trikona Śodhana ===
+
+After Trikona Śodhana for SA
+   Aries (1) = 0
+   Taurus (2) = 3
+   Gemini (3) = 2
+   Cancer (4) = 1
+   Leo (5) = 2
+   Virgo (6) = 3
+   Libra (7) = 1
+   Scorpio (8) = 1
+   Sagittarius (9) = 2
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 0
+
+
+=== Ekādhipati Śodhana (2nd Reduction) ===
+
+Rashi Occupancy (excluding RA/KE):
+   Aries (1): None
+   Taurus (2): None
+   Gemini (3): None
+   Cancer (4): MO
+   Leo (5): SA
+   Virgo (6): MA
+   Libra (7): VE, ME
+   Scorpio (8): SU
+   Sagittarius (9): JU
+   Capricorn (10): None
+   Aquarius (11): None
+   Pisces (12): None
+
+→ Sun owns Leo (5) → single sign → no reduction.
+
+→ Moon owns Cancer (4) → single sign → no reduction.
+
+→ Mars owns Aries (1) and Scorpio (8)
+   Values: 0, 1
+   Occupancy: Aries = None, Scorpio = ['SU']
+   One sign has 0 points → no reduction.
+
+→ Mercury owns Gemini (3) and Virgo (6)
+   Values: 2, 3
+   Occupancy: Gemini = None, Virgo = ['MA']
+   Virgo occupied, Gemini not → apply rule 4.
+   Unoccupied (Gemini) ≤ occupied → set to 0
+
+→ Jupiter owns Sagittarius (9) and Pisces (12)
+   Values: 2, 0
+   Occupancy: Sagittarius = ['JU'], Pisces = None
+   One sign has 0 points → no reduction.
+
+→ Venus owns Taurus (2) and Libra (7)
+   Values: 3, 1
+   Occupancy: Taurus = None, Libra = ['VE', 'ME']
+   Libra occupied, Taurus not → apply rule 4.
+   Unoccupied (Taurus) > occupied (3>1) → set to 1
+
+→ Saturn owns Capricorn (10) and Aquarius (11)
+   Values: 0, 0
+   Occupancy: Capricorn = None, Aquarius = None
+   One sign has 0 points → no reduction.
+
+=== End of Ekādhipati Śodhana ===
+
+After Ekādhipati Śodhana for SA
+   Aries (1) = 0
+   Taurus (2) = 1
+   Gemini (3) = 0
+   Cancer (4) = 1
+   Leo (5) = 2
+   Virgo (6) = 3
+   Libra (7) = 1
+   Scorpio (8) = 1
+   Sagittarius (9) = 2
+   Capricorn (10) = 0
+   Aquarius (11) = 0
+   Pisces (12) = 0
+
+=== Final Results ===
+Aries (1) = 0
+Taurus (2) = 1
+Gemini (3) = 0
+Cancer (4) = 1
+Leo (5) = 2
+Virgo (6) = 3
+Libra (7) = 1
+Scorpio (8) = 1
+Sagittarius (9) = 2
+Capricorn (10) = 0
+Aquarius (11) = 0
+Pisces (12) = 0
+
+=== Rasi Pinda for SA (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       1   X 10  = 10 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       1   X 4   = 4  
+ 5. Leo          2   X 10  = 20 
+ 6. Virgo        3   X 5   = 15 
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  2   X 9   = 18 
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 82
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 1  × 5  = 5    | Total = 5
+MA : Virgo       ( 6): 3  × 8  = 24   | Total = 24
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 2  × 10 = 20   | Total = 20
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 2  × 5  = 10   | Total = 10
+
+Rasi Pinda = 82
+Graha Pinda = 76
+Shodhya Pinda (Total) for SA = 158
+
+
+=== Longevity Contribution from SA ===
+
+=== Rasi Pinda for SA (bindus × Rasi Gunakara) ===
+ 1. Aries        0   X 7   = 0  
+ 2. Taurus       1   X 10  = 10 
+ 3. Gemini       0   X 8   = 0  
+ 4. Cancer       1   X 4   = 4  
+ 5. Leo          2   X 10  = 20 
+ 6. Virgo        3   X 5   = 15 
+ 7. Libra        1   X 7   = 7  
+ 8. Scorpio      1   X 8   = 8  
+ 9. Sagittarius  2   X 9   = 18 
+10. Capricorn    0   X 5   = 0  
+11. Aquarius     0   X 11  = 0  
+12. Pisces       0   X 12  = 0  
+Total Rasi Pinda = 82
+
+=== Graha Pinda (bindus × Graha Gunakara, one line per planet) ===
+SU : Scorpio     ( 8): 1  × 5  = 5    | Total = 5
+MO : Cancer      ( 4): 1  × 5  = 5    | Total = 5
+MA : Virgo       ( 6): 3  × 8  = 24   | Total = 24
+ME : Libra       ( 7): 1  × 5  = 5    | Total = 5
+JU : Sagittarius ( 9): 2  × 10 = 20   | Total = 20
+VE : Libra       ( 7): 1  × 7  = 7    | Total = 7
+SA : Leo         ( 5): 2  × 5  = 10   | Total = 10
+
+Rasi Pinda = 82
+Graha Pinda = 76
+Shodhya Pinda (Total) for SA = 158
+
+Shodhya Pinda = 158
+158 × 7 = 1106
+1106 ÷ 27 = 40.96
+Quotient 40.96 > 27, so balance = 40.96 mod 27 = 13.96
+✨ Gross years of longevity from SA = 13.96 years
+
+=== Longevity Reduction Summary ===
+
+=== Longevity Reductions ===
+
+📍 Analyzing SA in Leo (House 5)
+   Co-occupants: None
+   Gross years before reduction: 13.96
+
+🔍 Checking First Reduction (Half if multiple planets or debilitated):
+   ✗ Single planet in sign: No reduction
+   ✗ Not debilitated (debilitation sign: Aries): No reduction
+
+🔍 Checking Second Reduction (Third if in enemy sign):
+   ✓ SA in enemy sign Leo: Reduction = 33.33%
+
+🔍 Checking Third Reduction (Visible half - houses 7-12):
+   Planet house (from ascendant Cancer): 2
+   ✗ Not in visible half (houses 7-12): No reduction
+
+📊 Summary of Applicable Reductions:
+   • Enemy sign: -33.33%
+
+🎯 Applying HIGHEST reduction only:
+   Reason: Enemy sign
+   Reduction: -33.33%
+   Multiplier: 66.67%
+
+✨ Calculation: 13.96 years × 66.67% = 9.31 years
+   Net longevity from SA = 9.31 years
+
+
+
+
+======================================================================================================================================================
+
+
+

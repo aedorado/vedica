@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anurag Sharma – Birth Chart · Vedica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  
+<style>
+  /* ─── Kundali grid ─── */
+  .kundali-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .chart-style-toggle {
+    display: flex;
+    gap: .4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .25rem;
+  }
+  .chart-style-btn {
+    padding: .3rem .9rem;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text3);
+    transition: all .2s;
+  }
+  .chart-style-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+  #kundali-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    width: min(420px, 90vw);
+    height: min(420px, 90vw);
+    border: 1.5px solid var(--border2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .k-cell {
+    border: 1px solid var(--border);
+    padding: .35rem .4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    min-height: 0;
+    background: var(--surface);
+    transition: background .2s;
+    position: relative;
+  }
+  .k-cell:hover { background: var(--surface2); }
+  .k-lagna {
+    background: rgba(251,191,36,.08) !important;
+    border-color: rgba(251,191,36,.4) !important;
+  }
+  .k-lagna-mark {
+    position: absolute;
+    top: 2px; right: 3px;
+    font-size: .6rem;
+    color: var(--gold2);
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .k-house {
+    font-size: .62rem;
+    color: var(--text3);
+    font-weight: 600;
+    letter-spacing: .06em;
+    line-height: 1;
+  }
+  .k-lagna .k-house { color: var(--gold2); }
+  .k-sign {
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--text2);
+    line-height: 1;
+  }
+  .k-lagna .k-sign { color: var(--gold2); }
+  .k-planets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .15rem;
+    margin-top: .1rem;
+  }
+  .k-planet {
+    font-size: .68rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .k-center {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .k-center-inner { text-align: center; }
+  /* ─── Hero chart ─── */
+  .hero-chart {
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-chart::before {
+    content: '✦';
+    position: absolute;
+    right: 1.5rem; top: 1rem;
+    font-size: 6rem;
+    opacity: .04;
+    line-height: 1;
+  }
+  .lagna-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: rgba(251,191,36,.12);
+    border: 1px solid rgba(251,191,36,.3);
+    border-radius: 999px;
+    padding: .3rem .85rem;
+    font-size: .82rem;
+    color: var(--gold2);
+    font-weight: 600;
+  }
+  .planet-row {
+    grid-template-columns: 2rem 6.5rem 9rem 8rem 1fr 4rem 4rem;
+  }
+  .planet-row-header {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text3);
+    padding: .4rem 1rem;
+    display: grid;
+    grid-template-columns: 2rem 6.5rem 9rem 8rem 1fr 4rem 4rem;
+    gap: .75rem;
+  }
+  @media (max-width: 768px) {
+    .planet-row, .planet-row-header { grid-template-columns: 2rem 1fr 1fr; }
+    .planet-degree, .planet-nakshatra, .planet-pada, .planet-lord,
+    .planet-retro-col { display: none; }
+  }
+</style>
+
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">
+        <span class="brand-glyph">✦</span>
+        Vedica
+      </a>
+      <ul class="nav-links">
+        <li><a href="/" class="">Chart</a></li>
+        <li><a href="/analytics" class="">Analytics</a></li>
+      </ul>
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">☀ Light</button>
+    </div>
+  </nav>
+
+  <main class="page">
+    
+
+
+
+
+
+
+<!-- Hero info -->
+<div class="hero-chart">
+  <div style="display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:1rem;">
+    <div>
+      <h1 style="font-size:1.75rem; font-weight:800; color:var(--text);">Anurag Sharma</h1>
+      <div style="color:var(--text2); font-size:.9rem; margin-top:.35rem;">
+        1994-03-15 &nbsp;·&nbsp; 12:01
+        <span style="color:var(--text3);">(+05:30)</span>
+        &nbsp;·&nbsp; Dehradun
+      </div>
+      <div style="color:var(--text3); font-size:.78rem; margin-top:.2rem;">
+        1994-03-15 06:31 UTC &nbsp;|&nbsp;
+        Lat 30.3256° &nbsp; Lon 78.0437°
+      </div>
+    </div>
+    
+    <div>
+      <div class="lagna-badge">
+        ✦ Lagna (Ascendant)
+      </div>
+      <div style="margin-top:.5rem; font-size:1.5rem; font-weight:700; color:var(--gold2);">
+        Gemini
+      </div>
+      <div style="font-size:.85rem; color:var(--text2);">
+        9° 3'
+        &nbsp;·&nbsp; Ardra P1
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Quick stats -->
+  <div style="display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem;">
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.5rem 1rem; font-size:.82rem;">
+      <span class="text-muted">Ayanamsha </span>
+      <span class="text-accent">23.7761°</span>
+    </div>
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.5rem 1rem; font-size:.82rem;">
+      <span class="text-muted">Retrograde </span>
+      <span style="color:var(--red)">
+        
+          Jupiter, Rahu, Ketu, Pluto
+        
+      </span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.5rem 1rem; font-size:.82rem;">
+      <span class="text-muted">Nakshatra Lagna </span>
+      <span class="text-gold">Ardra, Pada 1</span>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Planet table -->
+<div class="card">
+
+  <!-- Visual Kundali chart -->
+  <div class="section-title">Kundali Chart</div>
+  <div class="kundali-wrap mb-2">
+    <div class="chart-style-toggle">
+      <button class="chart-style-btn active" id="btn-south" onclick="switchChartStyle('south')">South Indian</button>
+      <button class="chart-style-btn" id="btn-north" onclick="switchChartStyle('north')">North Indian</button>
+    </div>
+    <div id="kundali-container"></div>
+  </div>
+
+  <!-- JSON data for JS renderer -->
+  <script id="chart-json" type="application/json">
+  {
+    "name": "Anurag Sharma",
+    "lagna_sign_idx": 2,
+    "planets": {
+      
+      
+      
+      "Sun": {
+        "position": { "sign_idx": 11 },
+        "retrograde": false
+      }
+      
+      ,
+      "Moon": {
+        "position": { "sign_idx": 0 },
+        "retrograde": false
+      }
+      
+      ,
+      "Mars": {
+        "position": { "sign_idx": 10 },
+        "retrograde": false
+      }
+      
+      ,
+      "Mercury": {
+        "position": { "sign_idx": 10 },
+        "retrograde": false
+      }
+      
+      ,
+      "Jupiter": {
+        "position": { "sign_idx": 6 },
+        "retrograde": true
+      }
+      
+      ,
+      "Venus": {
+        "position": { "sign_idx": 11 },
+        "retrograde": false
+      }
+      
+      ,
+      "Saturn": {
+        "position": { "sign_idx": 10 },
+        "retrograde": false
+      }
+      
+      ,
+      "Rahu": {
+        "position": { "sign_idx": 7 },
+        "retrograde": true
+      }
+      
+      ,
+      "Ketu": {
+        "position": { "sign_idx": 1 },
+        "retrograde": true
+      }
+      
+      ,
+      "Uranus": {
+        "position": { "sign_idx": 9 },
+        "retrograde": false
+      }
+      
+      ,
+      "Neptune": {
+        "position": { "sign_idx": 8 },
+        "retrograde": false
+      }
+      
+      ,
+      "Pluto": {
+        "position": { "sign_idx": 7 },
+        "retrograde": true
+      }
+      
+    }
+  }
+  </script>
+
+  <div class="section-title">Planetary Positions</div>
+
+  <!-- Header row -->
+  <div class="planet-row-header">
+    <div></div>
+    <div>Planet</div>
+    <div>Sign (Rashi)</div>
+    <div>Degree</div>
+    <div>Nakshatra</div>
+    <div class="planet-lord">Lord</div>
+    <div style="text-align:center;">Pada</div>
+  </div>
+
+  <!-- Ascendant row -->
+  
+  <div class="planet-row" style="border-color: rgba(251,191,36,.4); background: rgba(251,191,36,.05); margin-bottom:.5rem;">
+    <div class="planet-glyph" style="color:var(--gold2);">⬆</div>
+    <div class="planet-name" style="color:var(--gold2);">Ascendant</div>
+    <div class="planet-sign">
+      <span class="sign-symbol">♊</span>
+      Gemini
+    </div>
+    <div class="planet-degree">
+      9°&nbsp;3'&nbsp;53.8"
+    </div>
+    <div class="planet-nakshatra">Ardra</div>
+    <div class="planet-lord text-muted text-xs">Rahu</div>
+    <div class="planet-pada">1</div>
+  </div>
+  
+
+  <!-- Planet rows -->
+  <div class="planet-grid">
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #f59e0b;">☉</div>
+        <div class="planet-name" style="color: #f59e0b;">
+          Sun
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♓</span>
+          Pisces
+        </div>
+        <div class="planet-degree">
+          0°&nbsp;39'&nbsp;58.4"
+        </div>
+        <div class="planet-nakshatra">P. Bhadrapada</div>
+        <div class="planet-lord text-muted text-xs">Jupiter</div>
+        <div class="planet-pada">4</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #e2e8f0;">☽</div>
+        <div class="planet-name" style="color: #e2e8f0;">
+          Moon
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♈</span>
+          Aries
+        </div>
+        <div class="planet-degree">
+          3°&nbsp;17'&nbsp;56.7"
+        </div>
+        <div class="planet-nakshatra">Ashvini</div>
+        <div class="planet-lord text-muted text-xs">Ketu</div>
+        <div class="planet-pada">1</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #ef4444;">♂</div>
+        <div class="planet-name" style="color: #ef4444;">
+          Mars
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♒</span>
+          Aquarius
+        </div>
+        <div class="planet-degree">
+          12°&nbsp;21'&nbsp;50.8"
+        </div>
+        <div class="planet-nakshatra">Shatabhisha</div>
+        <div class="planet-lord text-muted text-xs">Rahu</div>
+        <div class="planet-pada">2</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #10b981;">☿</div>
+        <div class="planet-name" style="color: #10b981;">
+          Mercury
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♒</span>
+          Aquarius
+        </div>
+        <div class="planet-degree">
+          3°&nbsp;19'&nbsp;53.1"
+        </div>
+        <div class="planet-nakshatra">Dhanishtha</div>
+        <div class="planet-lord text-muted text-xs">Mars</div>
+        <div class="planet-pada">3</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #f97316;">♃</div>
+        <div class="planet-name" style="color: #f97316;">
+          Jupiter
+          
+          <span class="badge badge-retro" style="margin-left:.3rem;">R</span>
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♎</span>
+          Libra
+        </div>
+        <div class="planet-degree">
+          20°&nbsp;32'&nbsp;17.1"
+        </div>
+        <div class="planet-nakshatra">Vishakha</div>
+        <div class="planet-lord text-muted text-xs">Jupiter</div>
+        <div class="planet-pada">1</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #ec4899;">♀</div>
+        <div class="planet-name" style="color: #ec4899;">
+          Venus
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♓</span>
+          Pisces
+        </div>
+        <div class="planet-degree">
+          14°&nbsp;30'&nbsp;51.8"
+        </div>
+        <div class="planet-nakshatra">U. Bhadrapada</div>
+        <div class="planet-lord text-muted text-xs">Saturn</div>
+        <div class="planet-pada">4</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #6366f1;">♄</div>
+        <div class="planet-name" style="color: #6366f1;">
+          Saturn
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♒</span>
+          Aquarius
+        </div>
+        <div class="planet-degree">
+          11°&nbsp;39'&nbsp;12.6"
+        </div>
+        <div class="planet-nakshatra">Shatabhisha</div>
+        <div class="planet-lord text-muted text-xs">Rahu</div>
+        <div class="planet-pada">2</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #8b5cf6;">☊</div>
+        <div class="planet-name" style="color: #8b5cf6;">
+          Rahu
+          
+          <span class="badge badge-retro" style="margin-left:.3rem;">R</span>
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♏</span>
+          Scorpio
+        </div>
+        <div class="planet-degree">
+          3°&nbsp;26'&nbsp;11.8"
+        </div>
+        <div class="planet-nakshatra">Anuradha</div>
+        <div class="planet-lord text-muted text-xs">Saturn</div>
+        <div class="planet-pada">1</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #14b8a6;">☋</div>
+        <div class="planet-name" style="color: #14b8a6;">
+          Ketu
+          
+          <span class="badge badge-retro" style="margin-left:.3rem;">R</span>
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♉</span>
+          Taurus
+        </div>
+        <div class="planet-degree">
+          3°&nbsp;26'&nbsp;11.8"
+        </div>
+        <div class="planet-nakshatra">Krittika</div>
+        <div class="planet-lord text-muted text-xs">Sun</div>
+        <div class="planet-pada">3</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #06b6d4;">♅</div>
+        <div class="planet-name" style="color: #06b6d4;">
+          Uranus
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♑</span>
+          Capricorn
+        </div>
+        <div class="planet-degree">
+          1°&nbsp;40'&nbsp;17.7"
+        </div>
+        <div class="planet-nakshatra">U. Ashadha</div>
+        <div class="planet-lord text-muted text-xs">Sun</div>
+        <div class="planet-pada">2</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #3b82f6;">♆</div>
+        <div class="planet-name" style="color: #3b82f6;">
+          Neptune
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♐</span>
+          Sagittarius
+        </div>
+        <div class="planet-degree">
+          29°&nbsp;6'&nbsp;34.9"
+        </div>
+        <div class="planet-nakshatra">U. Ashadha</div>
+        <div class="planet-lord text-muted text-xs">Sun</div>
+        <div class="planet-pada">1</div>
+      </div>
+      
+    
+      
+      
+      <div class="planet-row">
+        <div class="planet-glyph" style="color: #71717a;">♇</div>
+        <div class="planet-name" style="color: #71717a;">
+          Pluto
+          
+          <span class="badge badge-retro" style="margin-left:.3rem;">R</span>
+          
+        </div>
+        <div class="planet-sign">
+          <span class="sign-symbol">♏</span>
+          Scorpio
+        </div>
+        <div class="planet-degree">
+          4°&nbsp;14'&nbsp;14.7"
+        </div>
+        <div class="planet-nakshatra">Anuradha</div>
+        <div class="planet-lord text-muted text-xs">Saturn</div>
+        <div class="planet-pada">1</div>
+      </div>
+      
+    
+  </div>
+</div>
+
+<!-- House cusps (collapsible) -->
+
+<details class="card mt-2" style="cursor:pointer;">
+  <summary class="section-title" style="cursor:pointer; list-style:none;">
+    ⌂ House Cusps (Placidus)
+  </summary>
+  <div style="margin-top:1rem; display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:.6rem;">
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 1</span>
+      <span>Cancer 1°23'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 2</span>
+      <span>Cancer 25°15'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 3</span>
+      <span>Leo 23°38'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 4</span>
+      <span>Virgo 27°57'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 5</span>
+      <span>Scorpio 5°1'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 6</span>
+      <span>Sagittarius 9°3'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 7</span>
+      <span>Capricorn 1°23'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 8</span>
+      <span>Capricorn 25°15'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 9</span>
+      <span>Aquarius 23°38'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 10</span>
+      <span>Pisces 27°57'</span>
+    </div>
+    
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:.6rem .9rem; font-size:.85rem; display:flex; justify-content:space-between;">
+      <span class="text-muted">House 11</span>
+      <span>Taurus 5°1'</span>
+    </div>
+    
+  </div>
+</details>
+
+
+<!-- Back button -->
+<div style="margin-top:1.5rem; display:flex; gap:.75rem; flex-wrap:wrap;">
+  <a href="/" class="btn btn-outline">← New Chart</a>
+  <button onclick="window.print()" class="btn btn-outline">⎙ Print</button>
+</div>
+
+
+  </main>
+
+  <script src="/static/js/app.js"></script>
+  
+<script src="/static/js/chart.js"></script>
+
+</body>
+</html>

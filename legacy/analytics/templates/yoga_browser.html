@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Browser - Vedica Astrology</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #0d1b2a;
+            --secondary: #1a2744;
+            --accent: #ffc107;
+            --text-light: #e0e0e0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .yoga-stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .yoga-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .yoga-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .yoga-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .yoga-info {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            background: rgba(255, 193, 7, 0.2);
+            color: var(--accent);
+            margin-right: 8px;
+        }
+        
+        .intensity-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+        
+        .charts-modal {
+            background: rgba(13, 27, 42, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .chart-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--accent);
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .chart-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+        
+        .chart-name {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .chart-meta {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.7;
+        }
+        
+        .filter-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+        }
+        
+        .benefic-badge {
+            color: #4caf50;
+        }
+        
+        .malefic-badge {
+            color: #ff5252;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div style="margin-bottom: 30px;">
+            <a href="/" style="text-decoration: none; color: var(--accent); font-size: 1.1rem;">← Back to Dashboard</a>
+            <h1 style="margin-top: 15px; color: var(--accent);">🔮 Yoga Browser</h1>
+            <p style="opacity: 0.8; margin-top: 10px;">Explore yogas across all birth charts and discover their prevalence</p>
+        </div>
+        
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label style="opacity: 0.8; margin-bottom: 8px;">Search Yoga:</label>
+                    <input type="text" id="yogaSearch" class="form-control" placeholder="Type yoga name..." style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 193, 7, 0.3); color: var(--text-light);">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label style="opacity: 0.8; margin-bottom: 8px;">Filter by Type:</label>
+                    <select id="beneficFilter" class="form-select" style="background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 193, 7, 0.3); color: var(--text-light);">
+                        <option value="">All Types</option>
+                        <option value="benefic">Benefic Only</option>
+                        <option value="malefic">Malefic Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Yoga Stats Grid -->
+        <div id="yogaStatsContainer" class="row">
+            <div class="col-12">
+                <div class="loading">
+                    <p>Loading yoga statistics...</p>
+                    <div class="spinner-border text-warning" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts Modal -->
+    <div class="modal fade" id="chartsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content charts-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <div class="loading">
+                        <div class="spinner-border text-warning" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let allYogas = [];
+        
+        async function loadYogaStats() {
+            try {
+                const response = await fetch('/api/yoga/stats');
+                const data = await response.json();
+                allYogas = Object.entries(data.yogas).map(([key, yoga]) => ({
+                    key,
+                    ...yoga
+                }));
+                renderYogas(allYogas);
+            } catch (error) {
+                console.error('Error loading yoga stats:', error);
+                document.getElementById('yogaStatsContainer').innerHTML = 
+                    '<div class="col-12"><div class="alert alert-danger">Error loading yoga statistics</div></div>';
+            }
+        }
+        
+        function renderYogas(yogas) {
+            const container = document.getElementById('yogaStatsContainer');
+            container.innerHTML = '';
+            
+            if (yogas.length === 0) {
+                container.innerHTML = '<div class="col-12"><div class="alert alert-info">No yogas found</div></div>';
+                return;
+            }
+            
+            yogas.forEach(yoga => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-4';
+                
+                const card = document.createElement('div');
+                card.className = 'yoga-stat-card';
+                card.style.borderColor = yoga.info.benefic ? '#4caf50' : '#ff5252';
+                
+                const beneficClass = yoga.info.benefic ? 'benefic-badge' : 'malefic-badge';
+                const beneficText = yoga.info.benefic ? '✨ Benefic' : '⚠️ Malefic';
+                
+                card.innerHTML = `
+                    <div class="yoga-count">${yoga.count}</div>
+                    <div class="yoga-name">${yoga.info.name || yoga.key.replace(/_/g, ' ')}</div>
+                    <div class="yoga-info">
+                        <div style="margin-bottom: 8px;">
+                            <span class="category-badge">${yoga.category}</span>
+                            <span class="intensity-badge">${yoga.info.intensity}</span>
+                        </div>
+                        <div style="font-size: 0.8rem;">
+                            <span class="${beneficClass}">${beneficText}</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.8rem; opacity: 0.6;">
+                        Found in ${yoga.count} chart${yoga.count !== 1 ? 's' : ''} • Click to view
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => showChartsWithYoga(yoga.key, yoga.info.name));
+                col.appendChild(card);
+                container.appendChild(col);
+            });
+        }
+        
+        async function showChartsWithYoga(yogaKey, yogaName) {
+            const modal = document.getElementById('chartsModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = `${yogaName} - Charts`;
+            modalBody.innerHTML = '<div class="loading"><div class="spinner-border text-warning" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+            
+            try {
+                const response = await fetch(`/api/yoga/${yogaKey}/charts`);
+                const data = await response.json();
+                
+                if (data.charts.length === 0) {
+                    modalBody.innerHTML = '<div class="alert alert-info">No charts found with this yoga</div>';
+                } else {
+                    modalBody.innerHTML = data.charts.map(chart => `
+                        <a href="/chart/${chart.id}" class="chart-item" target="_blank">
+                            <div class="chart-name">${chart.name}</div>
+                            <div class="chart-meta">
+                                <strong>Time:</strong> ${chart.birth_time}<br>
+                                <strong>Location:</strong> ${chart.location}
+                            </div>
+                        </a>
+                    `).join('');
+                }
+                
+                new bootstrap.Modal(modal).show();
+            } catch (error) {
+                console.error('Error loading charts:', error);
+                modalBody.innerHTML = '<div class="alert alert-danger">Error loading charts</div>';
+                new bootstrap.Modal(modal).show();
+            }
+        }
+        
+        // Filter functions
+        document.getElementById('yogaSearch').addEventListener('input', (e) => {
+            const search = e.target.value.toLowerCase();
+            const beneficFilter = document.getElementById('beneficFilter').value;
+            
+            const filtered = allYogas.filter(yoga => {
+                const matchesSearch = !search || yoga.info.name.toLowerCase().includes(search) || yoga.key.includes(search);
+                const matchesBenefic = !beneficFilter || (beneficFilter === 'benefic' ? yoga.info.benefic : !yoga.info.benefic);
+                return matchesSearch && matchesBenefic;
+            });
+            
+            renderYogas(filtered);
+        });
+        
+        document.getElementById('beneficFilter').addEventListener('change', (e) => {
+            const search = document.getElementById('yogaSearch').value.toLowerCase();
+            const beneficFilter = e.target.value;
+            
+            const filtered = allYogas.filter(yoga => {
+                const matchesSearch = !search || yoga.info.name.toLowerCase().includes(search) || yoga.key.includes(search);
+                const matchesBenefic = !beneficFilter || (beneficFilter === 'benefic' ? yoga.info.benefic : !yoga.info.benefic);
+                return matchesSearch && matchesBenefic;
+            });
+            
+            renderYogas(filtered);
+        });
+        
+        // Load on page load
+        document.addEventListener('DOMContentLoaded', loadYogaStats);
+    </script>
+</body>
+</html>
