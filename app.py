@@ -280,10 +280,6 @@ def create_app():
 
 def _configure_logging():
     """Configure comprehensive logging."""
-    log_dir = 'logs'
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-    
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG)
     
@@ -297,15 +293,20 @@ def _configure_logging():
     console_handler.setFormatter(console_formatter)
     root_logger.addHandler(console_handler)
     
-    # File handler
-    file_handler = logging.handlers.RotatingFileHandler(
-        os.path.join(log_dir, 'vedica.log'),
-        maxBytes=10485760,  # 10MB
-        backupCount=5
-    )
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(console_formatter)
-    root_logger.addHandler(file_handler)
+    # File handler - only if not on Vercel
+    if not os.environ.get('VERCEL'):
+        log_dir = 'logs'
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
+            
+        file_handler = logging.handlers.RotatingFileHandler(
+            os.path.join(log_dir, 'vedica.log'),
+            maxBytes=10485760,  # 10MB
+            backupCount=5
+        )
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(console_formatter)
+        root_logger.addHandler(file_handler)
     
     logger = logging.getLogger(__name__)
     logger.info("=" * 80)
