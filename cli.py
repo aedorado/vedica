@@ -4,8 +4,11 @@ CLI to batch import birth charts from text input.
 Format: Name | HH:MM DD/MM/YYYY +TZ | City, Country, longitude, latitude
 """
 
+
 import sys
 from datetime import datetime
+import threading
+import time
 from core.ephemeris import calculate_chart
 from core.database import save_chart
 from core.divisional_charts import compute_major_vargas
@@ -61,6 +64,7 @@ def parse_line(line: str) -> dict:
 def import_chart(entry: dict) -> str:
     """Calculate and save chart, return chart_id."""
     try:
+        print(f"→ Calculating chart for {entry['name']} ({entry['date']} {entry['time']}, {entry['place']}) ...")
         result = calculate_chart(
             entry['name'],
             entry['date'],
@@ -69,7 +73,7 @@ def import_chart(entry: dict) -> str:
             entry['longitude'],
             entry['timezone']
         )
-        
+
         # Compute major vargas from rasi_chart
         vargas = None
         rasi_chart = result.get('rasi_chart')
@@ -78,7 +82,7 @@ def import_chart(entry: dict) -> str:
                 vargas = compute_major_vargas(rasi_chart)
             except Exception as e:
                 print(f"  ⚠ Could not compute vargas: {e}")
-        
+
         # Calculate planet dignity
         planet_dignity = None
         if rasi_chart:
@@ -87,10 +91,10 @@ def import_chart(entry: dict) -> str:
                 planet_dignity = calculate_planet_dignity(rasi_chart)
             except Exception as e:
                 print(f"  ⚠ Could not calculate planet dignity: {e}")
-        
+
         # Extract vimshottari dasha
         vimshottari_dasha = result.get('vimshottari_dasha')
-        
+
         chart_id = save_chart(
             entry['name'],
             entry['date'],
@@ -107,25 +111,31 @@ def import_chart(entry: dict) -> str:
             planet_dignity=planet_dignity,
             vimshottari_dasha=vimshottari_dasha
         )
-        
-        # Update analytics cache
-        process_chart(result, chart_id)
-        
+
+        print(f"  ✓ Chart saved with ID: {chart_id}")
+        # Update analytics cache in background thread
+        threading.Thread(target=process_chart, args=(result, chart_id), daemon=True).start()
+        print(f"  ↪ Analytics update queued for chart {chart_id}")
+
         return chart_id
     except Exception as e:
+        print(f"  ✗ Failed to import {entry['name']}: {str(e)}")
         raise Exception(f"Failed to import {entry['name']}: {str(e)}")
 
 
 def main():
     """Read from stdin, parse, and import charts."""
+    print("=== Vedica CLI Batch Import ===")
+    start_time = time.time()
     count = 0
     errors = []
-    
+
     for line_num, line in enumerate(sys.stdin, 1):
         line = line.strip()
         if not line or line.startswith('#'):
             continue
-        
+
+        print(f"\n--- Importing line {line_num} ---")
         try:
             entry = parse_line(line)
             chart_id = import_chart(entry)
@@ -134,8 +144,9 @@ def main():
         except Exception as e:
             errors.append(f"Line {line_num}: {str(e)}")
             print(f"✗ {str(e)}")
-    
-    print(f"\n{count} charts imported successfully")
+
+    elapsed = time.time() - start_time
+    print(f"\n{count} charts imported successfully in {elapsed:.2f} seconds")
     if errors:
         print(f"\n{len(errors)} error(s):")
         for err in errors:

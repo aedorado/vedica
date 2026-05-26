@@ -165,10 +165,6 @@ def save_chart():
     """Save a calculated chart to database."""
     try:
         from services.chart_service import ChartService
-        from core.database import init_db
-        
-        # Initialize database
-        init_db()
         
         data = request.get_json()
         if not data:
@@ -240,22 +236,12 @@ def save_chart():
 def get_all_charts():
     """Get all saved charts from database."""
     try:
-        from core.database import init_db
-        import sqlite3
+        from core.database import get_all_charts as db_get_all_charts
         
-        # Initialize database
-        init_db()
-        
-        conn = sqlite3.connect('data/charts.db')
-        conn.row_factory = sqlite3.Row
-        c = conn.cursor()
-        
-        c.execute('SELECT id, name, dob, tob, timezone, place, latitude, longitude, created_at FROM charts ORDER BY created_at DESC')
-        rows = c.fetchall()
-        conn.close()
+        charts_data = db_get_all_charts()
         
         charts = []
-        for row in rows:
+        for row in charts_data:
             charts.append({
                 'id': row['id'],
                 'meta': {
@@ -281,33 +267,17 @@ def get_all_charts():
 def search_charts():
     """Search saved charts by name or place in database."""
     try:
-        from core.database import init_db
-        import sqlite3
-        
-        # Initialize database
-        init_db()
+        from core.database import search_charts as db_search_charts, get_all_charts as db_get_all_charts
         
         q = request.args.get('q', '').lower().strip()
         
-        conn = sqlite3.connect('data/charts.db')
-        conn.row_factory = sqlite3.Row
-        c = conn.cursor()
-        
         if q:
-            c.execute('''
-                SELECT id, name, dob, tob, timezone, place, latitude, longitude, created_at 
-                FROM charts 
-                WHERE LOWER(name) LIKE ? OR LOWER(place) LIKE ? 
-                ORDER BY created_at DESC
-            ''', (f'%{q}%', f'%{q}%'))
+            charts_data = db_search_charts(q)
         else:
-            c.execute('SELECT id, name, dob, tob, timezone, place, latitude, longitude, created_at FROM charts ORDER BY created_at DESC')
-        
-        rows = c.fetchall()
-        conn.close()
+            charts_data = db_get_all_charts()
         
         charts = []
-        for row in rows:
+        for row in charts_data:
             charts.append({
                 'id': row['id'],
                 'meta': {
@@ -333,10 +303,10 @@ def search_charts():
 def get_chart(chart_id):
     """Get a specific chart from database by ID."""
     try:
-        from core.database import get_chart as db_get_chart, init_db
+        from core.database import get_chart as db_get_chart
         
         # Initialize database
-        init_db()
+        # init_db()
         
         # Use database function to get chart
         chart = db_get_chart(chart_id)
@@ -375,29 +345,21 @@ def get_chart(chart_id):
 def delete_chart(chart_id):
     """Delete a saved chart from database."""
     try:
-        from core.database import init_db
+        from core.database import delete_chart as db_delete_chart, get_chart
         from core.analytics import remove_chart_from_cache
-        import sqlite3
         
         # Initialize database
-        init_db()
-        
-        conn = sqlite3.connect('data/charts.db')
-        c = conn.cursor()
+        # init_db()
         
         # Check if chart exists
-        c.execute('SELECT id FROM charts WHERE id = ?', (chart_id,))
-        if not c.fetchone():
-            conn.close()
+        if not get_chart(chart_id):
             return jsonify({'error': 'Chart not found'}), 404
         
         # Remove from analytics cache first
         remove_chart_from_cache(chart_id)
         
         # Delete the chart
-        c.execute('DELETE FROM charts WHERE id = ?', (chart_id,))
-        conn.commit()
-        conn.close()
+        db_delete_chart(chart_id)
         
         return jsonify({'message': 'Chart deleted successfully'}), 200
         
@@ -436,9 +398,9 @@ def delete_all_charts():
 def get_analytics():
     """Get all analytics data for dashboard (cached aggregates)."""
     try:
-        import sqlite3
+        from core.database import get_conn
         
-        conn = sqlite3.connect('data/charts.db')
+        conn = get_conn()
         c = conn.cursor()
         
         c.execute('SELECT key, count, chart_ids FROM analytics_cache')
@@ -477,10 +439,9 @@ def rebuild_analytics():
 def planet_dignity_heatmap():
     """Get planet dignity heatmap data - count of charts with each planet/dignity combination."""
     try:
-        import sqlite3
-        from core.database import DB_PATH
+        from core.database import get_conn
         
-        conn = sqlite3.connect(str(DB_PATH))
+        conn = get_conn()
         c = conn.cursor()
         
         # Get all charts with planet_dignity data
@@ -503,7 +464,8 @@ def planet_dignity_heatmap():
                 heatmap[planet][dignity] = {'count': 0, 'chart_ids': []}
         
         # Process each chart
-        for chart_id, chart_name, planet_dignity_json in rows:
+        for chart_row in rows:
+            chart_id, chart_name, planet_dignity_json = chart_row[0], chart_row[1], chart_row[2]
             try:
                 planet_dignity = json.loads(planet_dignity_json)
                 

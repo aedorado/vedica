@@ -7,6 +7,10 @@ import logging
 import logging.handlers
 import os
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 
 def create_app():
@@ -22,6 +26,11 @@ def create_app():
     
     # Configure logging
     _configure_logging()
+    
+    # Run pending migrations on startup
+    with app.app_context():
+        from core.migrations import run_migrations
+        run_migrations()
     
     # Register API blueprints
     from api import api_bp
@@ -86,6 +95,14 @@ def create_app():
                     chart_data=chart_data
                 )
                 chart_id = save_result.get('chart_id')
+                
+                try:
+                    from core.analytics import process_chart_async
+                    logging.info(f'📊 Queuing async analytics for chart {chart_id}')
+                    process_chart_async(chart_data, chart_id, timeout=30)
+                except Exception as e:
+                    logging.error(f'❌ Failed to queue analytics for chart {chart_id}: {e}', exc_info=True)
+                
                 logging.info(f"✅ Chart auto-saved with ID: {chart_id}")
             except Exception as e:
                 logging.error(f"Auto-save failed: {str(e)}", exc_info=True)
@@ -287,7 +304,7 @@ def _configure_logging():
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.DEBUG)
     console_formatter = logging.Formatter(
-        '%(asctime)s | %(name)-25s | %(levelname)-8s | %(message)s',
+        '%(asctime)s | %(name)-25s | %(levelname)-8s | %(filename)s:%(lineno)d | %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     console_handler.setFormatter(console_formatter)

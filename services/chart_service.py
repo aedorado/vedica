@@ -66,12 +66,12 @@ class ChartService:
             dt_local = datetime.combine(birth_date, birth_time)
             dt_utc = dt_local - timedelta(hours=tz_offset)
             
-            # Extract fields from chart_data
-            ayanamsha = chart_data.pop('ayanamsha', 0)
-            rasi_chart = chart_data.pop('rasi_chart', None)
-            retrograde_planets = chart_data.pop('retrograde_planets', None)
-            planet_dignity = chart_data.pop('planet_dignity', None)
-            vimshottari_dasha = chart_data.pop('vimshottari_dasha', None)
+            # Extract fields from chart_data (use .get() to preserve original data)
+            ayanamsha = chart_data.get('ayanamsha', 0)
+            rasi_chart = chart_data.get('rasi_chart', None)
+            retrograde_planets = chart_data.get('retrograde_planets', None)
+            planet_dignity = chart_data.get('planet_dignity', None)
+            vimshottari_dasha = chart_data.get('vimshottari_dasha', None)
             
             # Compute major vargas (D2, D3, D4, D9, D10, D12) from rasi_chart
             vargas = None

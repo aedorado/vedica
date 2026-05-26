@@ -1,84 +1,68 @@
-"""SQLite database for saved birth charts."""
+"""PostgreSQL database for saved birth charts."""
 
-import sqlite3
+import psycopg
 import json
+import os
 from datetime import datetime
-from pathlib import Path
+from dotenv import load_dotenv
 
-DB_PATH = Path(__file__).parent.parent / 'data' / 'charts.db'
+# Load environment variables from .env
+load_dotenv()
+
+DATABASE_URL = os.getenv('POSTGRES_URL')
+if not DATABASE_URL:
+    raise ValueError("POSTGRES_URL environment variable not set")
 
 
-def init_db():
-    """Initialize database schema and run migrations."""
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
+def get_conn():
+    """Get PostgreSQL connection."""
+    return psycopg.connect(DATABASE_URL)
+
+
+# def init_db():
+#     """
+#     Initialize database schema (DEPRECATED - use Flask migrations instead).
     
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS charts (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            dob TEXT NOT NULL,
-            tob TEXT NOT NULL,
-            timezone TEXT NOT NULL,
-            place TEXT,
-            latitude REAL NOT NULL,
-            longitude REAL NOT NULL,
-            dt_utc TEXT NOT NULL,
-            ayanamsha REAL,
-            rasi_chart TEXT,
-            retrograde_planets TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
+#     Kept for backwards compatibility. Schema is now managed by Alembic migrations
+#     in the migrations/ directory and applied automatically on app startup.
+#     """
+#     try:
+#         conn = get_conn()
+#         c = conn.cursor()
+        
+#         # Verify tables exist (migrations should have created them)
+#         c.execute('''
+#             SELECT EXISTS (
+#                 SELECT FROM information_schema.tables 
+#                 WHERE table_schema = 'public' AND table_name = 'charts'
+#             )
+#         ''')
+        
+#         tables_exist = c.fetchone()[0]
+#         conn.close()
+        
+#         if tables_exist:
+#             print("✅ Database schema is up-to-date (managed by Alembic migrations)")
+#         else:
+#             print("⚠️  Database schema not initialized. Migrations may not have been applied.")
+#             print("   Run: flask db upgrade")
+        
+#         return True
     
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS analytics_cache (
-            id INTEGER PRIMARY KEY,
-            key TEXT UNIQUE NOT NULL,
-            count INTEGER DEFAULT 0,
-            chart_ids TEXT,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ''')
-    
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS analytics_metadata (
-            key TEXT PRIMARY KEY,
-            value TEXT
-        )
-    ''')
-    
-    # Migration: Add vargas column if it doesn't exist
-    c.execute("PRAGMA table_info(charts)")
-    columns = [col[1] for col in c.fetchall()]
-    if 'vargas' not in columns:
-        c.execute('ALTER TABLE charts ADD COLUMN vargas TEXT')
-    
-    # Migration: Add planet_dignity column if it doesn't exist
-    c.execute("PRAGMA table_info(charts)")
-    columns = [col[1] for col in c.fetchall()]
-    if 'planet_dignity' not in columns:
-        c.execute('ALTER TABLE charts ADD COLUMN planet_dignity TEXT')
-    
-    # Migration: Add vimshottari_dasha column if it doesn't exist
-    c.execute("PRAGMA table_info(charts)")
-    columns = [col[1] for col in c.fetchall()]
-    if 'vimshottari_dasha' not in columns:
-        c.execute('ALTER TABLE charts ADD COLUMN vimshottari_dasha TEXT')
-    
-    conn.commit()
-    conn.close()
+#     except Exception as e:
+#         print(f"⚠️  Database initialization check failed: {e}")
+#         return False
 
 
 def save_chart(name, dob, tob, timezone, place, lat, lon, dt_utc, ayanamsha=None, rasi_chart=None, retrograde_planets=None, vargas=None, planet_dignity=None, vimshottari_dasha=None):
     """Save a chart to the database (INSERT)."""
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_conn()
     c = conn.cursor()
     
     c.execute('''
         INSERT INTO charts (name, dob, tob, timezone, place, latitude, longitude, dt_utc, ayanamsha, rasi_chart, retrograde_planets, vargas, planet_dignity, vimshottari_dasha)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        RETURNING id
     ''', (
         name, dob, tob, timezone, place, lat, lon, dt_utc,
         ayanamsha,
@@ -89,7 +73,7 @@ def save_chart(name, dob, tob, timezone, place, lat, lon, dt_utc, ayanamsha=None
         json.dumps(vimshottari_dasha) if vimshottari_dasha else None
     ))
     
-    chart_id = c.lastrowid
+    chart_id = c.fetchone()[0]
     conn.commit()
     conn.close()
     
@@ -98,12 +82,12 @@ def save_chart(name, dob, tob, timezone, place, lat, lon, dt_utc, ayanamsha=None
 
 def update_chart(chart_id, name=None):
     """Update an existing chart in the database."""
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_conn()
     c = conn.cursor()
     
     if name is not None:
         c.execute('''
-            UPDATE charts SET name = ? WHERE id = ?
+            UPDATE charts SET name = %s WHERE id = %s
         ''', (name, chart_id))
     
     conn.commit()
@@ -112,8 +96,7 @@ def update_chart(chart_id, name=None):
 
 def get_all_charts():
     """Fetch all saved charts, ordered by creation date (newest first)."""
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
+    conn = get_conn()
     c = conn.cursor()
     
     c.execute('''
@@ -123,26 +106,27 @@ def get_all_charts():
     ''')
     
     rows = c.fetchall()
+    columns = [desc[0] for desc in c.description]
     conn.close()
     
-    return [dict(row) for row in rows]
+    return [dict(zip(columns, row)) for row in rows]
 
 
 def get_chart(chart_id):
     """Fetch a specific chart by ID."""
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
+    conn = get_conn()
     c = conn.cursor()
     
     c.execute('''
-        SELECT * FROM charts WHERE id = ?
+        SELECT * FROM charts WHERE id = %s
     ''', (chart_id,))
     
     row = c.fetchone()
+    columns = [desc[0] for desc in c.description]
     conn.close()
     
     if row:
-        row_dict = dict(row)
+        row_dict = dict(zip(columns, row))
         # Parse JSON fields
         if row_dict.get('rasi_chart'):
             row_dict['rasi_chart'] = json.loads(row_dict['rasi_chart'])
@@ -160,10 +144,10 @@ def get_chart(chart_id):
 
 def delete_chart(chart_id):
     """Delete a chart from the database."""
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_conn()
     c = conn.cursor()
     
-    c.execute('DELETE FROM charts WHERE id = ?', (chart_id,))
+    c.execute('DELETE FROM charts WHERE id = %s', (chart_id,))
     
     conn.commit()
     conn.close()
@@ -171,7 +155,7 @@ def delete_chart(chart_id):
 
 def delete_all_charts():
     """Delete all charts from the database."""
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_conn()
     c = conn.cursor()
     
     c.execute('DELETE FROM charts')
@@ -185,19 +169,19 @@ def delete_all_charts():
 
 def search_charts(query):
     """Search charts by name or place."""
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
+    conn = get_conn()
     c = conn.cursor()
     
     search_term = f'%{query}%'
     c.execute('''
         SELECT id, name, dob, tob, timezone, place, latitude, longitude, dt_utc, created_at
         FROM charts
-        WHERE name LIKE ? OR place LIKE ?
+        WHERE name ILIKE %s OR place ILIKE %s
         ORDER BY created_at DESC
     ''', (search_term, search_term))
     
     rows = c.fetchall()
+    columns = [desc[0] for desc in c.description]
     conn.close()
     
-    return [dict(row) for row in rows]
+    return [dict(zip(columns, row)) for row in rows]

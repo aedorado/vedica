@@ -32,6 +32,8 @@ urllib3==2.7.0
 
 decorator==5.3.1
 future==1.0.0
-numpy==2.3.0
+numpy==2.2.0
 packaging==25.0
 ratelim==0.1.6
+psycopg[binary]==3.3.4
+python-dotenv==1.0.1

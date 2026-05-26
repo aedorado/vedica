@@ -6,18 +6,13 @@ Does NOT import new charts, only regenerates existing ones.
 
 import sys
 import json
-import sqlite3
-from pathlib import Path
-from core.database import DB_PATH, get_chart, init_db
+from core.database import get_conn
 from core.planet_dignity import calculate_planet_dignity
 from core.analytics import rebuild_cache
 
-# Initialize database
-init_db()
-
 def regenerate_all_charts():
     """Regenerate planet_dignity and vimshottari_dasha for all existing charts."""
-    conn = sqlite3.connect(str(DB_PATH))
+    conn = get_conn()
     c = conn.cursor()
     
     # Get all charts

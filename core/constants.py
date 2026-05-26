@@ -50,9 +50,3 @@ PLANET_GLYPHS = {
     'Jupiter': '♃', 'Venus': '♀', 'Saturn': '♄',
     'Rahu': '☊', 'Ketu': '☋', 'Uranus': '♅', 'Neptune': '♆', 'Pluto': '♇',
 }
-
-PLANET_CODES = {
-    'Sun': 0, 'Moon': 1, 'Mercury': 2, 'Venus': 3, 'Mars': 4,
-    'Jupiter': 5, 'Saturn': 6, 'Uranus': 7, 'Neptune': 8, 'Pluto': 9,
-    'Rahu': 10, 'Ketu': 11,
-}

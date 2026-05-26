@@ -143,6 +143,59 @@
 [data-theme="light"] .heat-6  { background: rgba(180,120,30,.80); color: #fff; }
 [data-theme="light"] .heat-7  { background: rgba(180,120,30,.94); color: #fff; }
 
+/* ─── Conjunction tabs & pills ─── */
+.conj-tabs {
+  display: flex; gap: .4rem; margin-bottom: 1rem; flex-wrap: wrap;
+}
+.conj-tab {
+  padding: .35rem .85rem;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: var(--surface);
+  color: var(--text2);
+  font-size: .78rem; font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+}
+.conj-tab:hover { border-color: var(--border2); color: var(--text); }
+.conj-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.conj-tab .badge {
+  display: inline-block;
+  margin-left: .35rem;
+  background: rgba(255,255,255,.22);
+  border-radius: 99px;
+  padding: 0 .42rem;
+  font-size: .7rem;
+}
+.conj-tab:not(.active) .badge { background: var(--surface2); color: var(--text3); }
+.conj-pills {
+  display: flex; flex-wrap: wrap; gap: .45rem;
+  min-height: 2.5rem;
+}
+.conj-pill {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .32rem .72rem;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: var(--surface);
+  font-size: .8rem; font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+  color: var(--text);
+}
+.conj-pill:hover { border-color: var(--accent); background: var(--surface2); color: var(--accent2); box-shadow: var(--glow); }
+.conj-pill .cnt {
+  background: var(--surface2);
+  border-radius: 99px;
+  padding: 0 .42rem;
+  font-size: .72rem;
+  color: var(--accent2);
+  font-weight: 700;
+}
+.conj-pill.rare { border-color: var(--gold2); }
+.conj-pill.rare .cnt { color: var(--gold2); }
+.conj-empty { color: var(--text3); font-size: .85rem; padding: .5rem 0; }
+
 /* ─── Rebuild button ─── */
 .rebuild-btn {
   display: inline-flex;
@@ -382,6 +435,17 @@
       <p class="click-hint">↑ Click a bar to see those charts</p>
     </div>
 
+    <!-- Conjunctions (full width) -->
+    <div class="chart-card" style="margin-top:1.5rem;">
+      <div class="section-header">
+        <div class="section-title">☌&nbsp; Planet Conjunctions</div>
+        <span id="conj-total" style="font-size:.78rem;color:var(--text3);"></span>
+      </div>
+      <div class="conj-tabs" id="conj-tabs"></div>
+      <div class="conj-pills" id="conj-pills"></div>
+      <p class="click-hint">↑ Click a conjunction to see those charts</p>
+    </div>
+
   </div><!-- /#analytics-content -->
 
 </div>
@@ -479,6 +543,7 @@ async function loadAnalytics() {
     buildRetrogradeChart();
     buildMonthChart();
     buildYearChart();
+    buildConjunctions();
   } catch(e) {
     console.error(e);
     hide('loading-state');
@@ -893,6 +958,88 @@ async function rebuildCache() {
     btn.style.color = 'var(--red)';
     setTimeout(() => { btn.innerHTML = '<span>⟳</span> Rebuild Cache'; btn.style.color=''; btn.classList.remove('loading'); }, 2200);
   }
+}
+
+/* ─── Conjunctions ─── */
+// PyJHora planet index → short name (0-8)
+const CONJ_P = ['SU','MO','MA','ME','JU','VE','SA','RA','KE'];
+const CONJ_PF = ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+const CONJ_COLORS = {
+  SU:'#f59e0b',MO:'#e2e8f0',MA:'#ef4444',ME:'#10b981',
+  JU:'#f97316',VE:'#ec4899',SA:'#6366f1',RA:'#8b5cf6',KE:'#14b8a6'
+};
+
+let conjGroups = {}; // {2: [...], 3: [...], '4+': [...]}
+let conjActiveTab = 2;
+
+function buildConjunctions() {
+  conjGroups = {2: [], 3: [], '4+': []};
+
+  Object.entries(analytics).forEach(([key, val]) => {
+    if (!key.startsWith('conjunction:')) return;
+    const parts = key.split(':');
+    const n = parseInt(parts[1]);
+    const ids = parts[2].split(',').map(Number);
+    const label = ids.map(i => CONJ_P[i] || `P${i}`).join('-');
+    const fullLabel = ids.map(i => CONJ_PF[i] || `Planet ${i}`).join(' + ');
+    const entry = { key, label, fullLabel, count: val.count, chart_ids: val.chart_ids || [], n };
+    if (n === 2) conjGroups[2].push(entry);
+    else if (n === 3) conjGroups[3].push(entry);
+    else conjGroups['4+'].push(entry); // all 4,5,6,7,8,9
+  });
+
+  // Sort each group by count desc
+  [2, 3, '4+'].forEach(g => conjGroups[g].sort((a,b) => b.count - a.count));
+
+  const total = conjGroups[2].length + conjGroups[3].length + conjGroups['4+'].length;
+  document.getElementById('conj-total').textContent = `${total} unique combination${total!==1?'s':''}`;
+
+  // Default to first non-empty tab
+  if (conjGroups[2].length) conjActiveTab = 2;
+  else if (conjGroups[3].length) conjActiveTab = 3;
+  else conjActiveTab = '4+';
+
+  renderConjTabs();
+  renderConjPills();
+}
+
+function renderConjTabs() {
+  const tabDefs = [
+    { key: 2,    label: '2-Planet' },
+    { key: 3,    label: '3-Planet' },
+    { key: '4+', label: '4+ Rare ✦' },
+  ];
+  document.getElementById('conj-tabs').innerHTML = tabDefs.map(t => {
+    const cnt = conjGroups[t.key].length;
+    return `<button class="conj-tab${conjActiveTab===t.key?' active':''}" onclick="switchConjTab('${t.key}')">
+      ${t.label}<span class="badge">${cnt}</span>
+    </button>`;
+  }).join('');
+}
+
+function renderConjPills() {
+  const entries = conjGroups[conjActiveTab] || [];
+  const el = document.getElementById('conj-pills');
+  if (!entries.length) {
+    el.innerHTML = '<span class="conj-empty">No conjunctions found in this category.</span>';
+    return;
+  }
+  el.innerHTML = entries.map(e => {
+    const rare = e.n >= 5;
+    // Build colored spans for each planet abbreviation
+    const parts = e.label.split('-');
+    const colored = parts.map(p => `<span style="color:${CONJ_COLORS[p]||'var(--text)'}">${p}</span>`).join('<span style="color:var(--text3)">·</span>');
+    const ids = e.chart_ids.join(',');
+    return `<button class="conj-pill${rare?' rare':''}" onclick="openModal('${esc(e.fullLabel)}', [${ids}])" title="${e.count} chart${e.count!==1?'s':''}">
+      ${colored}<span class="cnt">×${e.count}</span>
+    </button>`;
+  }).join('');
+}
+
+function switchConjTab(tab) {
+  conjActiveTab = isNaN(Number(tab)) ? tab : Number(tab);
+  renderConjTabs();
+  renderConjPills();
 }
 
 /* ─── Theme toggle re-render ─── */
