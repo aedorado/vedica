@@ -9,9 +9,9 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv()
 
-DATABASE_URL = os.getenv('POSTGRES_URL')
+DATABASE_URL = os.getenv('DATABASE_CONNECTION_STRING')
 if not DATABASE_URL:
-    raise ValueError("POSTGRES_URL environment variable not set")
+    raise ValueError("DATABASE_CONNECTION_STRING environment variable not set")
 
 
 def get_conn():
