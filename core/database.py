@@ -19,41 +19,6 @@ def get_conn():
     return psycopg.connect(DATABASE_URL)
 
 
-# def init_db():
-#     """
-#     Initialize database schema (DEPRECATED - use Flask migrations instead).
-    
-#     Kept for backwards compatibility. Schema is now managed by Alembic migrations
-#     in the migrations/ directory and applied automatically on app startup.
-#     """
-#     try:
-#         conn = get_conn()
-#         c = conn.cursor()
-        
-#         # Verify tables exist (migrations should have created them)
-#         c.execute('''
-#             SELECT EXISTS (
-#                 SELECT FROM information_schema.tables 
-#                 WHERE table_schema = 'public' AND table_name = 'charts'
-#             )
-#         ''')
-        
-#         tables_exist = c.fetchone()[0]
-#         conn.close()
-        
-#         if tables_exist:
-#             print("✅ Database schema is up-to-date (managed by Alembic migrations)")
-#         else:
-#             print("⚠️  Database schema not initialized. Migrations may not have been applied.")
-#             print("   Run: flask db upgrade")
-        
-#         return True
-    
-#     except Exception as e:
-#         print(f"⚠️  Database initialization check failed: {e}")
-#         return False
-
-
 def save_chart(name, dob, tob, timezone, place, lat, lon, dt_utc, ayanamsha=None, rasi_chart=None, retrograde_planets=None, vargas=None, planet_dignity=None, vimshottari_dasha=None):
     """Save a chart to the database (INSERT)."""
     conn = get_conn()

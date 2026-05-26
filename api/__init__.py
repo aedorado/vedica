@@ -305,9 +305,6 @@ def get_chart(chart_id):
     try:
         from core.database import get_chart as db_get_chart
         
-        # Initialize database
-        # init_db()
-        
         # Use database function to get chart
         chart = db_get_chart(chart_id)
         
@@ -347,9 +344,6 @@ def delete_chart(chart_id):
     try:
         from core.database import delete_chart as db_delete_chart, get_chart
         from core.analytics import remove_chart_from_cache
-        
-        # Initialize database
-        # init_db()
         
         # Check if chart exists
         if not get_chart(chart_id):
