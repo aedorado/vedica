@@ -3,7 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Vedica{% endblock %}</title>
+  <title>{% block title %}Vedica - Vedic Astrology Birth Chart & Analytics{% endblock %}</title>
+  <meta name="description" content="Vedica: Free Vedic astrology birth chart calculator, analytics, and conjunction insights. Explore planetary patterns, conjunctions, and more." />
+  <meta name="keywords" content="Vedic astrology, birth chart, horoscope, conjunctions, analytics, planets, rashi, vedica, jyotish" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Vedica - Vedic Astrology Birth Chart & Analytics" />
+  <meta property="og:description" content="Free Vedic astrology birth chart calculator, analytics, and conjunction insights. Explore planetary patterns, conjunctions, and more." />
+  <meta property="og:url" content="https://vedica.vercel.app/" />
+  <meta property="og:image" content="https://vedica.vercel.app/static/og-image.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vedica - Vedic Astrology Birth Chart & Analytics" />
+  <meta name="twitter:description" content="Free Vedic astrology birth chart calculator, analytics, and conjunction insights. Explore planetary patterns, conjunctions, and more." />
+  <meta name="twitter:image" content="https://vedica.vercel.app/static/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
