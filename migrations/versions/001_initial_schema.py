@@ -27,6 +27,7 @@ def upgrade(op):
             vargas TEXT,
             planet_dignity TEXT,
             vimshottari_dasha TEXT,
+            yogas_in_chart TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
@@ -50,9 +51,19 @@ def upgrade(op):
         )
     ''')
 
+     # Create analytics_metadata table
+    op.execute('''
+        CREATE TABLE IF NOT EXISTS yoga_details (
+            code TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            condition TEXT NOT NULL,
+            effect TEXT NOT NULL
+        )
+    ''')
 
 def downgrade(op):
     """Revert initial schema."""
     op.execute('DROP TABLE IF EXISTS analytics_metadata')
     op.execute('DROP TABLE IF EXISTS analytics_cache')
     op.execute('DROP TABLE IF EXISTS charts')
+    op.execute('DROP TABLE IF EXISTS yoga_details')
