@@ -26,13 +26,13 @@ class OpExecutor:
 
 def run_migrations():
     """Run pending database migrations."""
-    postgres_url = os.getenv('POSTGRES_URL', '')
-    if not postgres_url:
-        print("⚠️  POSTGRES_URL not set. Skipping migrations.")
+    DATABASE_CONNECTION_STRING = os.getenv('DATABASE_CONNECTION_STRING', '')
+    if not DATABASE_CONNECTION_STRING:
+        print("⚠️  DATABASE_CONNECTION_STRING not set. Skipping migrations.")
         return False
     
     try:
-        conn = psycopg.connect(postgres_url)
+        conn = psycopg.connect(DATABASE_CONNECTION_STRING)
         cursor = conn.cursor()
         
         # Create alembic_version table if it doesn't exist
