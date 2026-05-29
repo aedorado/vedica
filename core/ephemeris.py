@@ -63,6 +63,32 @@ def parse_timezone(tz_str):
         return 0
 
 
+ # Helper function to populate yoga_details and yogas_in_chart from yogas dict
+def extract_yoga_details_and_yogas_in_chart(yogas_dict):
+    yoga_details_list = []
+    yogas_in_chart_dict = {}
+    # yogas_dict: {chart_num: (yoga_dict, ...other stuff)}
+    for chart_key, chart_val in yogas_dict.items():
+        # chart_val is a tuple, first element is the yoga dict
+        if isinstance(chart_val, tuple) and len(chart_val) > 0 and isinstance(chart_val[0], dict):
+            yoga_dict = chart_val[0]
+            for code, vals in yoga_dict.items():
+                chart = vals[0] if len(vals) > 0 else str(chart_key)
+                name = vals[1] if len(vals) > 1 else code
+                condition = vals[2] if len(vals) > 2 else ""
+                effect = vals[3] if len(vals) > 3 else ""
+                yoga_details_list.append({
+                    "code": code,
+                    "name": name,
+                    "condition": condition,
+                    "effect": effect,
+                })
+                if chart not in yogas_in_chart_dict:
+                    yogas_in_chart_dict[chart] = []
+                if code not in yogas_in_chart_dict[chart]:
+                    yogas_in_chart_dict[chart].append(code)
+    return yoga_details_list, yogas_in_chart_dict
+
 def calculate_chart(name, birth_date_str, birth_time_str, latitude, longitude, timezone_str):
     """
     Calculate D1 Rasi chart using Swiss Ephemeris.
@@ -91,7 +117,7 @@ def calculate_chart(name, birth_date_str, birth_time_str, latitude, longitude, t
         retrograde_planets = None
         vimshottari_dasha = None
         try:
-            rasi_chart, retrograde_planets, ayanamsha, vimshottari_dasha = calculate_chart_pyjhora(name, birth_date_str, birth_time_str, latitude, longitude, timezone_str)
+            rasi_chart, retrograde_planets, ayanamsha, vimshottari_dasha, yogas = calculate_chart_pyjhora(name, birth_date_str, birth_time_str, latitude, longitude, timezone_str)
             logger.debug(f"PyJHora calculation successful. Retrograde planets: {retrograde_planets}")
             if vimshottari_dasha:
                 logger.debug(f"Vimshottari dasha calculated: {len(vimshottari_dasha)} periods")
@@ -114,8 +140,9 @@ def calculate_chart(name, birth_date_str, birth_time_str, latitude, longitude, t
                 logger.debug(f"Planet dignities computed: {planet_dignity}")
             except Exception as e:
                 logger.warning(f"Could not compute planet dignities: {e}")
-        
-        # Return raw data and metadata separately
+
+        yoga_details, yogas_in_chart = extract_yoga_details_and_yogas_in_chart(yogas)
+
         return {
             'meta': {
                 'name': name,
@@ -130,6 +157,8 @@ def calculate_chart(name, birth_date_str, birth_time_str, latitude, longitude, t
             'retrograde_planets': retrograde_planets,
             'planet_dignity': planet_dignity,
             'vimshottari_dasha': vimshottari_dasha,
+            'yoga_details': yoga_details,
+            'yogas_in_chart': yogas_in_chart,
         }
     
     except Exception as e:
