@@ -18,15 +18,41 @@ def get_conn():
     """Get PostgreSQL connection."""
     return psycopg.connect(DATABASE_URL)
 
+import psycopg
+from psycopg.rows import dict_row
 
-def save_chart(name, dob, tob, timezone, place, lat, lon, dt_utc, ayanamsha=None, rasi_chart=None, retrograde_planets=None, vargas=None, planet_dignity=None, vimshottari_dasha=None):
+def save_yogas_list(yoga_details):
+    """
+    Bulk insert yoga details, skipping those already present.
+    """
+    if not yoga_details:
+        return
+
+    values = [
+        (y['code'], y['name'], y['condition'], y['effect'])
+        for y in yoga_details
+    ]
+
+    with get_conn() as conn:
+        with conn.cursor() as c:
+            c.executemany(
+                """
+                INSERT INTO yoga_details (code, name, condition, effect)
+                VALUES (%s, %s, %s, %s)
+                ON CONFLICT (code) DO NOTHING
+                """,
+                values
+            )
+            conn.commit()
+
+def save_chart(name, dob, tob, timezone, place, lat, lon, dt_utc, ayanamsha=None, rasi_chart=None, retrograde_planets=None, vargas=None, planet_dignity=None, vimshottari_dasha=None, yogas_in_chart=None):
     """Save a chart to the database (INSERT)."""
     conn = get_conn()
     c = conn.cursor()
     
     c.execute('''
-        INSERT INTO charts (name, dob, tob, timezone, place, latitude, longitude, dt_utc, ayanamsha, rasi_chart, retrograde_planets, vargas, planet_dignity, vimshottari_dasha)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO charts (name, dob, tob, timezone, place, latitude, longitude, dt_utc, ayanamsha, rasi_chart, retrograde_planets, vargas, planet_dignity, vimshottari_dasha, yogas_in_chart)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         RETURNING id
     ''', (
         name, dob, tob, timezone, place, lat, lon, dt_utc,
@@ -35,7 +61,8 @@ def save_chart(name, dob, tob, timezone, place, lat, lon, dt_utc, ayanamsha=None
         json.dumps(retrograde_planets) if retrograde_planets else None,
         json.dumps(vargas) if vargas else None,
         json.dumps(planet_dignity) if planet_dignity else None,
-        json.dumps(vimshottari_dasha) if vimshottari_dasha else None
+        json.dumps(vimshottari_dasha) if vimshottari_dasha else None,
+        json.dumps(yogas_in_chart) if yogas_in_chart else None
     ))
     
     chart_id = c.fetchone()[0]
@@ -103,6 +130,8 @@ def get_chart(chart_id):
             row_dict['planet_dignity'] = json.loads(row_dict['planet_dignity'])
         if row_dict.get('vimshottari_dasha'):
             row_dict['vimshottari_dasha'] = json.loads(row_dict['vimshottari_dasha'])
+        if row_dict.get('yogas_in_chart'):
+            row_dict['yogas_in_chart'] = json.loads(row_dict['yogas_in_chart'])
         return row_dict
     return None
 
