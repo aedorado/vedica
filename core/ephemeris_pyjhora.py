@@ -9,6 +9,7 @@ from jhora.horoscope.dhasa.graha.vimsottari import vimsottari_mahadasa
 from jhora.utils import julian_day_number
 from datetime import datetime
 from core.constants import NAKSHATRAS, NAKSHATRA_LORDS
+from jhora.horoscope.chart import yoga
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -103,10 +104,16 @@ def calculate_chart(name, birth_date_str, birth_time_str, latitude, longitude, t
         except Exception as dasha_error:
             logger.warning(f"Failed to calculate vimshottari dasha: {str(dasha_error)}")
             vimshottari_dasha = None
+
+        yogas_in_div_charts = [1, 7, 9]
+        yogas = {
+            div: yoga.get_yoga_details(jd, place_obj, divisional_chart_factor=div, language='en')
+            for div in yogas_in_div_charts
+        }
         
         # Return raw chart data, retrograde info, ayanamsha, and dasha
         logger.info(f"Returning chart={chart}, retrograde_list={retrograde_list}, ayanamsha={get_ayanamsha(jd)}, vimshottari_dasha={vimshottari_dasha}")
-        return chart, retrograde_list, get_ayanamsha(jd), vimshottari_dasha
+        return chart, retrograde_list, get_ayanamsha(jd), vimshottari_dasha, yogas
     
     except Exception as e:
         import traceback
