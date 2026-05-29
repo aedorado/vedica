@@ -397,6 +397,72 @@
     .dasha-maha-header { padding: .7rem .85rem; }
     .dasha-tl-label { font-size: .6rem; }
   }
+
+  /* ─── Yoga UI ─── */
+  .yoga-tab-bar { display:flex; gap:.35rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .yoga-div-tab {
+    padding: .3rem .8rem; border-radius: 999px; font-size: .8rem;
+    font-weight: 700; cursor: pointer; border: 1px solid var(--border);
+    background: var(--surface); color: var(--text2); transition: all .18s;
+  }
+  .yoga-div-tab:hover { border-color: var(--accent); color: var(--text); }
+  .yoga-div-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .yoga-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+    gap: .75rem;
+  }
+  .yoga-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .yoga-card:hover { border-color: rgba(139,92,246,.35); box-shadow: 0 2px 16px rgba(139,92,246,.07); }
+  .yoga-card-header {
+    display: flex; align-items: flex-start; gap: .65rem;
+    padding: .8rem 1rem; cursor: pointer; user-select: none;
+  }
+  .yoga-icon {
+    width: 2rem; height: 2rem; border-radius: 8px; flex-shrink: 0;
+    background: rgba(139,92,246,.15); border: 1px solid rgba(139,92,246,.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .9rem;
+  }
+  .yoga-name { font-size: .9rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .yoga-condition-preview {
+    font-size: .72rem; color: var(--text3); margin-top: .2rem;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .yoga-chevron {
+    margin-left: auto; flex-shrink: 0; font-size: .7rem;
+    color: var(--text3); transition: transform .2s; padding-top:.15rem;
+  }
+  .yoga-card.open .yoga-chevron { transform: rotate(180deg); }
+  .yoga-card-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: .75rem 1rem;
+    background: var(--bg2);
+  }
+  .yoga-card.open .yoga-card-body { display: block; }
+  .yoga-body-label {
+    font-size: .63rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--text3); margin-bottom: .3rem; font-weight: 600;
+  }
+  .yoga-body-text { font-size: .82rem; color: var(--text2); line-height: 1.55; }
+  .yoga-effect-block {
+    margin-top: .65rem;
+    padding: .55rem .75rem;
+    background: rgba(139,92,246,.07);
+    border-left: 3px solid rgba(139,92,246,.4);
+    border-radius: 0 6px 6px 0;
+  }
+  .yoga-empty { color: var(--text3); font-size: .85rem; padding: 1.5rem 0; text-align: center; }
+  @media (max-width: 640px) {
+    .yoga-grid { grid-template-columns: 1fr; }
+  }
 </style>
 {% endblock %}
 
@@ -554,6 +620,14 @@
 <!-- Vimshottari Dasha data -->
 <script id="dasha-data" type="application/json">{{ (data.vimshottari_dasha or {}) | tojson }}</script>
 
+<!-- Yoga data -->
+<script id="yoga-data" type="application/json">
+{
+  "yogas_in_chart": {{ (data.yogas_in_chart or {}) | tojson }},
+  "yoga_details": {{ (data.yoga_details or []) | tojson }}
+}
+</script>
+
 <!-- Vimshottari Dasha Section -->
 <div class="card mt-3">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1.2rem;flex-wrap:wrap;">
@@ -564,6 +638,18 @@
     <span class="dasha-badge" style="background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.25);color:var(--accent2);">Maha › Antar › Pratyantar › Sookshma › Prana</span>
   </div>
   <div id="dasha-container"></div>
+</div>
+
+<!-- Yoga Section -->
+<div class="card mt-3" id="yoga-section" style="display:none;">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:1.1rem;flex-wrap:wrap;">
+    <div>
+      <div class="section-title" style="margin:0;">Yogas in Chart</div>
+      <div id="yoga-subtitle" style="font-size:.75rem;color:var(--text3);margin-top:.25rem;"></div>
+    </div>
+  </div>
+  <div class="yoga-tab-bar" id="yoga-tabs"></div>
+  <div class="yoga-grid" id="yoga-grid"></div>
 </div>
 
 <!-- Back button -->
@@ -975,6 +1061,90 @@ try {
   };
 
   render();
+})();
+
+// ─── Yoga renderer ────────────────────────────────────────────────────────
+(function() {
+  const el = document.getElementById('yoga-data');
+  if (!el) return;
+  let yogaData;
+  try { yogaData = JSON.parse(el.textContent); } catch(e) { return; }
+
+  const yogasInChart = yogaData.yogas_in_chart || {};
+  const yogaDetails  = yogaData.yoga_details   || [];
+
+  const divKeys = Object.keys(yogasInChart);
+  if (!divKeys.length) return;
+
+  // Build lookup: code → detail
+  const detailMap = {};
+  yogaDetails.forEach(d => { detailMap[d.code] = d; });
+
+  // Count totals
+  const totalYogas = divKeys.reduce((s, k) => s + (yogasInChart[k] || []).length, 0);
+  document.getElementById('yoga-subtitle').textContent =
+    `${totalYogas} yoga${totalYogas !== 1 ? 's' : ''} detected across ${divKeys.length} divisional chart${divKeys.length !== 1 ? 's' : ''}`;
+
+  // Tabs
+  let activeDiv = divKeys[0];
+  const tabBar = document.getElementById('yoga-tabs');
+  const grid   = document.getElementById('yoga-grid');
+
+  function formatCode(code) {
+    return code.replace(/_\d+$/, '').replace(/_/g, ' ')
+      .replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  function renderYogas(div) {
+    const codes = yogasInChart[div] || [];
+    if (!codes.length) {
+      grid.innerHTML = '<div class="yoga-empty">No yogas detected in this chart.</div>';
+      return;
+    }
+    grid.innerHTML = codes.map((code, i) => {
+      const d = detailMap[code];
+      const name = d ? d.name : formatCode(code);
+      const condition = d ? d.condition : '';
+      const effect    = d ? d.effect    : '';
+      const preview   = condition || 'Tap to view details';
+      return `<div class="yoga-card" id="yc-${div}-${i}">
+        <div class="yoga-card-header" onclick="toggleYoga('${div}',${i})">
+          <div class="yoga-icon">✦</div>
+          <div style="flex:1;min-width:0;">
+            <div class="yoga-name">${name}</div>
+            <div class="yoga-condition-preview">${preview}</div>
+          </div>
+          <div class="yoga-chevron">▼</div>
+        </div>
+        ${condition || effect ? `<div class="yoga-card-body">
+          ${condition ? `<div class="yoga-body-label">Condition</div><div class="yoga-body-text">${condition}</div>` : ''}
+          ${effect ? `<div class="yoga-effect-block"><div class="yoga-body-label">Effect</div><div class="yoga-body-text">${effect}</div></div>` : ''}
+        </div>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  function renderTabs() {
+    tabBar.innerHTML = divKeys.map(div => {
+      const count = (yogasInChart[div] || []).length;
+      return `<button class="yoga-div-tab${div === activeDiv ? ' active' : ''}" onclick="yogaSelectDiv('${div}')">${div} <span style="opacity:.65;font-weight:400;">(${count})</span></button>`;
+    }).join('');
+  }
+
+  window.toggleYoga = function(div, i) {
+    const card = document.getElementById(`yc-${div}-${i}`);
+    if (card) card.classList.toggle('open');
+  };
+
+  window.yogaSelectDiv = function(div) {
+    activeDiv = div;
+    renderTabs();
+    renderYogas(div);
+  };
+
+  renderTabs();
+  renderYogas(activeDiv);
+  document.getElementById('yoga-section').style.display = '';
 })();
 </script>
 {% endblock %}
