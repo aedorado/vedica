@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def _upsert_cache(c, key, chart_id):
     """Helper: upsert a single cache entry (uses existing cursor)."""
-    c.execute('SELECT count, chart_ids FROM analytics_cache WHERE key = %s', (key,))
+    c.execute('SELECT count, chart_ids FROM analytics_cache WHERE key = %s', (key,), prepare=False)
     row = c.fetchone()
     
     if row:
@@ -28,7 +28,7 @@ def _upsert_cache(c, key, chart_id):
         INSERT INTO analytics_cache (key, count, chart_ids, updated_at)
         VALUES (%s, %s, %s, %s)
         ON CONFLICT (key) DO UPDATE SET count = %s, chart_ids = %s, updated_at = %s
-    ''', (key, count, json.dumps(ids), datetime.now(), count, json.dumps(ids), datetime.now()))
+    ''', (key, count, json.dumps(ids), datetime.now(), count, json.dumps(ids), datetime.now()), prepare=False)
 
 
 def get_cache(key):
