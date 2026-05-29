@@ -5,6 +5,8 @@ Wraps core.ephemeris calculations for API layer.
 
 from core.ephemeris import calculate_chart as core_calculate_chart
 from core.database import save_chart as db_save_chart
+from core.database import save_yogas_list as db_save_yogas_list
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -72,6 +74,8 @@ class ChartService:
             retrograde_planets = chart_data.get('retrograde_planets', None)
             planet_dignity = chart_data.get('planet_dignity', None)
             vimshottari_dasha = chart_data.get('vimshottari_dasha', None)
+            yoga_details = chart_data.get('yoga_details', None)
+            yogas_in_chart = chart_data.get('yogas_in_chart', None)
             
             # Compute major vargas (D2, D3, D4, D9, D10, D12) from rasi_chart
             vargas = None
@@ -97,10 +101,13 @@ class ChartService:
                 retrograde_planets=retrograde_planets,
                 vargas=vargas,
                 planet_dignity=planet_dignity,
-                vimshottari_dasha=vimshottari_dasha
+                vimshottari_dasha=vimshottari_dasha,
+                yogas_in_chart=yogas_in_chart
             )
             
             logger.info(f"Chart saved with ID: {chart_id}")
+
+            db_save_yogas_list(yoga_details)
             
             return {
                 'chart_id': chart_id,
