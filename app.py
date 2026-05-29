@@ -83,6 +83,10 @@ def create_app():
             planet_dignity = chart_data.get('planet_dignity', {})
             ayanamsha = chart_data.get('ayanamsha', 0)
             vimshottari_dasha_raw = chart_data.get('vimshottari_dasha', {})
+            yoga_details = chart_data.get('yoga_details', [])
+            yogas_in_chart = chart_data.get('yogas_in_chart', [])
+            print(f"yoga_details={yoga_details}")
+            print(f"yogas_in_chart={yogas_in_chart}")
             try:
                 save_result = ChartService.save_chart(
                     name=name,
@@ -139,7 +143,9 @@ def create_app():
                     'raw': vimshottari_dasha_raw,
                     'processed': _convert_julian_date_to_datetime(vimshottari_dasha_raw),
                     'birth_date': dob_str
-                } if vimshottari_dasha_raw else {}
+                } if vimshottari_dasha_raw else {},
+                'yoga_details': yoga_details,
+                'yogas_in_chart': yogas_in_chart,
             }
             
             # Pass colors and glyphs as additional context
